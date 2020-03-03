@@ -163,6 +163,154 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-吴恩达机器学习ch2学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch2学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。</p>
+<h1 id="1-回归问题解决逻辑"><a href="#1-回归问题解决逻辑" class="headerlink" title="1. 回归问题解决逻辑"></a>1. 回归问题解决逻辑</h1><p><img src="../img/1-1.png" alt="图1 回归问题解决方法"></p>
+<h1 id="2-梯度下降法"><a href="#2-梯度下降法" class="headerlink" title="2. 梯度下降法"></a>2. 梯度下降法</h1><p>针对一组训练集，我们可以提出多个假设函数（Hypothesis）。一旦我们确定了假设函数的形式，其参数需要通过训练得到。如何得知参数是否合适，这就需要用损失函数（Cost Function）来验证我们构造的函数是否优良，<br>进而又对参数进行更新，形成闭环。</p>
+<p>损失函数J(θ)一般有多个自变量θ_i，其图形是一个高维图。我们一般不会以画图寻找最小值，而需要通过优化算法求取。</p>
+<p><img src="../img/1-2.png" alt="图2 含两个参数的损失函数图像（视频截图）"></p>
+<p>微积分中，一般通过对多元函数的自变量求偏导数，以向量形式呈现的各自变量偏导数即为梯度向量。多元函数在某一点的梯度向量即为此函数在该点增速最快（相同步长，函数值增加最大）的地方。<br>由此可知，沿着梯度向量的方向，函数增加越快，更容易找到最大值。反之，逆着梯度向量的方向，则函数减小最快，更容易找到最小值。梯度下降法Gradient descent）便秉承了这一思想。</p>
+<p><img src="../img/1-3.png" alt="图3 梯度下降法到达损失函数局部极小值（视频截图）"></p>
+<p>一个多元函数，可能有多个局部极小值，而梯度下降法有可能陷入局部最优解的问题。特别地，如果函数是一个凸函数（Convex Function）时，因只有一个局部最小值即全局最小值，<br>梯度下降法总是能够收敛到全局最优解。</p>
+<p><img src="../img/1-4.png" alt="图4 某凸函数图像（视频截图）"></p>
+<h2 id="2-1-梯度下降法的相关概念"><a href="#2-1-梯度下降法的相关概念" class="headerlink" title="2.1 梯度下降法的相关概念"></a>2.1 梯度下降法的相关概念</h2><p>假设函数：h_θ (x)，拟合样本及其标签使用的函数。<br>损失函数：J(θ)，评估假设函数拟合的程度。<br>学习率：α，每次迭代过程，每一步沿梯度负方向前进的长度。  </p>
+<ul>
+<li>学习率太小，梯度下降法到达最小值时间较长（收敛速度慢）。  </li>
+<li>学习率较大，梯度下降法可能无法收敛甚至发散。  </li>
+<li>接近局部最小值时，移动的幅度越来越小.  </li>
+</ul>
+<h2 id="2-2-梯度下降法的步骤"><a href="#2-2-梯度下降法的步骤" class="headerlink" title="2.2 梯度下降法的步骤"></a>2.2 梯度下降法的步骤</h2><p>Step1:初始化损失函数各参数值，求取损失函数当前所处位置的梯度<br>$$∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step2:更新损失函数的参数<br>$$θ_i:=θ_i-α ∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step3:重复Step2直到某次更新是所有参数变化值均小于ε，结束程序  </p>
+<h1 id="3-针对线性回归问题的编程实现-Matlab"><a href="#3-针对线性回归问题的编程实现-Matlab" class="headerlink" title="3. 针对线性回归问题的编程实现(Matlab)"></a>3. 针对线性回归问题的编程实现(Matlab)</h1><p>接下来我们通过Matlab对一个简单的线性回归问题做一个解决。代码思路如下：</p>
+<p><img src="../img/1-5.png" alt="图5 代码思路"></p>
+<p>最终可视化结果如下：  </p>
+<p><img src="../img/1-6.png" alt="图6 模型可视化结果"></p>
+<p>编程实现 ：  </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% Coded by MinYi Wu</span></span><br><span class="line">clear all;</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 生成训练集</span></span><br><span class="line">X=[<span class="number">80</span>:<span class="number">2</span>:<span class="number">120</span>];</span><br><span class="line">Y_<span class="built_in">true</span>=<span class="number">3.</span>*X+<span class="number">200</span>;</span><br><span class="line">[~,num]=<span class="built_in">size</span>(X);</span><br><span class="line"><span class="comment">%为标签加上默认偏差</span></span><br><span class="line">rng(<span class="string">'default'</span>)<span class="comment">%使每次运行程序生成的训练集相同</span></span><br><span class="line">Y=Y_<span class="built_in">true</span>+<span class="number">5.</span>*<span class="built_in">randn</span>(<span class="number">1</span>,num);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 假设函数为Y=th_0+th_1*X</span></span><br><span class="line"><span class="comment">%Y1= th_0+th_1.*X;%假设函数</span></span><br><span class="line"><span class="comment">%J=1/2/num*sum((Y1-Y).^2);%损失函数</span></span><br><span class="line">dJdt0=@(th_0,th_1) <span class="number">1</span>/num*sum(th_0+th_1.*X-Y);<span class="comment">%J对th_0的偏导数</span></span><br><span class="line">dJdt1=@(th_0,th_1) <span class="number">1</span>/num*sum((th_0+th_1.*X-Y).*X);<span class="comment">%J对th_1的偏导数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 模型训练</span></span><br><span class="line"><span class="comment">%初始化参数</span></span><br><span class="line">a0=<span class="number">0.0001</span>;a1=<span class="number">0.0001</span>;<span class="comment">%learning rate</span></span><br><span class="line"><span class="comment">%error为两次迭代偏差</span></span><br><span class="line">t0_0=<span class="number">0</span>;t0_1=<span class="number">0</span>;<span class="comment">%t0</span></span><br><span class="line">t1_0=<span class="number">0</span>;t1_1=<span class="number">0</span>;<span class="comment">%t1</span></span><br><span class="line">iter=<span class="number">0</span>;<span class="comment">%迭代次数</span></span><br><span class="line">e=<span class="number">100</span>;e1=<span class="number">100</span>;e0=<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">abs</span>(e1)&gt;<span class="number">1e-4</span>|<span class="built_in">abs</span>(e0)&gt;<span class="number">1e-4</span>)<span class="comment">%若过小则停止迭代</span></span><br><span class="line">    t1_1=t1_0-a1*double(dJdt1(t0_0,t1_0));</span><br><span class="line">    t0_1=t0_0-a0*double(dJdt0(t0_0,t1_0));</span><br><span class="line">    e0=t0_1-t0_0;e1=t1_1-t1_0;</span><br><span class="line">    t1_0=t1_1;t0_0=t0_1;</span><br><span class="line">    iter=iter+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Y2=t0_0+t1_0.*X;</span><br><span class="line">fprintf(<span class="string">'总共迭代%d次，其中th_0=%f，th_1=%f\n'</span>,iter,t0_0,t1_1)</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 绘图显示</span></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y_<span class="built_in">true</span>)</span><br><span class="line">title(<span class="string">'不含偏差的数据集'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y\_true'</span>)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y\_true=3*X+200'</span>)</span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y)</span><br><span class="line">title(<span class="string">'含偏差的数据集及其拟合直线'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y'</span>)</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="built_in">plot</span>(X,Y2)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y=Y\_true+5*randn(1,num)'</span>,<span class="string">'拟合直线'</span>)</span><br><span class="line"><span class="built_in">hold</span> off</span><br></pre></td></tr></table></figure>
+
+<p>参考：吴恩达机器学习P5~P11</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-深度学习计算" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/">深度学习计算</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/" class="archive-article-date">
+  	<time datetime="2020-02-28T11:36:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="4-1-模型构造"><a href="#4-1-模型构造" class="headerlink" title="4.1 模型构造"></a>4.1 模型构造</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-交通流学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
