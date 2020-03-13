@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>BevanWu的修炼小栈</title>
+  <title>数学 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="学习笔记&#x2F;技术博客">
 <meta property="og:type" content="website">
-<meta property="og:title" content="BevanWu的修炼小栈">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:title" content="数学">
+<meta property="og:url" content="http://yoursite.com/math/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
 <meta property="og:description" content="学习笔记&#x2F;技术博客">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-13T05:24:34.000Z">
+<meta property="article:modified_time" content="2020-03-13T05:26:50.653Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
 <meta name="twitter:card" content="summary">
@@ -161,55 +163,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-吴恩达机器学习ch2学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch2学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      数学
     </h1>
   
 
         
-        <a href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+        <a href="/math/index.html" class="archive-article-date">
+  	<time datetime="2020-03-13T05:24:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。</p>
-<h1 id="1-回归问题解决逻辑"><a href="#1-回归问题解决逻辑" class="headerlink" title="1. 回归问题解决逻辑"></a>1. 回归问题解决逻辑</h1><p><img src="../img/1-1.png" alt="图1 回归问题解决方法"></p>
-<h1 id="2-梯度下降法"><a href="#2-梯度下降法" class="headerlink" title="2. 梯度下降法"></a>2. 梯度下降法</h1><p>针对一组训练集，我们可以提出多个假设函数（Hypothesis）。一旦我们确定了假设函数的形式，其参数需要通过训练得到。如何得知参数是否合适，这就需要用损失函数（Cost Function）来验证我们构造的函数是否优良，<br>进而又对参数进行更新，形成闭环。</p>
-<p>损失函数J(θ)一般有多个自变量θ_i，其图形是一个高维图。我们一般不会以画图寻找最小值，而需要通过优化算法求取。</p>
-<p><img src="../img/1-2.png" alt="图2 含两个参数的损失函数图像（视频截图）"></p>
-<p>微积分中，一般通过对多元函数的自变量求偏导数，以向量形式呈现的各自变量偏导数即为梯度向量。多元函数在某一点的梯度向量即为此函数在该点增速最快（相同步长，函数值增加最大）的地方。由此可知，沿着梯度向量的方向，函数增加越快，更容易找到最大值。反之，逆着梯度向量的方向，则函数减小最快，更容易找到最小值。梯度下降法Gradient descent）便秉承了这一思想。</p>
-<p><img src="../img/1-3.png" alt="图3 梯度下降法到达损失函数局部极小值（视频截图）"></p>
-<p>一个多元函数，可能有多个局部极小值，而梯度下降法有可能陷入局部最优解的问题。特别地，如果函数是一个凸函数（Convex Function）时，因只有一个局部最小值即全局最小值，梯度下降法总是能够收敛到全局最优解。</p>
-<p><img src="../img/1-4.png" alt="图4 某凸函数图像（视频截图）"></p>
-<h2 id="2-1-梯度下降法的相关概念"><a href="#2-1-梯度下降法的相关概念" class="headerlink" title="2.1 梯度下降法的相关概念"></a>2.1 梯度下降法的相关概念</h2><p>假设函数：h_θ (x)，拟合样本及其标签使用的函数。<br>损失函数：J(θ)，评估假设函数拟合的程度。<br>学习率：α，每次迭代过程，每一步沿梯度负方向前进的长度。  </p>
-<ul>
-<li>学习率太小，梯度下降法到达最小值时间较长（收敛速度慢）。  </li>
-<li>学习率较大，梯度下降法可能无法收敛甚至发散。  </li>
-<li>接近局部最小值时，移动的幅度越来越小.  </li>
-</ul>
-<h2 id="2-2-梯度下降法的步骤"><a href="#2-2-梯度下降法的步骤" class="headerlink" title="2.2 梯度下降法的步骤"></a>2.2 梯度下降法的步骤</h2><p>Step1:初始化损失函数各参数值，求取损失函数当前所处位置的梯度<br>$$∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step2:更新损失函数的参数<br>$$θ_i:=θ_i-α ∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step3:重复Step2直到某次更新是所有参数变化值均小于ε，结束程序  </p>
-<h1 id="3-针对线性回归问题的编程实现-Matlab"><a href="#3-针对线性回归问题的编程实现-Matlab" class="headerlink" title="3. 针对线性回归问题的编程实现(Matlab)"></a>3. 针对线性回归问题的编程实现(Matlab)</h1><p>接下来我们通过Matlab对一个简单的线性回归问题做一个解决。代码思路如下：</p>
-<p><img src="../img/1-5.png" alt="图5 代码思路"></p>
-<p>最终可视化结果如下：  </p>
-<p><img src="../img/1-6.png" alt="图6 模型可视化结果"></p>
-<p>编程实现 ：  </p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% Coded by MinYi Wu</span></span><br><span class="line">clear all;</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 生成训练集</span></span><br><span class="line">X=[<span class="number">80</span>:<span class="number">2</span>:<span class="number">120</span>];</span><br><span class="line">Y_<span class="built_in">true</span>=<span class="number">3.</span>*X+<span class="number">200</span>;</span><br><span class="line">[~,num]=<span class="built_in">size</span>(X);</span><br><span class="line"><span class="comment">%为标签加上默认偏差</span></span><br><span class="line">rng(<span class="string">'default'</span>)<span class="comment">%使每次运行程序生成的训练集相同</span></span><br><span class="line">Y=Y_<span class="built_in">true</span>+<span class="number">5.</span>*<span class="built_in">randn</span>(<span class="number">1</span>,num);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 假设函数为Y=th_0+th_1*X</span></span><br><span class="line"><span class="comment">%Y1= th_0+th_1.*X;%假设函数</span></span><br><span class="line"><span class="comment">%J=1/2/num*sum((Y1-Y).^2);%损失函数</span></span><br><span class="line">dJdt0=@(th_0,th_1) <span class="number">1</span>/num*sum(th_0+th_1.*X-Y);<span class="comment">%J对th_0的偏导数</span></span><br><span class="line">dJdt1=@(th_0,th_1) <span class="number">1</span>/num*sum((th_0+th_1.*X-Y).*X);<span class="comment">%J对th_1的偏导数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 模型训练</span></span><br><span class="line"><span class="comment">%初始化参数</span></span><br><span class="line">a0=<span class="number">0.0001</span>;a1=<span class="number">0.0001</span>;<span class="comment">%learning rate</span></span><br><span class="line"><span class="comment">%error为两次迭代偏差</span></span><br><span class="line">t0_0=<span class="number">0</span>;t0_1=<span class="number">0</span>;<span class="comment">%t0</span></span><br><span class="line">t1_0=<span class="number">0</span>;t1_1=<span class="number">0</span>;<span class="comment">%t1</span></span><br><span class="line">iter=<span class="number">0</span>;<span class="comment">%迭代次数</span></span><br><span class="line">e=<span class="number">100</span>;e1=<span class="number">100</span>;e0=<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">abs</span>(e1)&gt;<span class="number">1e-4</span>|<span class="built_in">abs</span>(e0)&gt;<span class="number">1e-4</span>)<span class="comment">%若过小则停止迭代</span></span><br><span class="line">    t1_1=t1_0-a1*double(dJdt1(t0_0,t1_0));</span><br><span class="line">    t0_1=t0_0-a0*double(dJdt0(t0_0,t1_0));</span><br><span class="line">    e0=t0_1-t0_0;e1=t1_1-t1_0;</span><br><span class="line">    t1_0=t1_1;t0_0=t0_1;</span><br><span class="line">    iter=iter+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Y2=t0_0+t1_0.*X;</span><br><span class="line">fprintf(<span class="string">'总共迭代%d次，其中th_0=%f，th_1=%f\n'</span>,iter,t0_0,t1_1)</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 绘图显示</span></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y_<span class="built_in">true</span>)</span><br><span class="line">title(<span class="string">'不含偏差的数据集'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y\_true'</span>)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y\_true=3*X+200'</span>)</span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y)</span><br><span class="line">title(<span class="string">'含偏差的数据集及其拟合直线'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y'</span>)</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="built_in">plot</span>(X,Y2)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y=Y\_true+5*randn(1,num)'</span>,<span class="string">'拟合直线'</span>)</span><br><span class="line"><span class="built_in">hold</span> off</span><br></pre></td></tr></table></figure>
-
-<p>参考：吴恩达机器学习P5~P11</p>
-
+        
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -218,16 +215,65 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/math/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -246,471 +292,6 @@
 </aside>
 
 
-
-
-  
-    <article id="post-深度学习计算" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/">深度学习计算</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/" class="archive-article-date">
-  	<time datetime="2020-02-28T11:36:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="4-1-模型构造"><a href="#4-1-模型构造" class="headerlink" title="4.1 模型构造"></a>4.1 模型构造</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-交通流学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/28/%E4%BA%A4%E9%80%9A%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">交通流学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/28/%E4%BA%A4%E9%80%9A%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-02-28T08:55:52.719Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h1><p>何兆成:  </p>
-<ul>
-<li>交通大脑的应用和研发  </li>
-<li>华为-交通信息物流系统实验室-主任  </li>
-<li>革新交通流理论：统一宏观微观模型  </li>
-<li>课后实验：<a href="http://vsensor.openits.cn" target="_blank" rel="noopener">http://vsensor.openits.cn</a></li>
-</ul>
-<h1 id="研究背景"><a href="#研究背景" class="headerlink" title="研究背景"></a>研究背景</h1><ol>
-<li>交通问题日益突出  <ul>
-<li>机动车保有量激增  </li>
-<li>道路设施建设滞后  </li>
-</ul>
-</li>
-<li>交通管理水平亟待提高<ul>
-<li>交通认知水平  </li>
-<li>时空规律，拥堵机理  </li>
-<li>新思想、新方法、新技术综合应用  </li>
-<li>ITS，控制理论，人工智能  </li>
-</ul>
-</li>
-</ol>
-<h1 id="研究目的："><a href="#研究目的：" class="headerlink" title="研究目的："></a>研究目的：</h1><ol>
-<li>数学精确描述人车路之间的相互作用  </li>
-<li>揭示交通流演变的（短时）时空规律  <ul>
-<li>交通流演变的（长时）时空规律=&gt;交通规划/交通设计  </li>
-</ul>
-</li>
-</ol>
-<h1 id="交通流理论创立"><a href="#交通流理论创立" class="headerlink" title="交通流理论创立"></a>交通流理论创立</h1><ul>
-<li>20世纪30年代，基于概率方法的理论分析<ul>
-<li>Greenshields概率模型、稳态模型</li>
-</ul>
-</li>
-<li>Reuchel 1950、Pipes 1953 跟车模型</li>
-<li>Lighthill &amp; Whitham 1955 连续流体模型</li>
-<li>GM实验室 交通领域基础科学研究</li>
-<li>交通理论国际学术会议ISTTT<br>（International Symposium on Theory of Traffic Flow and Transportation）  </li>
-</ul>
-<h1 id="交通流理论的本质及内容体系"><a href="#交通流理论的本质及内容体系" class="headerlink" title="交通流理论的本质及内容体系"></a>交通流理论的本质及内容体系</h1><ul>
-<li>交通流理论本质上是一种实验科学  <ul>
-<li>要建立描述实际现象的模型，而不是先建后套  </li>
-</ul>
-</li>
-<li>交通流问题本身极为复杂  <ul>
-<li>交通流的基本特征多繁杂</li>
-</ul>
-</li>
-</ul>
-<h2 id="内容体系"><a href="#内容体系" class="headerlink" title="内容体系"></a>内容体系</h2><p>交通流=&gt;道路交通流=&gt;交通流特性<br>                  =&gt;驾驶员交通行为特性<br>                  =&gt;微观模型跟驰模型=&gt;优化速度模型、速度差模型<br>                                    =&gt;元胞自动机模型<br>                  =&gt;宏观模型=&gt;连续交通流模型、CTM模型<br>                  =&gt;交叉口理论=&gt;悟性好交叉口理论<br>                              =&gt;信号交叉口理论<br>      =&gt;网络交通流=&gt;交通需求模型<br>                  =&gt;交通选择模型<br>                  =&gt;交通分配模型<br>      =&gt;交通影响模型=&gt;道路交通流<br>                    =&gt;网络交通流<br>                    =&gt;交通影响模型  </p>
-<p>本课主要偏重<strong>道路交通流模型</strong><br>交通流特性：ch2<br>驾驶员交通特征：ch3 自学<br>微观模型：跟驰模型、优化速度模型、速度差模型、元胞自动机<br>宏观模型：连续交通流模型  </p>
-<h2 id="传统理论"><a href="#传统理论" class="headerlink" title="传统理论"></a>传统理论</h2><ul>
-<li>建模方法：数理统计、微积分  </li>
-<li>逻辑完美，限制多  </li>
-</ul>
-<h2 id="现代理论"><a href="#现代理论" class="headerlink" title="现代理论"></a>现代理论</h2><ul>
-<li>建模方法：人工神经网络、模糊理论</li>
-<li>从数据中找规律，模型非绝对严谨，普适性较差</li>
-</ul>
-<h1 id="交通流理论研究内容"><a href="#交通流理论研究内容" class="headerlink" title="交通流理论研究内容"></a>交通流理论研究内容</h1><h2 id="交通流特性研究"><a href="#交通流特性研究" class="headerlink" title="交通流特性研究"></a>交通流特性研究</h2><ul>
-<li>研究参数的统计分布规律  <ul>
-<li>q,v,k,车头时距,车头间距</li>
-</ul>
-</li>
-<li>研究参数间的关系  <ul>
-<li>q-v,q-k,k-v</li>
-</ul>
-</li>
-</ul>
-<h2 id="交通流动态变化规律研究"><a href="#交通流动态变化规律研究" class="headerlink" title="交通流动态变化规律研究"></a>交通流动态变化规律研究</h2><h3 id="微观：车辆间相互作用规律"><a href="#微观：车辆间相互作用规律" class="headerlink" title="微观：车辆间相互作用规律"></a>微观：车辆间相互作用规律</h3><ul>
-<li>研究车辆间<strong>纵向相互作用</strong>  </li>
-<li>研究车辆间横向相互作用（略讲）  </li>
-<li>研究车辆间横纵向耦合作用  <ul>
-<li>何兆成 -横纵耦合的作用-物理学报文章</li>
-</ul>
-</li>
-<li>研究微观车辆行为与宏观交通流特性的关系  </li>
-</ul>
-<h3 id="中观：车辆队列的行为"><a href="#中观：车辆队列的行为" class="headerlink" title="中观：车辆队列的行为"></a>中观：车辆队列的行为</h3><p>课程不会涉及  </p>
-<ul>
-<li><p>研究车辆队列在路段的运动  </p>
-<ul>
-<li>车辆以车队形式在道路中行驶</li>
-<li>车速符合稳态速-密关系</li>
-</ul>
-</li>
-<li><p>研究车辆队列在交叉口的到达与离开</p>
-<ul>
-<li>车辆队列排队模型</li>
-<li>客：车辆</li>
-<li>服务窗口：交叉口</li>
-<li>服务：通行</li>
-</ul>
-</li>
-</ul>
-<h3 id="宏观：车流的运动规律"><a href="#宏观：车流的运动规律" class="headerlink" title="宏观：车流的运动规律"></a>宏观：车流的运动规律</h3><ul>
-<li>以连续介质流体来类比车流的运动<ul>
-<li>以车流微元为研究对象</li>
-<li>借助流体相关微分与积分物理方程</li>
-</ul>
-</li>
-<li>研究车流运动过程中流量、速度、密度的变化规律<ul>
-<li>一般采用离散化的数值计算模型<ul>
-<li>偏微分方程解析解难求，差分方程离散化求数值解。K(x,t)=?</li>
-<li>CTM</li>
-<li>CTM-V</li>
-<li>……</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="网络交通变化规律"><a href="#网络交通变化规律" class="headerlink" title="网络交通变化规律"></a>网络交通变化规律</h3><ul>
-<li>研究描述网络交通的特征参数<ul>
-<li>路网平均车速</li>
-<li>路网平均密度</li>
-<li>路网运动与停止的车辆数、比例</li>
-<li>路网拥堵指数</li>
-</ul>
-</li>
-<li>研究网络交通参数的变化规律<ul>
-<li>二（双）流模型</li>
-<li>MFD（宏观基本图）理论</li>
-<li>热图模型</li>
-</ul>
-</li>
-</ul>
-<h1 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h1><ol>
-<li>林肯隧道</li>
-</ol>
-<ul>
-<li>在高峰期非常拥挤，处于基本图的低流量、高密度区段</li>
-<li>解决办法：“限制进入、增加输出”   </li>
-</ul>
-<ul>
-<li>新问题：流量稳定、过低</li>
-<li>解决办法：确定车流的空间分布，进行动态控制</li>
-<li>效果：至少提高了10%，常常达到12%，隧道内的平均车速大约是30英里每小时，而过去最差的时候只有10英里每小时。 </li>
-</ul>
-<p>2.交叉口运行评价及其优化</p>
-<ul>
-<li>主要数据源<ul>
-<li>平面设计数据<ul>
-<li>交叉口线形、转弯半径、渠化</li>
-<li>进口道车道数、车道宽度、车道方向</li>
-</ul>
-</li>
-<li>交叉口交通运行数据<ul>
-<li>到达流量、（离去）饱和流率等</li>
-<li>信号控制配时</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>评价<ul>
-<li>理论通行能力q1</li>
-<li>高峰实际流量q2</li>
-<li>高峰优化流量q3</li>
-<li>实际负荷余量q1:q2</li>
-<li>优化负荷余量q1:q3</li>
-<li>信号控制水平q2:q3  </li>
-</ul>
-</li>
-</ul>
-<ol start="3">
-<li><p>高速公路交通流分析（宏观CTM模型）  </p>
-</li>
-<li><p>广州市城市交通运行评价<br>评价指标</p>
-</li>
-</ol>
-<ul>
-<li>微观层：交叉口路段<ul>
-<li>平均速度</li>
-<li>通行能力</li>
-<li>饱和度</li>
-<li>排队长度</li>
-<li>平均延误</li>
-</ul>
-</li>
-<li>宏观层：区域路网<ul>
-<li>交通运行指数<ul>
-<li>拥堵指数</li>
-<li>效率指数</li>
-<li>稳定指数</li>
-</ul>
-</li>
-<li>路网承载能力<ul>
-<li>平均交通量</li>
-<li>平均速度</li>
-<li>平均密度</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>针对限行政策的评价：<br>1）速度分析：路网全天平均车速变化不明显<br>2）拥堵分析：路网拥堵强度、拥堵比例、拥堵指数变化明显，符合交通参与者实际感受</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/28/%E4%BA%A4%E9%80%9A%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-my-first-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/28/my-first-blog/">my first blog</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/28/my-first-blog/" class="archive-article-date">
-  	<time datetime="2020-02-28T05:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.bilibili.com" target="_blank" rel="noopener">www.bilibili.com</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/28/my-first-blog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/28/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/28/hello-world/" class="archive-article-date">
-  	<time datetime="2020-02-28T05:09:02.026Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/28/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -732,7 +313,7 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
 		isTag: false,

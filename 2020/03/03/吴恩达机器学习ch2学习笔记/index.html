@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/03/img/1-5.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/03/img/1-6.png">
 <meta property="article:published_time" content="2020-03-03T05:16:20.000Z">
-<meta property="article:modified_time" content="2020-03-03T05:33:34.434Z">
+<meta property="article:modified_time" content="2020-03-03T05:46:58.680Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
 <meta name="twitter:card" content="summary">
@@ -67,13 +67,13 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">数学</a></li>
+				<li><a href="/math">数学</a></li>
 	        
-				<li><a href="/">计算机</a></li>
+				<li><a href="/computer">计算机</a></li>
 	        
-				<li><a href="/">交通</a></li>
+				<li><a href="/traffic">交通</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+				<li><a href="/tags">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -93,7 +93,7 @@
 				
 					<a class="github" target="_blank" href="https://github.com/wumy27" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="mail" target="_blank" href="/bevn2wu@outlook.com" title="mail"><i class="icon-mail"></i></a>
+					<a class="mail" target="_blank" href="mailto:bevn2wu@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -138,7 +138,7 @@
 					
 						<a class="github" target="_blank" href="https://github.com/wumy27" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="mail" target="_blank" href="/bevn2wu@outlook.com" title="mail"><i class="icon-mail"></i></a>
+						<a class="mail" target="_blank" href="mailto:bevn2wu@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -149,13 +149,13 @@
 				
 					<li style="width: 20%"><a href="/">主页</a></li>
 		        
-					<li style="width: 20%"><a href="/">数学</a></li>
+					<li style="width: 20%"><a href="/math">数学</a></li>
 		        
-					<li style="width: 20%"><a href="/">计算机</a></li>
+					<li style="width: 20%"><a href="/computer">计算机</a></li>
 		        
-					<li style="width: 20%"><a href="/">交通</a></li>
+					<li style="width: 20%"><a href="/traffic">交通</a></li>
 		        
-					<li style="width: 20%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 20%"><a href="/tags">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -195,9 +195,9 @@
 <h1 id="2-梯度下降法"><a href="#2-梯度下降法" class="headerlink" title="2. 梯度下降法"></a>2. 梯度下降法</h1><p>针对一组训练集，我们可以提出多个假设函数（Hypothesis）。一旦我们确定了假设函数的形式，其参数需要通过训练得到。如何得知参数是否合适，这就需要用损失函数（Cost Function）来验证我们构造的函数是否优良，<br>进而又对参数进行更新，形成闭环。</p>
 <p>损失函数J(θ)一般有多个自变量θ_i，其图形是一个高维图。我们一般不会以画图寻找最小值，而需要通过优化算法求取。</p>
 <p><img src="../img/1-2.png" alt="图2 含两个参数的损失函数图像（视频截图）"></p>
-<p>微积分中，一般通过对多元函数的自变量求偏导数，以向量形式呈现的各自变量偏导数即为梯度向量。多元函数在某一点的梯度向量即为此函数在该点增速最快（相同步长，函数值增加最大）的地方。<br>由此可知，沿着梯度向量的方向，函数增加越快，更容易找到最大值。反之，逆着梯度向量的方向，则函数减小最快，更容易找到最小值。梯度下降法Gradient descent）便秉承了这一思想。</p>
+<p>微积分中，一般通过对多元函数的自变量求偏导数，以向量形式呈现的各自变量偏导数即为梯度向量。多元函数在某一点的梯度向量即为此函数在该点增速最快（相同步长，函数值增加最大）的地方。由此可知，沿着梯度向量的方向，函数增加越快，更容易找到最大值。反之，逆着梯度向量的方向，则函数减小最快，更容易找到最小值。梯度下降法Gradient descent）便秉承了这一思想。</p>
 <p><img src="../img/1-3.png" alt="图3 梯度下降法到达损失函数局部极小值（视频截图）"></p>
-<p>一个多元函数，可能有多个局部极小值，而梯度下降法有可能陷入局部最优解的问题。特别地，如果函数是一个凸函数（Convex Function）时，因只有一个局部最小值即全局最小值，<br>梯度下降法总是能够收敛到全局最优解。</p>
+<p>一个多元函数，可能有多个局部极小值，而梯度下降法有可能陷入局部最优解的问题。特别地，如果函数是一个凸函数（Convex Function）时，因只有一个局部最小值即全局最小值，梯度下降法总是能够收敛到全局最优解。</p>
 <p><img src="../img/1-4.png" alt="图4 某凸函数图像（视频截图）"></p>
 <h2 id="2-1-梯度下降法的相关概念"><a href="#2-1-梯度下降法的相关概念" class="headerlink" title="2.1 梯度下降法的相关概念"></a>2.1 梯度下降法的相关概念</h2><p>假设函数：h_θ (x)，拟合样本及其标签使用的函数。<br>损失函数：J(θ)，评估假设函数拟合的程度。<br>学习率：α，每次迭代过程，每一步沿梯度负方向前进的长度。  </p>
 <ul>
