@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/3 | BevanWu的修炼小栈</title>
+  <title>目标检测评价指标 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记&#x2F;技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BevanWu的修炼小栈">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="目标检测的评价指标： 精度评价 mAP（mean Average Precision）：即各类别AP的平均值 速度指标  (1)检测器每秒能处理图片的张数 FPS：在同一硬件条件下，每秒处理的图片数量或者处理每张图片所需的时间 (2)检测器处理每张图片的时间 相当于$x&#x3D;v \times t$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测评价指标">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="学习笔记&#x2F;技术博客">
+<meta property="og:description" content="目标检测的评价指标： 精度评价 mAP（mean Average Precision）：即各类别AP的平均值 速度指标  (1)检测器每秒能处理图片的张数 FPS：在同一硬件条件下，每秒处理的图片数量或者处理每张图片所需的时间 (2)检测器处理每张图片的时间 相当于$x&#x3D;v \times t$">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/800px-Precisionrecall.svg.png">
+<meta property="article:published_time" content="2020-03-23T03:25:00.000Z">
+<meta property="article:modified_time" content="2020-03-23T03:30:13.697Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Computer Version">
+<meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/800px-Precisionrecall.svg.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -161,93 +167,371 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-目标检测评价指标" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">EfficientDet学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      目标检测评价指标
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" class="archive-article-date">
+        
+        <a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" class="archive-article-date">
   	<time datetime="2020-03-23T03:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">目标检测评价指标</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="目标检测的评价指标："><a href="#目标检测的评价指标：" class="headerlink" title="目标检测的评价指标："></a>目标检测的评价指标：</h1><ul>
+<li>精度评价 mAP（mean Average Precision）：即各类别AP的平均值</li>
+<li>速度指标 <ul>
+<li>(1)检测器每秒能处理图片的张数 FPS：在同一硬件条件下，每秒处理的图片数量或者处理每张图片所需的时间</li>
+<li>(2)检测器处理每张图片的时间</li>
+<li>相当于$x=v \times t$</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="精度评价"><a href="#精度评价" class="headerlink" title="精度评价"></a>精度评价</h1><p><a href="https://zhuanlan.zhihu.com/p/43068926" target="_blank" rel="noopener">目标检测评价标准mAP</a>     </p>
+<p><a href="https://www.zhihu.com/question/53405779" target="_blank" rel="noopener">目标检测中的mAP是什么含义？</a>  </p>
+<p><a href="https://zhuanlan.zhihu.com/p/70306015" target="_blank" rel="noopener">目标检测的性能评价指标</a>     </p>
+<h2 id="Recall和Precision"><a href="#Recall和Precision" class="headerlink" title="Recall和Precision"></a>Recall和Precision</h2><p>Recall和Precision是二分类问题中常用的评价指标，通常以关注的类为正类，其他类为负类，分类器的结果在测试数据上有4种情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">                  实                    际</span><br><span class="line">----------------------------------------------------</span><br><span class="line">         |         <span class="number">1</span>           |            <span class="number">0</span>              </span><br><span class="line">----------------------------------------------------</span><br><span class="line">预 |  <span class="number">1</span>  |  TP（<span class="literal">True</span> Positive）|   FP（<span class="literal">False</span> Positive） </span><br><span class="line">    ------------------------------------------------</span><br><span class="line">测 |  <span class="number">0</span>  | FN（<span class="literal">False</span> Negative）|   TN（<span class="literal">True</span> Negative）</span><br></pre></td></tr></table></figure>
+<p>注记：TP真阳性，FP假阳性，NP假阴性，TN真阴性。<br>真阳即<strong>预测为阳，实际为阳</strong>，假阳即<strong>预测为阳，实际为阴</strong>，假阴即<strong>预测为阴，实际为阳</strong>，真阴即<strong>预测为阴，实际为阴</strong>。</p>
+<p>Recall度量的是「查全率」，Precision度量的是「查准率」。Recall和Precision的计算公式如下：</p>
+<blockquote>
+<p>在预测为正中实际为正的概率 「查准率」<br>$$Precision=\frac{TP}{TP+FP}$$</p>
+<p>在实际为正中预测为正的概率 「查全率」<br>$$Recall=\frac{TP}{TP+FN}$$</p>
+</blockquote>
+<blockquote>
+<p>预测准确度<br>$$accuracy=\frac{TP+TN}{TP+TN+FP+FN}$$    </p>
+</blockquote>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/800px-Precisionrecall.svg.png" width = "300" height = "550" alt="precision vs recall" align=center />
+
+
+
+<h2 id="mAP（mean-Average-Precision）"><a href="#mAP（mean-Average-Precision）" class="headerlink" title="mAP（mean Average Precision）"></a>mAP（mean Average Precision）</h2><p>对于一个搜索系统，相关条目在结果中的顺序是非常影响用户体验的，我们希望相关的结果越靠前越好。单一的precision不足以衡量系统的好坏，于是引入了AP（Average Precision）——不同召回率上的平均precision。  </p>
+<p>在信息检索当中，搜索一个条目，相关的条目在数据库中一共有5条，但搜索的结果一共有10条（包含4条相关条目）。这时precision=4/10，recall=4/5。4个条目出现在位置查询一（1，2，4，7）就比在查询二（3，5，6，8）效果要好，但两者的precision是相等的。 </p>
+<p>查询一：</p>
+<table>
+<thead>
+<tr>
+<th>rank</th>
+<th>correct</th>
+<th>P</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>right</td>
+<td>1/1</td>
+<td>1/5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>right</td>
+<td>2/2</td>
+<td>2/5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>wrong</td>
+<td>2/3</td>
+<td>2/5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>right</td>
+<td>3/4</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>wrong</td>
+<td>3/5</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>wrong</td>
+<td>3/6</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>7</td>
+<td>right</td>
+<td>4/7</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>8</td>
+<td>wrong</td>
+<td>4/8</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>9</td>
+<td>wrong</td>
+<td>4/9</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>10</td>
+<td>wrong</td>
+<td>4/10</td>
+<td>4/5</td>
+</tr>
+</tbody></table>
+<p>查询二：</p>
+<table>
+<thead>
+<tr>
+<th>rank</th>
+<th>correct</th>
+<th>P</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>wrong</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>wrong</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>right</td>
+<td>1/3</td>
+<td>1/5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>wrong</td>
+<td>1/4</td>
+<td>1/5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>right</td>
+<td>2/5</td>
+<td>2/5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>right</td>
+<td>3/6</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>7</td>
+<td>wrong</td>
+<td>3/7</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>8</td>
+<td>right</td>
+<td>4/8</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>9</td>
+<td>wrong</td>
+<td>4/9</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>10</td>
+<td>wrong</td>
+<td>4/10</td>
+<td>4/5</td>
+</tr>
+</tbody></table>
+<p>AP(查询一) = (1+1+3/4+4/7+0)/5 = 0.664</p>
+<p>AP(查询二) = (1/3+2/5+3/6+4/8+0)/5 = 0.347</p>
+<p>这个时候mAP = (0.664+0.347)/2 = 0.51    </p>
+<blockquote>
+<p>注：在计算AP的时候，precision取各个recall值下最大的那个，因为同一recall下最大的precision表示相关条目最先出现的位置。</p>
+</blockquote>
+<h2 id="目标检测的mAP"><a href="#目标检测的mAP" class="headerlink" title="目标检测的mAP"></a>目标检测的mAP</h2><p>目标检测任务中，应该怎样衡量模型的性能？<br>其中一个标准就是信息检索那样，不仅要衡量检测出正确目标的数量，还应该评价模型是否能以较高的precision检测出目标。也就是在某个类别下的检测，在检测出正确目标之前，是不是出现了很多判断失误。AP越高，说明检测失误越少。对于所有类别的AP求平均就得到mAP了。    </p>
+<h3 id="计算方法"><a href="#计算方法" class="headerlink" title="计算方法"></a>计算方法</h3><p>mAP: mean Average Precision, 即各类别AP的平均值<br>TP: IoU&gt;0.5的检测框数量（同一Ground Truth只计算一次,GT认为是某处目标）<br>FP: IoU&lt;=0.5的检测框，或者是检测到同一个GT的多余检测框的数量<br>FN: 没有检测到的GT的数量<br>PR曲线: Precision-Recall曲线</p>
+<p>要计算mAP必须先绘出各类别PR曲线，计算出AP。如何采样PR曲线，VOC采用过两种不同方法。      </p>
+<ul>
+<li>在VOC2010以前，只需要选取当Recall &gt;= 0, 0.1, 0.2, …, 1共11个点时的Precision最大值，然后AP就是这11个Precision的平均值。   </li>
+<li>在VOC2010及以后，需要针对每一个不同的Recall值（包括0和1），选取&gt;=Recall值时的Precision最大值，然后计算PR曲线下面积作为AP值。   </li>
+</ul>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>对于Aeroplane类别，我们有以下输出（BB表示Bounding Box序号，IOU&gt;0.5时GT=1）：</p>
+<table>
+<thead>
+<tr>
+<th>BB</th>
+<th>confidence</th>
+<th>GT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BB1</td>
+<td>0.9</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BB2</td>
+<td>0.9</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BB1</td>
+<td>0.8</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BB3</td>
+<td>0.7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BB4</td>
+<td>0.7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BB5</td>
+<td>0.7</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BB6</td>
+<td>0.7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BB7</td>
+<td>0.7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BB8</td>
+<td>0.7</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BB9</td>
+<td>0.7</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>因此，我们有 TP=5 (BB1, BB2, BB5, BB8, BB9), FP=5 (重复检测到的BB1也算FP)。除了表里检测到的5个GT以外，我们还有2个GT没被检测到，因此: FN = 2. 这时我们就可以按照Confidence的顺序给出各处的PR值，如下：</p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Precision vs Recall</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rank=1</td>
+<td>precision=1.00 and recall=0.14</td>
+</tr>
+<tr>
+<td>rank=2</td>
+<td>precision=1.00 and recall=0.29</td>
+</tr>
+<tr>
+<td>rank=3</td>
+<td>precision=0.66 and recall=0.29</td>
+</tr>
+<tr>
+<td>rank=4</td>
+<td>precision=0.50 and recall=0.29</td>
+</tr>
+<tr>
+<td>rank=5</td>
+<td>precision=0.40 and recall=0.29</td>
+</tr>
+<tr>
+<td>rank=6</td>
+<td>precision=0.50 and recall=0.43</td>
+</tr>
+<tr>
+<td>rank=7</td>
+<td>precision=0.43 and recall=0.43</td>
+</tr>
+<tr>
+<td>rank=8</td>
+<td>precision=0.38 and recall=0.43</td>
+</tr>
+<tr>
+<td>rank=9</td>
+<td>precision=0.44 and recall=0.57</td>
+</tr>
+<tr>
+<td>rank=10</td>
+<td>precision=0.50 and recall=0.71</td>
+</tr>
+</tbody></table>
+<ol>
+<li>07年的方法：我们选取Recall &gt;={ 0, 0.1, …, 1}的11处Percision的最大值：1, 1, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0, 0。AP = 5.5 / 11 = 0.5</li>
+<li>VOC2010及以后的方法，对于Recall &gt;= {0, 0.14, 0.29, 0.43, 0.57, 0.71, 1}，我们选取此时Percision的最大值：1, 1, 1, 0.5, 0.5, 0.5, 0。计算recall/precision下的面积：AP = (0.14-0)x1 + (0.29-0.14)x1 + (0.43-0.29)x0.5 + (0.57-0.43)x0.5 + (0.71-0.57)x0.5 + (1-0.71)x0 = 0.5  </li>
+</ol>
+<p>计算出每个类别的AP以后，对于所有类别的AP取均值就得到mAP了</p>
+<h2 id="关于阈值Iou选取，与mAP的进一步思考"><a href="#关于阈值Iou选取，与mAP的进一步思考" class="headerlink" title="关于阈值Iou选取，与mAP的进一步思考"></a>关于阈值Iou选取，与mAP的进一步思考</h2><p>threshold到底是怎么影响precision和recall的呢？  </p>
+<p>用鸭子的例子，如果threshold太高， prediction非常严格， 所以我们认为是鸭子的基本都是鸭子，precision就高了；但也因为筛选太严格， 我们也放过了一些score比较低的鸭子， 所以recall就低了；  </p>
+<p>如果threshold太低， 什么都会被当成鸭子， precision就会很低， recall就会很高<br>这样我们就明确了threshold确实对鸭子的precision和recall产生影响和变化的趋势， 也就带来了思考， precision不是一个绝对的东西，而是相对threshold而改变的东西， recall同理，那么单个用precision来作为标准判断，就不合适。   </p>
+<p>这是一场precision与recall之间的trade off， 用一组固定值表述不够全面， 因为我们根据不同的threshold， 可以取到不同（也可能相同）的precision recall值。 这样想的话对于每个threshold，我们都有（precision， recall）的pair， 也就有了precision和recall之间的curve关系。  </p>
+<p>有了这么一条precision-recall curve， 他衡量着两个有价值的判断标准， precision和recall的关系， 那么不如两个一起动态考虑， 就有了鸭子这个class的Average Precision， 即curve下的面积， 他可以充分的表示在这个model中， precision和recall的总体优劣。   </p>
+<p>最后， 我们计算每个class的Average Precision， 就得到了mean Average Precision</p>
+<h1 id="速度指标"><a href="#速度指标" class="headerlink" title="速度指标"></a>速度指标</h1><p><a href="https://zhuanlan.zhihu.com/p/70306015" target="_blank" rel="noopener">目标检测的性能评价指标</a> </p>
+<p><a href="https://github.com/Lyken17/pytorch-OpCounter" target="_blank" rel="noopener">Lyken17/pytorch-OpCounter</a>   </p>
+<p><a href="https://www.zhihu.com/question/65305385/answer/451060549" target="_blank" rel="noopener">CNN 模型计算</a>       </p>
+<p>速度指标必须在同一硬件上比较。  </p>
+<h2 id="FLOPS-vs-FLOPs"><a href="#FLOPS-vs-FLOPs" class="headerlink" title="FLOPS vs FLOPs"></a>FLOPS vs FLOPs</h2><p>FLOPS：注意全大写，是floating point operations per second的缩写，意指每秒浮点运算次数，理解为计算速度。是一个衡量硬件性能的指标。<br>FLOPs：注意s小写，是floating point operations的缩写（s表复数），意指浮点运算数，理解为计算量。可以用来衡量算法/模型的复杂度。</p>
+<p>同一硬件，最大FLOPS是相同的，但不同深度学习算法下，处理每张照片的FLOPs是不同的。同一硬件处理相同图片所需的FLOPs越小，相同时间内，就能处理更多的图片，速度也就越快。    </p>
+<p>处理每张图片所需的FLOPs与许多因素有关，比如网络层数，参数量，选用的激活函数等等，这里仅谈一下网络的参数量对其的影响，一般来说参数量越低的网络，FLOPs会越小，保存模型所需的内存小，对硬件内存要求比较低，因此比较对嵌入式端较友好。</p>
+<p>我们要的是衡量模型的复杂度的指标，所以选择FLOPs。</p>
+<h2 id="FLOPs计算"><a href="#FLOPs计算" class="headerlink" title="FLOPs计算"></a>FLOPs计算</h2><p>针对卷积层、池化层、全连接层有公式，可见<a href="https://zhuanlan.zhihu.com/p/70306015" target="_blank" rel="noopener">目标检测的性能评价指标</a>。     </p>
+<p>此处还有一个计算的开源在Pytorch框架中使用的FLOPs和参数量计算的小工具OpCouter,链接<a href="https://github.com/Lyken17/pytorch-OpCounter" target="_blank" rel="noopener">Lyken17/pytorch-OpCounter</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -267,7 +551,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -280,217 +564,116 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          EfficientDet学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">循环神经网络</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">循环神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目标检测的评价指标："><span class="toc-number">1.</span> <span class="toc-text">目标检测的评价指标：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#精度评价"><span class="toc-number">2.</span> <span class="toc-text">精度评价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Recall和Precision"><span class="toc-number">2.1.</span> <span class="toc-text">Recall和Precision</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mAP（mean-Average-Precision）"><span class="toc-number">2.2.</span> <span class="toc-text">mAP（mean Average Precision）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标检测的mAP"><span class="toc-number">2.3.</span> <span class="toc-text">目标检测的mAP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#计算方法"><span class="toc-number">2.3.1.</span> <span class="toc-text">计算方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举例"><span class="toc-number">2.3.2.</span> <span class="toc-text">举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于阈值Iou选取，与mAP的进一步思考"><span class="toc-number">2.4.</span> <span class="toc-text">关于阈值Iou选取，与mAP的进一步思考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#速度指标"><span class="toc-number">3.</span> <span class="toc-text">速度指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FLOPS-vs-FLOPs"><span class="toc-number">3.1.</span> <span class="toc-text">FLOPS vs FLOPs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FLOPs计算"><span class="toc-number">3.2.</span> <span class="toc-text">FLOPs计算</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">卷积神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch2学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -513,8 +696,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

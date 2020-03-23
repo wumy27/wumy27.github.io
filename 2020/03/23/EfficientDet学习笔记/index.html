@@ -6,18 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/3 | BevanWu的修炼小栈</title>
+  <title>EfficientDet学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记&#x2F;技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BevanWu的修炼小栈">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="EfficientDet现行构建目标检测模型的思路随着迁移学习概念的兴起和普及，目标检测和图像分类这两个任务具有一定的相似性，因为可以将分类的网络，比如VGG、ResNet等，用来做特征提取器。这一部分，我们就称其为backbone。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EfficientDet学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="学习笔记&#x2F;技术博客">
+<meta property="og:description" content="EfficientDet现行构建目标检测模型的思路随着迁移学习概念的兴起和普及，目标检测和图像分类这两个任务具有一定的相似性，因为可以将分类的网络，比如VGG、ResNet等，用来做特征提取器。这一部分，我们就称其为backbone。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-06ae46f459a70538ed2d6b228e3b80b7_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c8305f56edce8ad0b12ea5570ea02b10_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-90c76527f6abfee598ae3b12ec91e92a_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-ded586bff26252347a24e4239d6c6ea1_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d447ae9da2660e2042a3648d661fb6f8_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-824daf222ac31462df77c260c8715039_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-53fa6575acdfca479a07dbff921a6d54_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-54fc79b40ab12d134bd4d5eb67482b8c_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_720w.png">
+<meta property="article:published_time" content="2020-03-23T03:30:00.000Z">
+<meta property="article:modified_time" content="2020-03-23T03:31:53.266Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Computer Version">
+<meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-06ae46f459a70538ed2d6b228e3b80b7_720w.jpg">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -161,36 +175,119 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-EfficientDet学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      EfficientDet学习笔记
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+
+        
+        <a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
   	<time datetime="2020-03-23T03:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">EfficientDet学习笔记</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="EfficientDet"><a href="#EfficientDet" class="headerlink" title="EfficientDet"></a>EfficientDet</h1><h2 id="现行构建目标检测模型的思路"><a href="#现行构建目标检测模型的思路" class="headerlink" title="现行构建目标检测模型的思路"></a>现行构建目标检测模型的思路</h2><p>随着迁移学习概念的兴起和普及，目标检测和图像分类这两个任务具有一定的相似性，因为可以将分类的网络，比如VGG、ResNet等，用来做特征提取器。这一部分，我们就称其为backbone。  </p>
+<a id="more"></a>    
 
-        <div class="article-info info-on-right">
-          
+<p>所谓的backbone，直接翻译过来就是“骨干网络”，非整体网络。因为分类与检测非等价。OD需要对物体进行定位和分类，仅仅是微调网络是无法完成OD任务的，在后面加一些网络层，让这些额外加进来的网络层去弥补分类网络无法定位的先天缺陷。    </p>
+<p>具体做法就是在检测任务的数据集对分类网络进行微调。 </p>
+<p>脉络就非常清晰了：分类网络迁移过来，用作特征提取器（通过在OD数据集上进行微调，并且与后续的网络的共同训练，使得它提取出来的特征更适合OD任务），后续的网络负责从这些特征中，检测目标的位置和类别。那么，我们就将分类网络所在的环节称之为“Backbone”，后续连接的网络层称之为“Detection head”。    </p>
+<p>为了更地检测各种大小的物体，一些多尺度技术提了出来，最经典的，莫过于《<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">Feature Pyramid Networks for Object Detection</a>》提出的FPN结构，在不同的尺度（实际上就是不同大小的feature map）上去提取不同尺度的信息，并进行融合，充分利用好backbone提取的所有的特征信息，从而让网络能够更好地检测物体。    </p>
+<h2 id="建模背景"><a href="#建模背景" class="headerlink" title="建模背景"></a>建模背景</h2><p>目标检测模型越来越大，计算量也越来越大，而一些模型提高了效率但同时也降低了精度。EfficientDet的目的就是为了同时满足高精度和高效率，达到了低参数量，模型小。 </p>
+<p>高效目标检测算法设计的两个主要挑战就是：(1)<strong>多尺度特征融合</strong>；(2)<strong>模型缩放</strong>。</p>
+<p>前者是为了更有效的检测，后者是为了让模型更小更便于落地应用。</p>
+<h2 id="EfficientDet的结构"><a href="#EfficientDet的结构" class="headerlink" title="EfficientDet的结构"></a>EfficientDet的结构</h2><p>特征提取使用EfficientNet，以此为backbone。  </p>
+<p>图像的特征有很多，作用也不相同，因此应该对不同的特征赋权。使用BiFPN作为为多尺度特征融合的解决方案。对分类层的分类特征进行加权融合，作为<strong>类别预测网络</strong>和<strong>锚框定位网络</strong>的输入。</p>
+<p>具体的框架如下图：<br><img src="https://pic4.zhimg.com/80/v2-06ae46f459a70538ed2d6b228e3b80b7_720w.jpg" alt="EfficientDet框架"></p>
+<h2 id="多尺度特征融合"><a href="#多尺度特征融合" class="headerlink" title="多尺度特征融合"></a>多尺度特征融合</h2><p><img src="https://pic1.zhimg.com/80/v2-c8305f56edce8ad0b12ea5570ea02b10_720w.jpg" alt="BiFPN加权双向特征金字塔网络"></p>
+<p>传统的top-down FPN只有<strong>自顶向下单向信息流</strong>，PANet<strong>增加了自底向上的信息流</strong>，NAS-FPN通过大量计算和搜索有<strong>更复杂的信息流</strong>。本文对不同FPN实验发现，PANet的效果最佳，但参数量计算量也较大（见后文Ablation实验）。本文<strong>在PANet的基础上提出三步优化</strong>[2]：1)去掉没有进行融合的单一特征图参数学习（这里感觉本文对PANet是不是有些误解，个人理解PANet提出的就是简化的版本）；2)同一层中增加从原始节点到输出节点的短接；3)堆叠FPN结构。 =&gt;BiFPN   </p>
+<h2 id="模型缩放"><a href="#模型缩放" class="headerlink" title="模型缩放"></a>模型缩放</h2><p>模型缩放，即模型复杂度调整。</p>
+<blockquote>
+<p>【需补充】 <a href="https://zhuanlan.zhihu.com/p/70369784" target="_blank" rel="noopener">EfficientNet</a> 时间不足，未去深度了解，只知道是需要在三个维度进行同一缩放，效果较好，提出了一个同一缩放的复合参数$\Phi$。</p>
+</blockquote>
+<p>在EfficientDet基础上，提出了OD模型复杂度联合调整方法，联合调整了backbone、FPN、prediction网络的depth、width、resolution。</p>
+<blockquote>
+<p>scaling 是什么意思？<br>对CNN模型做三种缩放维度：depth, width, and resolution. 直观的说，depth scaling是调整网络的深度，width scaling是调整卷积层中feature map的数量，resolution scaling是调整输入图像分辨率的大小。    </p>
+</blockquote>
+<p>与EfficientNet不同，由于参数多采用网格搜索计算量大，EfficientDet采用启发式的调整策略。通过不同的backbone选取，对模型参数量进行比对。  </p>
+<p><img src="https://pic3.zhimg.com/80/v2-90c76527f6abfee598ae3b12ec91e92a_720w.jpg" alt="OD检测结构调整过程"></p>
+<h2 id="训练细节"><a href="#训练细节" class="headerlink" title="训练细节"></a>训练细节</h2><p>采用SGD，momentum=0.9，weight decay=4e-5，学习率采用5%步数来warmup从0到0.08，<strong>然后cosine decay(cosine式衰减学习率)</strong>。每层卷积后加batch normalization，batch norm decay 0.997 and epsilon 1e-4。batch size=128在32个TPU。采用focal loss，参数α=0.25，γ=1.5。anchor ratio是{1/2，1，2}。</p>
+<blockquote>
+<p><a href="https://www.zhihu.com/question/24529483/answer/114711446" target="_blank" rel="noopener">参考</a><br>weight decay（权值衰减）防止过拟合。<br>在损失函数中，weight decay是放在正则项（regularization）前面的一个系数，正则项一般指示模型的复杂度，所以weight decay的作用是调节模型复杂度对损失函数的影响，若weight decay很大，则复杂的模型损失函数的值也就大。<br>momentum是梯度下降法中一种常用的加速技术,加速参数收敛的过程。<br>batch normalization是指在神经网络中激活函数的前面，将按照特征进行normalization，这样做的好处有三点：<br>1、提高梯度在网络中的流动。Normalization能够使特征全部缩放到[0,1]，这样在反向传播时候的梯度都是在1左右，避免了梯度消失现象。<br>2、提升学习速率。归一化后的数据能够快速的达到收敛。<br>3、减少模型训练对初始化的依赖。   </p>
+</blockquote>
+<blockquote>
+<p>【未弄懂，需细看】<a href="https://www.zhihu.com/question/338066667/answer/771252708" target="_blank" rel="noopener">参考</a><br>learning rate warm up：训练初期由于离目标较远，一般需要选择大的学习率，但是使用过大的学习率容易导致不稳定性。所以可以做一个学习率热身阶段，在开始的时候先使用一个较小的学习率，然后当训练过程稳定的时候再把学习率调回去。比如说在热身阶段，将学习率从0调到初始学习率。举个例子，如果我们准备用m个batches来热身，准备的初始学习率是n,然后在每个<code>$batch_i,i&lt;=i&lt;=m$</code>,将每次的学习率设为<code>$in/m$</code>。      </p>
+<ul>
+<li>有助于减缓模型在初始阶段对mini-batch的提前过拟合现象，保持分布的平稳    </li>
+<li>有助于保持模型深层的稳定性      </li>
+</ul>
+</blockquote>
+<blockquote>
+<p>cosine learning decay <a href="https://zhuanlan.zhihu.com/p/53849733" target="_blank" rel="noopener">CNN训练分类任务的优化策略</a></p>
+</blockquote>
+<blockquote>
+<p>Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss<br><a href="https://www.zhihu.com/question/63581984" target="_blank" rel="noopener">讨论链接</a><br><a href="https://zhuanlan.zhihu.com/p/32423092" target="_blank" rel="noopener">如何更好地理解「Focal Loss」</a></p>
+</blockquote>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>用不同的EfficientNet为backbone生成的EfficientDet与其他网络进行对比。小网络EfficientDet-D0和YOLOv3差不多精度，计算量少28倍；EfficientDet-D1和RetinaNet、MaskRCNN差不多精度，参数量少8倍，计算量少25倍。总的来说，EfficientDet精度速度双丰收，最高精度达到51.0 mAP，登顶COCO检测榜单。  </p>
+<p><img src="https://pic2.zhimg.com/80/v2-ded586bff26252347a24e4239d6c6ea1_720w.jpg" alt="实验对比"></p>
+<h2 id="Ablation-experiment"><a href="#Ablation-experiment" class="headerlink" title="Ablation experiment"></a>Ablation experiment</h2><p>Ablation experiment， 消融实验就是用来告诉读者整个模型里面的关键部分到底起了多大作用，用更直观的数据来说明算法的有效性。      </p>
+<p>分别替换EfficientNet和BiFPN，结果看出两者都显著提升mAP。（BiFPN结构比FPN要更复杂，参数量少应该是因为采用了depthwise conv）<br><img src="https://pic1.zhimg.com/80/v2-d447ae9da2660e2042a3648d661fb6f8_720w.jpg" alt=""></p>
+<p>将各种FPN分别进行五次实验，对比看出设计的BiFPN和PANet效果相当，使用更少的参数量和计算量，使用学习的加权和会有一点提升。<br><img src="https://pic2.zhimg.com/80/v2-824daf222ac31462df77c260c8715039_720w.jpg" alt=""><br>w/o=without,w/=with     </p>
+<p>权重归一化时采用线性比Softmax速度更快，达到同等精度。<br><img src="https://pic1.zhimg.com/80/v2-53fa6575acdfca479a07dbff921a6d54_720w.jpg" alt=""></p>
+<p>联合调整策略明显优于所有单独调整的策略。<br><img src="https://pic1.zhimg.com/80/v2-54fc79b40ab12d134bd4d5eb67482b8c_720w.jpg" alt="">     </p>
+<h2 id="亮点总结"><a href="#亮点总结" class="headerlink" title="亮点总结"></a>亮点总结</h2><p>最大的亮点在于提出了目标检测网络联合调整复杂度的策略，从而在COCO上达到51.0 mAP的最优成绩。一部分原因是EfficientNet，而EfficientNet的Baseline是通过NAS得到的。  </p>
+<p>第二亮点，堆叠FPN，通过堆叠FPN，BiFPN的设计有效，增加短接以及学习加权和，能达到很好效果。      </p>
+<blockquote>
+<p>Benchmark&amp;Baseline<br>benchmark一般是和同行中比较牛的算法比较。benchmark的性能已经被广泛研究，人们对它性能的表现形式、测量方法都非常熟悉，因此可以作为标准方法来衡量其他方法的好坏。state-of-the-art（SOTA）的算法表明其性能在当前属于最佳性能。   </p>
+<p>baseline一般是自己算法优化和调参过程中自己和自己比较，目标是越来越好。baseline有一个自带的含义就是“性能起点”，指的是对照组，基准线，就是你这个实验有提升，那么你的提升是对比于什么的提升，被对比的就是baseline。  </p>
+<p><a href="https://blog.csdn.net/qq_37791134/article/details/84962058" target="_blank" rel="noopener">Benchmark和baseline的区别</a></p>
+</blockquote>
+<blockquote>
+<p>NAS (Neural Architecture Search) 神经架构搜索<br>自己设计，代价昂贵，也有可能非当前最先进。NAS是一种自动设计神经网络的技术，可以通过算法根据样本集自动设计出高性能的网络结构，可以有效的降低神经网络的使用和实现成本。    </p>
+<p>NAS的原理是给定一个称为搜索空间的候选神经网络结构集合，用某种策略从中搜索出最优网络结构。神经网络结构的优劣即性能用某些指标如精度、速度来度量，称为性能评估。    </p>
+<p>搜索空间，搜索策略，性能评估策略是NAS算法的核心要素。搜索空间定义了可以搜索的神经网络结构的集合，即解的空间。搜索策略定义了如何在搜索空间中寻找最优网络结构。性能评估策略定义了如何评估搜索出的网络结构的性能。  </p>
+<p>在搜索过程的每次迭代中，从搜索空间产生“样本”即得到一个神经网络结构，称为“子网络”。在训练样本集上训练子网络，然后在验证集上评估其性能。逐步优化网络结构，直至找到最优的子网络。      </p>
+<p><img src="https://pic2.zhimg.com/80/v2-261f4e89d5c60e5d336052e7fc6d116d_720w.png" alt="NAS">      </p>
+</blockquote>
+<p>mAP和FLOPS说明，可见本博客的《目标检测评价指标》这篇文章。        </p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -210,7 +307,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -223,274 +320,107 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">目标检测评价指标</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">目标检测评价指标</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#EfficientDet"><span class="toc-number">1.</span> <span class="toc-text">EfficientDet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#现行构建目标检测模型的思路"><span class="toc-number">1.1.</span> <span class="toc-text">现行构建目标检测模型的思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建模背景"><span class="toc-number">1.2.</span> <span class="toc-text">建模背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EfficientDet的结构"><span class="toc-number">1.3.</span> <span class="toc-text">EfficientDet的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多尺度特征融合"><span class="toc-number">1.4.</span> <span class="toc-text">多尺度特征融合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型缩放"><span class="toc-number">1.5.</span> <span class="toc-text">模型缩放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#训练细节"><span class="toc-number">1.6.</span> <span class="toc-text">训练细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">1.7.</span> <span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ablation-experiment"><span class="toc-number">1.8.</span> <span class="toc-text">Ablation experiment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#亮点总结"><span class="toc-number">1.9.</span> <span class="toc-text">亮点总结</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">循环神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">卷积神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch2学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -513,8 +443,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
