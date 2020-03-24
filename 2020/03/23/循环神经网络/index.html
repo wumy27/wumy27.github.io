@@ -16,7 +16,7 @@
 <meta property="og:description" content="语言模型自然语言处理的重要技术。自然语言文本是一段离散的时间序列，长度为T的文本各词w_t的出现可认为在时间步t的输出。语言模型会计算词序列的概率，判断哪种组合出现概率最大，作为最终输出。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-23T03:18:00.000Z">
-<meta property="article:modified_time" content="2020-03-23T03:18:33.323Z">
+<meta property="article:modified_time" content="2020-03-24T02:33:22.473Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Deep Learning">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
 <hr>
 <h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><p>n元语法只考虑前n-1个词，考虑t-(n-1)前的词，模型参数变大。循环神经网络通过隐藏状态来存储之前时间步的信息。  </p>
 <p>多层感知机添加隐藏状态变成循环神经网络。    </p>
-<h2 id="不含隐藏状态的神经网络"><a href="#不含隐藏状态的神经网络" class="headerlink" title="不含隐藏状态的神经网络"></a>不含隐藏状态的神经网络</h2><p><code>$O=HW_{hq}+b_q=\Phi(XW_{xh}+b_h)W_{hq}+b_q$</code><br>若是分类问题使用softmax(<code>$O$</code>)计算输出类别的概率分布。</p>
+<h2 id="不含隐藏状态的神经网络"><a href="#不含隐藏状态的神经网络" class="headerlink" title="不含隐藏状态的神经网络"></a>不含隐藏状态的神经网络</h2><p>$O=HW_{hq}+b_q=\Phi(XW_{xh}+b_h)W_{hq}+b_q$<br>若是分类问题使用softmax($O$)计算输出类别的概率分布。</p>
 <h2 id="含隐含状态的循环神经网络"><a href="#含隐含状态的循环神经网络" class="headerlink" title="含隐含状态的循环神经网络"></a>含隐含状态的循环神经网络</h2><p>$O_t=H_tW_{hq}+b_q=\Phi(X_tW_{xh}+H_{t-1}W_{hh}+b_h)W_{hq}+b_q$<br>想比与不含隐含状态的多层感知机，RNN多了$H_{t-1}W_{hh}$这一项，可以存储前一时间步$t-1$的历史信息，RNN的模型参数固定，不随时间增长。    </p>
 <p>隐含状态中的$X_tW_{xh}+H_{t-1}W_{hh}$等价于$X_t$与$H_{t-1}$在列维度连接的矩阵乘以$W_{xh}$与$W_{hh}$在行维度连接的矩阵。       </p>
 <hr>
@@ -222,7 +222,7 @@
 <p>Writes all values from the tensor src into self at the indices specified in the index tensor. For each value in src, its output index is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim.    </p>
 <p>For a 3-D tensor, self is updated as:   </p>
 <p>self[index[i][j][k]][j][k] = src[i][j][k]  # if dim == 0<br>self[i][index[i][j][k]][k] = src[i][j][k]  # if dim == 1<br>self[i][j][index[i][j][k]] = src[i][j][k]  # if dim == 2    </p>
-<h2 id="裁剪梯度"><a href="#裁剪梯度" class="headerlink" title="裁剪梯度"></a>裁剪梯度</h2><p>应对梯度爆炸，将所有模型参数梯度的元素拼接成向量g，并设定裁剪阈值为\theta。g取min{\theta,g}裁剪后的梯度的L_2范数不超过\theta。 </p>
+<h2 id="裁剪梯度"><a href="#裁剪梯度" class="headerlink" title="裁剪梯度"></a>裁剪梯度</h2><p>应对梯度爆炸，将所有模型参数梯度的元素拼接成向量g，并设定裁剪阈值为$\theta$。g取min{$\theta$,g}裁剪后的梯度的$L_2$范数不超过$\theta$。 </p>
 <h2 id="困惑度"><a href="#困惑度" class="headerlink" title="困惑度"></a>困惑度</h2><p>困惑度评价语言模型的好坏，对交叉熵损失函数做指数运算。<br>$$<br>2^{-\sum_x{p(x)log_2(p(x))}}        </p>
 <p>其中p(x)=p(w_{i+1}|w_{i-k},…,w_i)<br>$$</p>
 <p>困惑度的值(1,+inf)。    </p>
@@ -613,5 +613,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>
