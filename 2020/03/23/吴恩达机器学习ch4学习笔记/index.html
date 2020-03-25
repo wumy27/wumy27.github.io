@@ -8,18 +8,24 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>吴恩达机器学习ch4学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch4主要是对机器学习中的多元回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。">
+  <meta name="description" content="Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是多个特征。其中特征可以由多个单特征构成，也可由单特征的指数&#x2F;对数&#x2F;次方…等运算项构成。假设函数取线性公式；损失函数仍然采用了均方差公式。除了用梯度下降法进行参数更新外，还提出了正规方程法，可以一步到位计算出参数，但也有其局限所在。 针对数值特征，进一步提出能加快梯度下降法迭代速度的归一化概念。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="吴恩达机器学习ch4学习笔记">
 <meta property="og:url" content="http://yoursite.com/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch4主要是对机器学习中的多元回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。">
+<meta property="og:description" content="Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是多个特征。其中特征可以由多个单特征构成，也可由单特征的指数&#x2F;对数&#x2F;次方…等运算项构成。假设函数取线性公式；损失函数仍然采用了均方差公式。除了用梯度下降法进行参数更新外，还提出了正规方程法，可以一步到位计算出参数，但也有其局限所在。 针对数值特征，进一步提出能加快梯度下降法迭代速度的归一化概念。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/img/4-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/img/4-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/img/4-6.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/img/4-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/img/4-2.png">
 <meta property="article:published_time" content="2020-03-23T12:21:40.000Z">
-<meta property="article:modified_time" content="2020-03-24T02:33:24.341Z">
+<meta property="article:modified_time" content="2020-03-25T08:29:29.142Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/23/img/4-4.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -183,12 +189,81 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch4主要是对机器学习中的多元回归问题进行建模，以及对损失函数相关问题进行了<br>数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性<br>回归问题的解决。</p>
+        <p>Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是<strong>多个特征</strong>。其中特征可以由多个单特征构成，也可由单特征的指数/对数/次方…等运算项构成。<br>假设函数取<strong>线性公式</strong>；损失函数仍然采用了<strong>均方差公式</strong>。除了用梯度下降法进行参数更新外，还提出了<strong>正规方程法</strong>，可以一步到位计算出参数，但也有其局限所在。</p>
+<p>针对数值特征，进一步提出能加快梯度下降法迭代速度的<strong>归一化</strong>概念。</p>
 <a id="more"></a>    
 
 
-<h1 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h1><p>$n$：特征数量<br>$x_i$：第i个输入<br>$x_j^(i)$：第i个输入的第j个特征</p>
-<p>假设函数为<br>假设函数：h_θ (x)=[■(θ_0&amp;…&amp;θ_n )][■(x_0@…@x_n )]=θ^T x</p>
+<h1 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h1><p>$n$：特征数量    </p>
+<p>$x^{(i)}$：第i个输入</p>
+<p>${x}_j^{(i)}$：第i个输入的第j个特征    </p>
+<p>$y^{(i)}$：第i个输入的标签</p>
+<p>参数：$\theta$    </p>
+<p>假设函数：<br>$$<br>h_\theta(x)=<br>{\left[<br>\begin{matrix} \theta_{0} &amp; \cdots &amp; \theta_{n} \end{matrix}<br>\right ]}<br>{\left[<br>\begin{matrix} x_{0} \ \cdots \ x_{n} \end{matrix}<br>\right ]}=\theta^Tx \tag{4-1}<br>$$</p>
+<p>代价函数：<br>$$J(\theta)=\frac{1}{2m}\sum_{i=1}^{n}(h_\theta(x^{(i)})-y^{(i)})^2 \tag{4-2}$$</p>
+<p>梯度下降法：<br>$$\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \tag{4-3}$$<br>$$j=0, \cdots ,n$$</p>
+<h2 id="单特征的多项式回归"><a href="#单特征的多项式回归" class="headerlink" title="单特征的多项式回归"></a>单特征的多项式回归</h2><p>多特征可以由单特征构造：由单特征的不同项式进行生成多特征。</p>
+<h2 id="迭代收敛"><a href="#迭代收敛" class="headerlink" title="迭代收敛"></a>迭代收敛</h2><p><img src="../img/4-4.png" alt="迭代收敛"></p>
+<p>观察迭代过程是否收敛有两种方法：    </p>
+<ol>
+<li>自动收敛测试，看最终的代价函数值是否小于一个$\epsilon$。</li>
+<li>收敛曲线（直观）：损失函数值随迭代次数的变化曲线。</li>
+</ol>
+<p><img src="../img/4-5.png" alt="学习率设置"></p>
+<ul>
+<li>学习率过小，迭代速度慢</li>
+<li>学习率过大，发散</li>
+<li>选择学习率，倍数更迭（…,0.001,[0.003],0.01,[0.03],0.1,[0.3],1,…）[]中倍率为3x</li>
+</ul>
+<h2 id="求解模型参数"><a href="#求解模型参数" class="headerlink" title="求解模型参数"></a>求解模型参数</h2><p>求解参数$\theta$的方法有：</p>
+<ol>
+<li>梯度下降法：一步步迭代</li>
+<li>正规方程法：提供求解参数最优解的方法</li>
+</ol>
+<p><img src="../img/4-6.png" alt="特征方程法"></p>
+<h3 id="正规方程法"><a href="#正规方程法" class="headerlink" title="正规方程法"></a>正规方程法</h3><p>$$<br>\begin{aligned}<br>J(\theta)&amp;=\frac{1}{2m}\sum_{i=1}^{n}(\theta^T x^{(i)})-y^{(i)})^2\<br>&amp;=\frac{1}{2m}(\theta^T X-y)^T(\theta^T X-y)\<br>&amp;=\frac{1}{2m}(X\theta-y)^T(X\theta-y)\   \tag{4-4}<br>&amp;=\frac{1}{2m}(\theta^TX^T-y^T)(X\theta-y)\<br>&amp;=\frac{1}{2m}(\theta^TX^TX\theta-y^TX\theta-\theta^TX^Ty+y^Ty)<br>\end{aligned}<br>$$</p>
+<p>$$<br>\frac{\partial{J(\theta)}}{\partial\theta}=\frac{1}{2m}(2X^TX\theta-X^TY-X^TY+0) \tag{4-5}<br>$$</p>
+<p>由$\frac{\partial{J(\theta)}}{\partial\theta}=0$得正规方程公式</p>
+<p>$$\theta=(X^TX)^{-1}X^Ty \tag{4-6}$$</p>
+<blockquote>
+<p>推导参考:<a href="https://blog.csdn.net/chenlin41204050/article/details/78220280" target="_blank" rel="noopener">正规方程求解特征参数的推导过程</a></p>
+</blockquote>
+<p>正规方程可以不需归一化便可优良求解。</p>
+<h3 id="梯度下降法-vs-正规方程法"><a href="#梯度下降法-vs-正规方程法" class="headerlink" title="梯度下降法 vs 正规方程法"></a>梯度下降法 vs 正规方程法</h3><p>m training examples, n features.</p>
+<ul>
+<li>梯度下降法<ul>
+<li>需要选择学习率$\alpha$</li>
+<li>需要迭代次数多</li>
+<li>当n过大时（10^6）时，仍然工作较好</li>
+</ul>
+</li>
+<li>正规方程法<ul>
+<li>不需选择$\alpha$</li>
+<li>不许迭代，一步到位</li>
+<li>需要计算$(X^TX)^{-1}$</li>
+<li>在n非常大时，运算速度慢</li>
+</ul>
+</li>
+</ul>
+<p>在分类等问题中，正规方程法不适用，梯度下降法是更普适的方法。</p>
+<p>在使用正规方程法时，若$(X^TX)$不可逆时，可以使用伪逆矩阵进行替代$(X^TX)^{-1}$。Matlab中pinv()计算伪逆矩阵，inv()计算逆矩阵。</p>
+<h3 id="正规方程法的进一步思考"><a href="#正规方程法的进一步思考" class="headerlink" title="正规方程法的进一步思考"></a>正规方程法的进一步思考</h3><p>$(X^TX)$不可逆的原因有：</p>
+<ol>
+<li>包含了多余的特征，特征重复。</li>
+<li>训练样本比要求解的特征参数多，欠拟合。<ul>
+<li>Sol：删除部分特征，用正则化</li>
+</ul>
+</li>
+</ol>
+<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>让各个数值特征放缩在相同尺度，这样梯度下降法效果更好，更快收敛。</p>
+<p><img src="../img/4-1.png" alt="归一化"></p>
+<p>让特征数据在标准范围[-1,1]的范围内。若是与标准范围相差不大则不需要进行归一；变量范围与标准范围相差过大，则需要进行归一化，</p>
+<p><img src="../img/4-2.png" alt="归一化判断标准"></p>
+<h2 id="均值归一化"><a href="#均值归一化" class="headerlink" title="均值归一化"></a>均值归一化</h2><p>归一化后，数据的均值为0，最大值与最小值之差=1。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li>吴恩达-机器学习-ch4</li>
+<li><a href="https://blog.csdn.net/chenlin41204050/article/details/78220280" target="_blank" rel="noopener">正规方程的推导-CSDN</a></li>
+</ol>
 
       
 
@@ -304,7 +379,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%C2%99%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -342,7 +417,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多元线性回归"><span class="toc-number">1.</span> <span class="toc-text">多元线性回归</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多元线性回归"><span class="toc-number">1.</span> <span class="toc-text">多元线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单特征的多项式回归"><span class="toc-number">1.1.</span> <span class="toc-text">单特征的多项式回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代收敛"><span class="toc-number">1.2.</span> <span class="toc-text">迭代收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求解模型参数"><span class="toc-number">1.3.</span> <span class="toc-text">求解模型参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正规方程法"><span class="toc-number">1.3.1.</span> <span class="toc-text">正规方程法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降法-vs-正规方程法"><span class="toc-number">1.3.2.</span> <span class="toc-text">梯度下降法 vs 正规方程法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正规方程法的进一步思考"><span class="toc-number">1.3.3.</span> <span class="toc-text">正规方程法的进一步思考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归一化"><span class="toc-number">1.4.</span> <span class="toc-text">归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#均值归一化"><span class="toc-number">1.5.</span> <span class="toc-text">均值归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.6.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
