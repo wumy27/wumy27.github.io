@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/3 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch7学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记&#x2F;技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BevanWu的修炼小栈">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="Ch7本章讲的是关于模型训练过程会出现的欠拟合、过拟合的问题，以及它们的解决思路。重点介绍了过拟合问题的正则化方法，并对回归和分类问题的损失函数进行了重定义。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="吴恩达机器学习ch7学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="学习笔记&#x2F;技术博客">
+<meta property="og:description" content="Ch7本章讲的是关于模型训练过程会出现的欠拟合、过拟合的问题，以及它们的解决思路。重点介绍了过拟合问题的正则化方法，并对回归和分类问题的损失函数进行了重定义。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/lIgYXmDOjxwtdHM.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/83z1ZtDg97nVQwm.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/z4RQ6JXkqGejfEF.png">
+<meta property="article:published_time" content="2020-03-30T10:27:24.000Z">
+<meta property="article:modified_time" content="2020-04-27T07:02:21.645Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/02/lIgYXmDOjxwtdHM.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -161,36 +167,169 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-吴恩达机器学习ch7学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      吴恩达机器学习ch7学习笔记
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+
+        
+        <a href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
   	<time datetime="2020-03-30T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch7学习笔记</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ch7本章讲的是关于模型训练过程会出现的<strong>欠拟合</strong>、<strong>过拟合</strong>的问题，以及它们的解决思路。重点介绍了<strong>过拟合问题的正则化</strong>方法，并对回归和分类问题的损失函数进行了重定义。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<hr>
+<p><img src="https://i.loli.net/2020/04/02/lIgYXmDOjxwtdHM.png" alt="7-1.png"></p>
+<p>$<del>$<br>$</del>$</p>
+<p><img src="https://i.loli.net/2020/04/02/83z1ZtDg97nVQwm.png" alt="7-2.png"></p>
+<p>$<del>$<br>$</del>$</p>
+<p>两种模型在训练过程均可能出现三种情况：欠拟合-&gt;良好-&gt;过拟合。<br>过拟合是因为对训练集的<strong>过度学习</strong>而造成的，模型泛化到测试集的效果远差于训练集。欠拟合可通过训练/增加样本量来解决。</p>
+<p>过拟合：</p>
+<ol>
+<li><p>减少特征变量</p>
+<ul>
+<li>手工选取</li>
+<li>模型选择算法</li>
+</ul>
+</li>
+<li><p>正则化</p>
+<ul>
+<li>保留参数，降其权重</li>
+<li>各参数均有用</li>
+</ul>
+</li>
+</ol>
+<p>正则化即对参数加上惩罚项，以使得模型更简单。</p>
+<p>无法得知对哪些参数进行惩罚，故对所有的参数进行惩罚。</p>
+<p>新的损失函数如下：<br>$$J’(\theta)=J(\theta)+\frac{1}{2m}\lambda\sum_{j=1}^{n}\theta_j^2 \tag{7-1}$$</p>
+<p>其中$J(\theta)$为初始损失函数，目的是让拟合效果更好。</p>
+<ul>
+<li>回归模型的$J(\theta)$<br>$$J(\theta)=\frac{1}{2m}\sum_{i=1}^{n}(h_\theta(x^{(i)})-y^{(i)})^2 \tag{4-2}$$</li>
+<li>分类模型的$J(\theta)$<br>$$J(\theta)=\frac{1}{m}\sum_{i-1}^{m}[-y^{(i)}log(h_\theta(x^{(i)}))-(1-y^{(i)})log(1-h_\theta(x^{(i)}))] \tag{6-2}$$</li>
+<li>两个模型的正则化最终损失函数均为$J’(\theta)=J(\theta)+\frac{1}{2m}\lambda\sum_{j=1}^{n}\theta_j^2$</li>
+</ul>
+<p>而$\lambda\sum_{j=1}^{n}\theta_j^2$为了使参数更简单。其中$\lambda$为正则化系数。</p>
+<ul>
+<li>若$\lambda$过大，则模型可能会欠拟合</li>
+<li>若$\lambda$过小，则惩罚效果差</li>
+</ul>
+<h2 id="对线性回归模型进行正则化"><a href="#对线性回归模型进行正则化" class="headerlink" title="对线性回归模型进行正则化"></a>对线性回归模型进行正则化</h2><h3 id="更新后的梯度下降法："><a href="#更新后的梯度下降法：" class="headerlink" title="更新后的梯度下降法："></a>更新后的梯度下降法：</h3><p>$$\theta_j:=\theta_j(1-\alpha\frac{\lambda_j}{m})-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \qquad j=0, \cdots ,n \tag{7-2}$$</p>
+<p>其中$<br>\lambda_j=<br>\begin{cases}<br>0&amp; \text{j=0}\<br>1&amp; \text{j=1,\dots,n}<br>\end{cases}$，$h_\theta(x)=\theta^Tx$。</p>
+<h3 id="更新后的正规方程法："><a href="#更新后的正规方程法：" class="headerlink" title="更新后的正规方程法："></a>更新后的正规方程法：</h3><p>因较少的样本，导致特征数量大于样本数量，则矩阵 $X^TX$ 将是不可逆矩阵，或称其为退化（degenerate）、奇异（singluar）矩阵。那么我们就没有办法使用正规方程来求出θ 。</p>
+<p>$$X=\begin{bmatrix}<br>   (x^{(1)})^T\<br>   \vdots\<br>   (x^{(m)})^T<br>\end{bmatrix}\in R^{m \times n},<br>y=\begin{bmatrix}<br>   (y^{(1)})^T\<br>   \vdots\<br>   (y^{(m)})^T<br>\end{bmatrix} \in R^{m}<br>$$</p>
+<p>$X \in R^{m\times (n+1)}$，其中$m\leq n$</p>
+<ul>
+<li>若m&lt;n，$X^TX$ 一定不可逆</li>
+<li>若m=n，$X^TX$ 可能不可逆</li>
+</ul>
+<p>对$X^TX$加上惩罚项，得到的新矩阵一定可逆，于是正规方程法永远可以成立。</p>
+<p>欲$\min \limits_\theta J’(\theta)$，需要$\frac{\partial}{\partial{\theta_j}}J’(\theta)\overset{\text{set}}{=}0$，得到</p>
+<p>$$\theta=(X^TX+\lambda<br>\begin{bmatrix}<br>   0\<br>    &amp;1\<br>    &amp; &amp;1\<br>    &amp; &amp; &amp; \ddots\<br>    &amp; &amp; &amp; &amp;1<br>\end{bmatrix}<br>)^{-1}X^Ty \tag{7-3}$$</p>
+<blockquote>
+<p>$\begin{bmatrix}<br>   0\<br>    &amp;1\<br>    &amp; &amp;1\<br>    &amp; &amp; &amp; \ddots\<br>    &amp; &amp; &amp; &amp;1<br>\end{bmatrix}<br>$中对角线上第一个元素为0是对常数系数$\theta_0$不做惩戒，X的第一维度也是$\theta_0$。</p>
+</blockquote>
+<h2 id="对Logistic回归模型进行正则化"><a href="#对Logistic回归模型进行正则化" class="headerlink" title="对Logistic回归模型进行正则化"></a>对Logistic回归模型进行正则化</h2><h3 id="更新后的梯度下降法：-1"><a href="#更新后的梯度下降法：-1" class="headerlink" title="更新后的梯度下降法："></a>更新后的梯度下降法：</h3><p>$$\theta_j:=\theta_j(1-\alpha\frac{\lambda_j}{m})-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \qquad j=0, \cdots ,n \tag{7-2}$$</p>
+<p>其中$<br>\lambda_j=<br>\begin{cases}<br>0&amp; \text{j=0}\<br>1&amp; \text{j=1,\dots,n}<br>\end{cases}$，$h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$。</p>
+<h2 id="拓展：Lasso回归-amp-Ridge回归"><a href="#拓展：Lasso回归-amp-Ridge回归" class="headerlink" title="拓展：Lasso回归&amp;Ridge回归"></a>拓展：Lasso回归&amp;Ridge回归</h2><p><a href="https://\theta.cnblogs.com/\thetauliytTaotao/p/10837533.html" target="_blank" rel="noopener">Lasso regression 和 Ridge regression</a></p>
+<p>Lasso 回归和Ridge回归都是在标准线性回归的基础上修改代价函数$J(\theta)$，其它地方不变。</p>
+<p>Lasso 的全称为 least absolute shrinkage and selection operator，又译最小绝对值收敛和选择算子、套索算法。其代价函数为<br>$$J’(\theta)=J(\theta)+\lambda||\theta||_1 \tag{7-4}$$</p>
+<p>岭回归的代价函数为<br>$$J’(\theta)=J(\theta)+\lambda||\theta||_2^2 \tag{7-5}$$</p>
+<h3 id="Lasso回归和Ridge回归的同和异："><a href="#Lasso回归和Ridge回归的同和异：" class="headerlink" title="Lasso回归和Ridge回归的同和异："></a>Lasso回归和Ridge回归的同和异：</h3><ul>
+<li><p>相同：</p>
+<ul>
+<li>都可以用来解决标准线性回归的过拟合问题。</li>
+</ul>
+</li>
+<li><p>不同：</p>
+<ul>
+<li>Lasso 可以用来做 <strong>feature selection</strong>，而 Ridge 不行。或者说，Lasso 更容易使得部分参数<strong>权重变为0</strong>，而 Ridge 更容易使得部分参数<strong>权重接近0</strong>。</li>
+<li>从贝叶斯角度看，Lasso（L1 正则）等价于参数 \theta 的先验概率分布满足拉普拉斯分布，而 Ridge（L2 正则）等价于参数 \theta 的先验概率分布满足高斯分布。具体参考博客<a href="https://flashgene.com/archives/11824.html" target="_blank" rel="noopener">从贝叶斯角度深入理解正则化 – Zxdon</a> 。</li>
+</ul>
+<p>L1 / L2 正则化项，可让各参数的值大小对损失函数影响均很大，最后构造一个所有参数都比较小的模型。</p>
+<blockquote>
+<p>一般认为参数值小的模型比较简单，能适应不同的数据集，也在一定程度上避免了过拟合现象。</p>
+<p>设想一个线性回归方程，若参数很大，那么只要数据偏移一点点，就会对结果造成很大的影响；但如果参数足够小，数据偏移得多一点也不会对结果造成什幺影响，一种流行的说法是『抗扰动能力强』。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="为何Lasso较Ridge更容易使部分参数权重变为零"><a href="#为何Lasso较Ridge更容易使部分参数权重变为零" class="headerlink" title="为何Lasso较Ridge更容易使部分参数权重变为零"></a>为何Lasso较Ridge更容易使部分参数权重变为零</h3><p>Lasso 和 Ridge regression 的目标都是 $\min \limits_{\theta}J’$，式（7-4）和（7-5）都是拉格朗日形式（\thetaith KKT条件），其中$\lambda$为 KKT 乘子，我们也可以将 $\min \limits_{\theta}J’$ 写成如下形式：</p>
+<p>$$\min \limits_{\theta}J \quad<br>s.t. \begin{cases}<br>||\theta||_1 \leq t&amp; \text{Lasso regression}\<br>||\theta||_2^2 \leq t&amp; \text{Ridge regression}<br>\end{cases}<br>$$</p>
+<p>上式的限制条件可以理解为，在$\theta$限制的取值范围内，找一个点$\hat{\theta}$使得均方差 $J(\theta)$ 最小。 $t$ 可以理解为正则化的力度，$t$ 越小，就意味着式（7-4）和（7-5）中 $\lambda$ 越大，正则化的力度越大 。</p>
+<p>以 $x \in R^2$ 为例，损失函数$J(\theta)$的两个参数为$\theta_0、\theta_1$</p>
+<ul>
+<li>L1正则项的约束即为$|\theta_0|+|\theta_1| \leq t$，是对 $\theta$ 的中心点在原点的方形限制；</li>
+<li>L2正则项的约束为$\theta_0^2+\theta_1^2 \leq t$，是对 $\theta$ 的中心点在原点的圆形限制。</li>
+<li>通过调整 $t$ 的值，能够调整这两个区域的大小。</li>
+</ul>
+<p>因为 Lasso 对 $\theta$ 的限制空间是有棱角的，因此 $arg \min \limits_\theta J$ 的解更容易切在 $\theta$ 的某一个维为 0 的点。</p>
+<blockquote>
+<p>等值线和方形区域的切点更有可能在坐标轴上，而等值线和圆形区域的切点在坐标轴上的概率很小。 Lasso（L1 正则化）更容易使得部分权重取 0，使权重变稀疏；而 Ridge（L2 正则化）只能使权重接近 0，很少等于 0。</p>
+<p>权重为 0 的 feature 对模型没有贡献，故 Lasso 可以做 feature selection，Ridge 删去趋于 0 的 feature会对模型有损伤。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/04/02/z4RQ6JXkqGejfEF.png" alt="7-3.png"></p>
+<center>图3 Lasso&Ridge regression正则化项图解</center>
+
+<p>$<del>$<br>$</del>$</p>
+<p>图3中的xy轴表示 $\theta$ 的参数维，一圈圈的椭圆表示函数 $J(\theta)$ 的等值线，$\theta^∗$ 表示损失 $J$ 的全局最优值的参数，离 $\theta^*$ 越远的椭圆 $J(\theta)$ 的值越大。</p>
+<p>使用 Gradient descent，会使 $\theta$ 向着 $\theta^∗$ 的位置走。如果没有 L1 或者 L2 正则化约束，$\theta^∗$ 是可以取得的。但是，由于有了约束，$\theta$ 的取值只能限制在图3所示的灰色方形和圆形区域。</p>
+<p>等值线从外围到内围<strong>第一次</strong>和 $\theta$ 的取值范围相切的点，即是 Lasso 和 Ridge 回归想要找的权重 $\hat{\theta}$。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>latex语法参考：</p>
+<ol>
+<li><p><a href="https://blog.csdn.net/\theta920960/article/details/11664177" target="_blank" rel="noopener">Latex中等号上(下)写字</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/garfielder007/article/details/51619866" target="_blank" rel="noopener">LaTeX输入单个点、横向多个点、竖向多个点、斜向多个点</a></p>
+</li>
+<li><p><a href="https://\theta.cnblogs.com/bnuvincent/p/8994893.html" target="_blank" rel="noopener">Latex数学公式中的空格</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/u012428169/article/details/76422845" target="_blank" rel="noopener">LaTeX编写分段函数</a></p>
+</li>
+</ol>
+<p>内容参考：</p>
+<ol start="5">
+<li>吴恩达-机器学习ch7</li>
+<li><a href="https://\theta.cnblogs.com/\thetauliytTaotao/p/10837533.html" target="_blank" rel="noopener">Lasso regression 和 Ridge regression</a></li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -202,7 +341,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,449 +354,116 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/30/coursera%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/" class="archive-article-date">
-  	<time datetime="2020-03-30T05:44:34.584Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          吴恩达机器学习ch10学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/30/coursera%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">coursera无法打开</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/30/coursera%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/">coursera无法打开</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对线性回归模型进行正则化"><span class="toc-number">1.</span> <span class="toc-text">对线性回归模型进行正则化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更新后的梯度下降法："><span class="toc-number">1.1.</span> <span class="toc-text">更新后的梯度下降法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新后的正规方程法："><span class="toc-number">1.2.</span> <span class="toc-text">更新后的正规方程法：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对Logistic回归模型进行正则化"><span class="toc-number">2.</span> <span class="toc-text">对Logistic回归模型进行正则化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更新后的梯度下降法：-1"><span class="toc-number">2.1.</span> <span class="toc-text">更新后的梯度下降法：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拓展：Lasso回归-amp-Ridge回归"><span class="toc-number">3.</span> <span class="toc-text">拓展：Lasso回归&amp;Ridge回归</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lasso回归和Ridge回归的同和异："><span class="toc-number">3.1.</span> <span class="toc-text">Lasso回归和Ridge回归的同和异：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为何Lasso较Ridge更容易使部分参数权重变为零"><span class="toc-number">3.2.</span> <span class="toc-text">为何Lasso较Ridge更容易使部分参数权重变为零</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/24/website-update-log/" class="archive-article-date">
-  	<time datetime="2020-03-24T03:07:32.499Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/24/website-update-log/">website update log</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/tags//" class="article-tag-list-link color5">tags</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T12:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch6学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch4学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">EfficientDet学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">目标检测评价指标</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">循环神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">卷积神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/03/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/03/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -680,8 +486,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

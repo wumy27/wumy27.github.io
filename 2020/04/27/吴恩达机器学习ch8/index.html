@@ -6,18 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/3 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch8学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记&#x2F;技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BevanWu的修炼小栈">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="Ch8 先引出logistic回归模型的不足：对复杂的非线性假设模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络模型的组成、前向传播算法，并就网络为何能构造复杂的特征做出了解释，并提供了简单逻辑运算器（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对多分类神经网络的构建方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="吴恩达机器学习ch8学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="学习笔记&#x2F;技术博客">
+<meta property="og:description" content="Ch8 先引出logistic回归模型的不足：对复杂的非线性假设模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络模型的组成、前向传播算法，并就网络为何能构造复杂的特征做出了解释，并提供了简单逻辑运算器（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对多分类神经网络的构建方法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-6.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-and.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-or.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-not.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-nan.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-xnor.png">
+<meta property="article:published_time" content="2020-04-27T04:00:24.000Z">
+<meta property="article:modified_time" content="2020-04-28T03:23:03.310Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -161,36 +175,327 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-吴恩达机器学习ch8" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      吴恩达机器学习ch8学习笔记
+    </h1>
+  
+
+        
+        <a href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/" class="archive-article-date">
+  	<time datetime="2020-04-27T04:00:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-27</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ch8 先引出logistic回归模型的不足：对复杂的<strong>非线性假设</strong>模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络<strong>模型的组成</strong>、<strong>前向传播算法</strong>，并就网络为何能<strong>构造复杂的特征</strong>做出了解释，并提供了<strong>简单逻辑运算器</strong>（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对<strong>多分类神经网络</strong>的构建方法。</p>
+<a id="more"></a>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#1">神经网络的表述</a><ul>
+<li><a href="#2">非线性假设</a></li>
+<li><a href="#3">神经元和大脑</a></li>
+<li><a href="#4">模型表示</a><ul>
+<li><a href="#5">前向传播</a></li>
+<li><a href="#6">特征与假设函数</a></li>
+</ul>
+</li>
+<li><a href="#7">神经网络的直观理解</a><ul>
+<li><a href="#8">AND</a></li>
+<li><a href="#9">OR</a></li>
+<li><a href="#10">NOT</a></li>
+<li><a href="#11">Not And Not</a></li>
+<li><a href="#12">XOR</a></li>
+<li><a href="#13">XNOR</a></li>
+</ul>
+</li>
+<li><a href="#14">多类别识别</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="1">神经网络的表述</h2>
+
+
+<p>逻辑回归的缺点：<br>如果决策边界复杂，则假设函数也会变得十分复杂。这就导致需要进行组合的非线性特征过多，则需要计算和选择特征产生的计算量会非常大。</p>
+<h3 id="2">非线性假设</h3>
+
+<p>面对复杂的分类问题，我们可能需要很复杂的假设函数，如下图所示<br><img src="img/8-1.png" alt="8-1"></p>
+<p>图中是以由两个原始特征形成的复合特征组为自变量的假设函数。</p>
+<p>复合特征组中的各元素是原始自变量的不同幂次乘积。例如若原始特征有$x_1,; \cdots ;x_{100}$，<br>则其二次项就有$x_1^2,x_1x_2,; \cdots ;x_{100}^2$，共有$\frac{100^2}{2!}=5000(O(n^2))$个复合特征；<br>而若是三次项就有$x_1^3,x_1x_2x_3,; \cdots ;x_{100}^3$，共有$\frac{100^3}{3!}=170000(O(n^3))$个复合特征。</p>
+<p>若是原始特征本就很多，例如计算机视觉中的图像识别，我们将一张图片的所有像素的亮度拉成一个向量。例如一张$50x50$的图片，拉成$R^2500$的一个向量，若要生成任意两个像素间的复合特征，会有3百万的新特征。</p>
+<p>而这么多特征用logistic回归做假设函数，则难以进行训练，所以我们需要开发新的模型。</p>
+<h3 id="3">神经元和大脑</h3>
+
+
+<p>视觉传感与触觉和听觉有极大关系。本节还介绍了一些关于大脑的一些研究。</p>
+<h3 id="4">模型表示</h3>
+
+<p>大脑神经元结构如下：<br><img src="img/8-2.png" alt="8-2"></p>
+<p>信息从上一个神经元的突触，传送到下一个神经元的树突，经过细胞核处理后，由轴突传送到突触进入下一个传送阶段。</p>
+<p>模仿大脑神经元的传送原理，我们开发了神经网络模型。</p>
+<p>大脑的基本单元是神经元，而神经网络的基本单元是逻辑元，其结构如下：<br><img src="img/8-3.png" alt="8-3"></p>
+<p>其中，$x_1,x_2,x_3$是输入，$x_0$是模型内的偏置单元，橙色圆是处理单元，代表logistic函数。从输入$x_0,x_1,x_2,x_3$到处理单元间的流程线上是各输入单元的权重值$\theta$；从处理单元到输出$h_\theta(x)$上无运算，处理后直接输出。</p>
+<p>神经网络是其基本单元的合成版，如下图所示：<br><img src="img/8-4.png" alt="8-4"></p>
+<p>其中Layer1是输入层，Layer2是隐藏层，Layer3是输出层。</p>
+<p>规定：</p>
+<ul>
+<li>$\Theta^{j}$代表从第j层到第j+1层单元的映射权重矩阵。若第j层有$s_{j}$个单元，而第j+1层有$s_{j+1}$个单元，则$\Theta^{(j)}$的维度为$s_{j+1}x(s_j+1)$（1为第j层的偏置单元）。</li>
+<li><blockquote>
+<p>容易搞反，row为下一层的单元数，column为当前层单元数+1</p>
+</blockquote>
+</li>
+<li>$a_i^{(j)}$代表第j层的第i个单元的激活函数。</li>
+<li>默认每一层的输入都增加一个偏置单元，取值为1。</li>
+</ul>
+<h4 id="5">前向传播FORWARD PROPAGATION</h4>
+
+
+<p>从输入层到输出层的整个顺序流程称为<strong>前向传播</strong>。</p>
+<p>针对一般的情形，若输入层单元数为$n$，隐含层层数为$m$，令$x=[x_0 ; x_1; \cdots x_n ]=a^{(1)}$，后续隐藏层的输出看做一个向量分别记作$a^{(j)},; j=2,; \cdots , m+1$，将输出层单元记作$a^{(m+2)}$。</p>
+<p><strong>前向传播算法流程</strong>：</p>
+<ol>
+<li>从输出层开始，每层在传播到下一层前都需要加入一个偏置单元$a_0^{(j)}j=2,; \cdots , m+1$。</li>
+<li>后续各层的各单元的输入为<br>$$z_i^{(j)}=\sum_{k=0}^{s_j}\Theta_{ik}^{(j-1)}x_k ; ,j=1,2,…m+2$$</li>
+<li>经过单元内的激励函数后的输出为<br>$$a_i^{(j)}=g(z_i^{(j)})$$</li>
+<li>最终输出层的输出为<br>$$h_\Theta(x)=a^{(m+2)}=g(z^{(m+2)})$$</li>
+</ol>
+<p>针对图8-4的神经网络而言，最终神经网络的输出为$h_\Theta(x)=a^{(3)}=g(z^{(3)})$</p>
+<h4 id="6">特征与假设函数</h4>
+
+<p>针对图8-4的神经网络，最终输出是用$a_1^{(2)},a_2^{(2)},a_3^{(2)}$做输入特征，以进行logistic回归分类，而$a_1^{(2)},a_2^{(2)},a_3^{(2)}$又是通过$x_1<del>x_3$做logistc回归得到的特征，因此能够生产复杂的假设函数。(这里的$x_1</del>x_3$可以更改为$x_1x_2,x_2x_3,\cdots$等其他输入)</p>
+<p><img src="img/8-6.png" alt="8-6"><br>如图8-6所示，Layer2是对Layer1的特征的复合组合，Layer3是对Layer2特征的复合组合，以此达到更好的假设函数。</p>
+<blockquote>
+<p>神经网络若有多个隐含层，可以采用各隐含层单元数相同的架构，也可以用单元数不同的架构，如图8-6所示。</p>
+</blockquote>
+<h2 id="7">神经网络的直观理解</h2>
+
+<p>对于logistic函数g(z)，其函数图像如下：<br><img src="img/8-5.png" alt="logistic"></p>
+<p>不妨设$x_1,x_2$为二元变量，取值为${0/1}$，则有下列逻辑运算器成立。</p>
+<h4 id="8">AND</h4>
+
+
+
+<p>$$h_\theta(x)=g(-30+20x_1+20x_2)=g(z)$$<br>|  x1  |  x2  | AND  | g(z) |<br>| :–: | :–: | :–: | :–: |<br>|  0   |  0   |      |      |<br>|  0   |  1   |      |      |<br>|  1   |  0   |      |      |<br>|  1   |  1   |      |      |</p>
+<p><img src="img/8-and.png" alt="AND"></p>
+<h4 id="9">OR</h4>
+
+<p>$$h_\theta(x)=g(-10+20x_1+20x_2)=g(z)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">OR</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p><img src="img/8-or.png" alt="OR"></p>
+<h4 id="10">NOT</h4>
+
+<p>$$h_\theta(x)=g(10-20x_1)=g(z)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">NOT</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p><img src="img/8-not.png" alt="NOT"></p>
+<h4 id="11">双非Not And Not</h4>
+
+<p>$$h_\theta(x)=g(10-20x_1-20x_2)=g(z)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">N A N</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p><img src="img/8-nan.png" alt="NOTANDNOT"></p>
+<p>双非运算器满足：$Not ;A ;and ;Not ;B = NOT( A ;OR; B )$</p>
+<h4 id="12">异或XOR</h4>
+
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">XOR</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>异或运算器满足：A^B =  ( A &amp; ~ B) | (A &amp; ~ B )</p>
+<p>其中^,&amp;,|,~分别是异或、与、或、非的逻辑符号；由此说明异或逻辑运算器可以由与或非逻辑运算器组合生成。</p>
+<h4 id="13">同或XNOR</h4>
+
+<p>$$h_\theta(x)=g(10-20x_1-20x_2)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">XNOR</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p><img src="img/8-xnor.png" alt="XNOR"></p>
+<p>同或运算器满足：$A ; XNOR ; B = NOT( A ; XNOR; B )$</p>
+<h2 id="14">多类别识别</h2>
+
+<p>若是有多个类别$n$需要区分，我们可以在设置输出层单元数为$n$对应类别数，各个输出单元输出0或1，用输出one-hot向量来区分预测的种类。</p>
+<p>例如：预测类别数为4，则$h_\Theta(x)=[1;0;0;0 ]^T$代表行人，$h_\Theta(x)=[0;1;0;0 ]^T$代表小汽车，$h_\Theta(x)=[0;0;1;0 ]^T$代表摩托车，$h_\Theta(x)=[0;0;0;1 ]^T$代表货车。</p>
+<p>同时我们的训练集中的标签值也应该更改为相应的one-hot向量。</p>
+<p>针对1次输入，神经网络中的输出层的各个输出单元都会对应有一个0~1的输出。我们在最终预测时，可以将其中的输出最大值的输出单元置1，其余置0，以此得到一个预测类别。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-30T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch7学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -202,7 +507,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -215,449 +520,107 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/30/coursera%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/" class="archive-article-date">
-  	<time datetime="2020-03-30T05:44:34.584Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习ch9学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/30/coursera%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/">coursera无法打开</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1"><span class="toc-number">1.1.</span> <span class="toc-text">神经网络的表述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">1.1.1.</span> <span class="toc-text">非线性假设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3"><span class="toc-number">1.1.2.</span> <span class="toc-text">神经元和大脑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4"><span class="toc-number">1.1.3.</span> <span class="toc-text">模型表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">前向传播FORWARD PROPAGATION</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">特征与假设函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7"><span class="toc-number">1.2.</span> <span class="toc-text">神经网络的直观理解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">AND</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">OR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">NOT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">双非Not And Not</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12"><span class="toc-number">1.2.0.5.</span> <span class="toc-text">异或XOR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13"><span class="toc-number">1.2.0.6.</span> <span class="toc-text">同或XNOR</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14"><span class="toc-number">1.3.</span> <span class="toc-text">多类别识别</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/24/website-update-log/" class="archive-article-date">
-  	<time datetime="2020-03-24T03:07:32.499Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/24/website-update-log/">website update log</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/tags//" class="article-tag-list-link color5">tags</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T12:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch6学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch4学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">EfficientDet学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:25:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">目标检测评价指标</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">循环神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">卷积神经网络</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/03/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/03/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -680,8 +643,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
