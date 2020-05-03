@@ -2,6 +2,16 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+        if('{{ page.password }}'){
+            if (prompt('请输入文章密码') !== '{{ page.password }}'){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -186,9 +196,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <br>   
-本文的内容主要涵盖本人的吴恩达机器学习Ch8 和 Ch9的学习笔记，以及结合周志华的《机器学习》进行反向传播偏导数公式和感知机模型的补充，最后添加介绍了能够加速神经网络参数优化的随机梯度下降算法。    
-<br>
+        Welcome to my blog, enter password to read.
         
           <a class="article-more-a" href="/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/#more">more >></a>
         
@@ -801,7 +809,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>网站更新日志：</p>
+        Welcome to my blog, enter password to read.
         
           <a class="article-more-a" href="/2020/03/24/website-update-log/#more">more >></a>
         

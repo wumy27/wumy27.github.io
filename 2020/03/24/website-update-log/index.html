@@ -2,18 +2,28 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script>
+    (function(){
+        if('{{ page.password }}'){
+            if (prompt('请输入文章密码') !== '{{ page.password }}'){
+                alert('密码错误');
+                history.back();
+            }
+        }
+    })();
+  </script>
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>website update log | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="网站更新日志：">
+  <meta name="description" content="Welcome to my blog, enter password to read.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="website update log">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/website-update-log/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="网站更新日志：">
+<meta property="og:description" content="Welcome to my blog, enter password to read.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-24T03:07:32.499Z">
 <meta property="article:modified_time" content="2020-05-03T03:23:13.994Z">
@@ -186,15 +196,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>网站更新日志：</p>
-<a id="more"></a>    
-
-<p>2020/02/28 建站&amp;简单配置    </p>
-<p>2020/03/10 文章梗概功能添加        </p>
-<p>2020/03/15 文章标签功能开发/分类页面开发        </p>
-<p>2020/03/24 添加live2d看板动画    </p>
-<p>2020/5/3 添加私密文章功能+不蒜子统计</p>
-
+        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">Welcome to my blog, enter password to read.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="bf8d6c6273bfc40f0643e21c1407cbb6f3c46213bad2c88d7868c75228366a35">f8976dc6be6976686834435db3799e692e6264fe8c66a1d6fc1ccfdabc681851f9feaf7ad86e8aee83d146028e1458c3d544ca21d324b33af30f0b657eaae7a9695bf41e5974f00cd5dbe11b0287270fdc47b8b3f0d60425911730fef483b67d374ecd715ade70ff013777aebf73b32812a6031dd9e0601fa7e809c57f351aa50124815c61cb3fb900b57b700c068085e53a5c034f9e3403a55a98fed6c7e238a61807d9496aec04d85d8b784739c54128f0f88f41308ae2b283bdce8167369fb9558bae450dc96fc596f20195c01d161cd78f97296e6ff48958ef5d289742f865599ac5451990de77470391f48eda567ce1c07b637637b9a3a6bb2ed1a07862ebdead6cbec0c11089fde3e541d098d3ed1d871b1e550a4a00a00cca47a9aa8a95c0973ac1fe8c6506fe8425c61f124aa9b14ac1cf3013acfeb51d5bc68ee41cd6269f17228db7fb22fc6309e1626fdb</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
       
 
       
