@@ -163,19 +163,114 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-吴恩达机器学习ch8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-神经网络阶段小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/">吴恩达机器学习ch8学习笔记</a>
+      <a class="article-title" href="/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/">神经网络阶段小结</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-04-28T08:24:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <br>   
+本文的内容主要涵盖本人的吴恩达机器学习Ch8 和 Ch9的学习笔记，以及结合周志华的《机器学习》进行反向传播偏导数公式和感知机模型的补充，最后添加介绍了能够加速神经网络参数优化的随机梯度下降算法。    
+<br>
+        
+          <a class="article-more-a" href="/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-NG_ML_ch8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/27/NG_ML_ch8/">吴恩达机器学习ch8学习笔记</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/27/NG_ML_ch8/" class="archive-article-date">
   	<time datetime="2020-04-27T04:00:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-27</time>
 </a>
         
@@ -185,7 +280,7 @@
       
         <p>Ch8 先引出logistic回归模型的不足：对复杂的<strong>非线性假设</strong>模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络<strong>模型的组成</strong>、<strong>前向传播算法</strong>，并就网络为何能<strong>构造复杂的特征</strong>做出了解释，并提供了<strong>简单逻辑运算器</strong>（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对<strong>多分类神经网络</strong>的构建方法。</p>
         
-          <a class="article-more-a" href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/#more">more >></a>
+          <a class="article-more-a" href="/2020/04/27/NG_ML_ch8/#more">more >></a>
         
       
 
@@ -220,7 +315,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/27/NG_ML_ch8/">展开全文 >></a>
         </p>
       
 
@@ -250,19 +345,22 @@
 
 
   
-    <article id="post-吴恩达机器学习ch9" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NG_ML_ch9" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/">吴恩达机器学习ch9学习笔记</a>
+      <a class="article-title" href="/2020/04/26/NG_ML_ch9/">吴恩达机器学习ch9学习笔记</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/26/NG_ML_ch9/" class="archive-article-date">
   	<time datetime="2020-04-26T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
 </a>
         
@@ -272,7 +370,7 @@
       
         <p>Ch9 是对神经网络模型的进一步深入。Ch8 主要是对神经网络模型的假设函数的阐述，而Ch9 则对神经网络<strong>模型的训练</strong>进行展开：首先类比logistic回归模型提出了神经网络模型的<strong>损失函数</strong>，并且叙述了用于求解最佳参数所用的<strong>反向传播</strong>算法。在训练网络前，首先需要使用<strong>梯度检验</strong>的方法验证反向传播算法是否正确。在正式训练时，初始化参数矩阵需使用<strong>随机初始化</strong>方法。最后对Ch8 和Ch9 的神经网络模型做了综合性的<strong>总结</strong>。</p>
         
-          <a class="article-more-a" href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/#more">more >></a>
+          <a class="article-more-a" href="/2020/04/26/NG_ML_ch9/#more">more >></a>
         
       
 
@@ -307,7 +405,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/26/NG_ML_ch9/">展开全文 >></a>
         </p>
       
 
@@ -337,19 +435,22 @@
 
 
   
-    <article id="post-吴恩达机器学习ch11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NG_ML_ch11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch11/">吴恩达机器学习ch11学习笔记</a>
+      <a class="article-title" href="/2020/04/26/NG_ML_ch11/">吴恩达机器学习ch11学习笔记</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch11/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/26/NG_ML_ch11/" class="archive-article-date">
   	<time datetime="2020-04-26T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
 </a>
         
@@ -359,7 +460,7 @@
       
         <p>Ch11 是对机器学习系统结构设计的探讨。对于模型训练，推荐先从简单入手，不断调优。对于二分类问题，有可能因为正负样本数量不均衡，导致类偏差的问题，引入了查准率和查全率的概念。最后对数据集的规模是否对模型有用，做了探讨。</p>
         
-          <a class="article-more-a" href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch11/#more">more >></a>
+          <a class="article-more-a" href="/2020/04/26/NG_ML_ch11/#more">more >></a>
         
       
 
@@ -394,7 +495,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch11/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/26/NG_ML_ch11/">展开全文 >></a>
         </p>
       
 
@@ -424,19 +525,22 @@
 
 
   
-    <article id="post-吴恩达机器学习ch10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NG_ML_ch10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/">吴恩达机器学习ch10学习笔记</a>
+      <a class="article-title" href="/2020/04/25/NG_ML_ch10/">吴恩达机器学习ch10学习笔记</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/25/NG_ML_ch10/" class="archive-article-date">
   	<time datetime="2020-04-25T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
 </a>
         
@@ -446,7 +550,7 @@
       
         <p>Ch10 是对<strong>假设函数</strong>在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数<strong>泛化</strong>更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用<strong>二划分</strong>（70% train 30% test）/ <strong>三划分</strong>（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于<strong>高方差/高偏差</strong>问题，可认为其分别对应于<strong>过拟合/欠拟合</strong>，并对开篇的解决方案归类，日后可相应针对特定的场景选择方案进行解决。</p>
         
-          <a class="article-more-a" href="/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/#more">more >></a>
+          <a class="article-more-a" href="/2020/04/25/NG_ML_ch10/#more">more >></a>
         
       
 
@@ -481,7 +585,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/25/NG_ML_ch10/">展开全文 >></a>
         </p>
       
 
@@ -511,19 +615,22 @@
 
 
   
-    <article id="post-吴恩达机器学习ch7学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NG_ML_ch7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch7学习笔记</a>
+      <a class="article-title" href="/2020/03/30/NG_ML_ch7/">吴恩达机器学习ch7学习笔记</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/03/30/NG_ML_ch7/" class="archive-article-date">
   	<time datetime="2020-03-30T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
 </a>
         
@@ -533,7 +640,7 @@
       
         <p>Ch7本章讲的是关于模型训练过程会出现的<strong>欠拟合</strong>、<strong>过拟合</strong>的问题，以及它们的解决思路。重点介绍了<strong>过拟合问题的正则化</strong>方法，并对回归和分类问题的损失函数进行了重定义。</p>
         
-          <a class="article-more-a" href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+          <a class="article-more-a" href="/2020/03/30/NG_ML_ch7/#more">more >></a>
         
       
 
@@ -568,7 +675,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/30/NG_ML_ch7/">展开全文 >></a>
         </p>
       
 
@@ -609,6 +716,9 @@
     </h1>
   
 
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
         
         <a href="/2020/03/30/coursera%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80/" class="archive-article-date">
   	<time datetime="2020-03-30T05:44:34.584Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
@@ -679,6 +789,9 @@
     </h1>
   
 
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
         
         <a href="/2020/03/24/website-update-log/" class="archive-article-date">
   	<time datetime="2020-03-24T03:07:32.499Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
@@ -744,19 +857,22 @@
 
 
   
-    <article id="post-吴恩达机器学习ch6学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NG_ML_ch6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch6学习笔记</a>
+      <a class="article-title" href="/2020/03/23/NG_ML_ch6/">吴恩达机器学习ch6学习笔记</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/03/23/NG_ML_ch6/" class="archive-article-date">
   	<time datetime="2020-03-23T12:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
@@ -768,7 +884,7 @@
 <p>“逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“<strong>Logistic Regression</strong>”。首先对<strong>二分类</strong>问题进行讨论，定义了<strong>新的损失函数</strong>，并对该损失函数的来源（<strong>极大似然估计</strong>）以及损失函数的<strong>梯度下降法</strong>进行了推导。</p>
 <p><strong>多分类</strong>问题是在二分类问题上的进一步延伸。</p>
         
-          <a class="article-more-a" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+          <a class="article-more-a" href="/2020/03/23/NG_ML_ch6/#more">more >></a>
         
       
 
@@ -803,7 +919,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/23/NG_ML_ch6/">展开全文 >></a>
         </p>
       
 
@@ -833,19 +949,22 @@
 
 
   
-    <article id="post-吴恩达机器学习ch4学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NG_ML_ch4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">吴恩达机器学习ch4学习笔记</a>
+      <a class="article-title" href="/2020/03/23/NG_ML_ch4/">吴恩达机器学习ch4学习笔记</a>
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/03/23/NG_ML_ch4/" class="archive-article-date">
   	<time datetime="2020-03-23T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
@@ -856,7 +975,7 @@
         <p>Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是<strong>多个特征</strong>。其中特征可以由多个单特征构成，也可由单特征的指数/对数/次方…等运算项构成。<br>假设函数取<strong>线性公式</strong>；损失函数仍然采用了<strong>均方差公式</strong>。除了用梯度下降法进行参数更新外，还提出了<strong>正规方程法</strong>，可以一步到位计算出参数，但也有其局限所在。</p>
 <p>针对数值特征，进一步提出能加快梯度下降法迭代速度的<strong>归一化</strong>概念。</p>
         
-          <a class="article-more-a" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+          <a class="article-more-a" href="/2020/03/23/NG_ML_ch4/#more">more >></a>
         
       
 
@@ -891,102 +1010,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-EfficientDet学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">EfficientDet学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="EfficientDet"><a href="#EfficientDet" class="headerlink" title="EfficientDet"></a>EfficientDet</h1><h2 id="现行构建目标检测模型的思路"><a href="#现行构建目标检测模型的思路" class="headerlink" title="现行构建目标检测模型的思路"></a>现行构建目标检测模型的思路</h2><p>随着迁移学习概念的兴起和普及，目标检测和图像分类这两个任务具有一定的相似性，因为可以将分类的网络，比如VGG、ResNet等，用来做特征提取器。这一部分，我们就称其为backbone。  </p>
-        
-          <a class="article-more-a" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Object Detection</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/23/NG_ML_ch4/">展开全文 >></a>
         </p>
       
 
@@ -1018,7 +1042,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1082,6 +1106,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">

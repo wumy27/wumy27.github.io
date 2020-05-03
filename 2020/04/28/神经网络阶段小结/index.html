@@ -6,27 +6,37 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch2学习笔记 | BevanWu的修炼小栈</title>
+  <title>神经网络阶段小结 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。">
+  <meta name="description" content="本文的内容主要涵盖本人的吴恩达机器学习Ch8 和 Ch9的学习笔记，以及结合周志华的《机器学习》进行反向传播偏导数公式和感知机模型的补充，最后添加介绍了能够加速神经网络参数优化的随机梯度下降算法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch2学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="神经网络阶段小结">
+<meta property="og:url" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。">
+<meta property="og:description" content="本文的内容主要涵盖本人的吴恩达机器学习Ch8 和 Ch9的学习笔记，以及结合周志华的《机器学习》进行反向传播偏导数公式和感知机模型的补充，最后添加介绍了能够加速神经网络参数优化的随机梯度下降算法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.ibb.co/KXkHKZV/1-1.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/A24UfTEV5DNOsgr.png">
-<meta property="og:image" content="https://i.ibb.co/3YTvTGR/1-3.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/sbL6Q3xumGp8Uag.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/GmDlFTIaq5RNfwL.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/1avzNyuelptO2bL.png">
-<meta property="article:published_time" content="2020-03-03T05:16:20.000Z">
-<meta property="article:modified_time" content="2020-04-02T11:27:55.887Z">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-6.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-and.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-or.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-not.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-nan.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-xnor.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/9-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/9-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/9-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/9-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/9-3.png">
+<meta property="article:published_time" content="2020-04-28T08:24:24.000Z">
+<meta property="article:modified_time" content="2020-05-03T03:25:09.281Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.ibb.co/KXkHKZV/1-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/img/8-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -170,56 +180,575 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-吴恩达机器学习ch2学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-神经网络阶段小结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch2学习笔记
+      神经网络阶段小结
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-04-28T08:24:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。</p>
+        <br>   
+本文的内容主要涵盖本人的吴恩达机器学习Ch8 和 Ch9的学习笔记，以及结合周志华的《机器学习》进行反向传播偏导数公式和感知机模型的补充，最后添加介绍了能够加速神经网络参数优化的随机梯度下降算法。    
+<br>
+
 <a id="more"></a>    
 
-<hr>
-<h1 id="1-回归问题解决逻辑"><a href="#1-回归问题解决逻辑" class="headerlink" title="1. 回归问题解决逻辑"></a>1. 回归问题解决逻辑</h1><p><img src="https://i.ibb.co/KXkHKZV/1-1.png" alt="图1 回归问题解决方法"></p>
-<h1 id="2-梯度下降法"><a href="#2-梯度下降法" class="headerlink" title="2. 梯度下降法"></a>2. 梯度下降法</h1><p>针对一组训练集，我们可以提出多个假设函数（Hypothesis）。一旦我们确定了假设函数的形式，其参数需要通过训练得到。如何得知参数是否合适，这就需要用损失函数（Cost Function）来验证我们构造的函数是否优良，<br>进而又对参数进行更新，形成闭环。</p>
-<p>损失函数J(θ)一般有多个自变量θ_i，其图形是一个高维图。我们一般不会以画图寻找最小值，而需要通过优化算法求取。</p>
-<p><img src="https://i.loli.net/2020/04/02/A24UfTEV5DNOsgr.png" alt="图2 含两个参数的损失函数图像（视频截图）"></p>
-<p>微积分中，一般通过对多元函数的自变量求偏导数，以向量形式呈现的各自变量偏导数即为梯度向量。多元函数在某一点的梯度向量即为此函数在该点增速最快（相同步长，函数值增加最大）的地方。由此可知，沿着梯度向量的方向，函数增加越快，更容易找到最大值。反之，逆着梯度向量的方向，则函数减小最快，更容易找到最小值。梯度下降法Gradient descent）便秉承了这一思想。</p>
-<p><img src="https://i.ibb.co/3YTvTGR/1-3.png" alt="图3 梯度下降法到达损失函数局部极小值（视频截图）"></p>
-<p>一个多元函数，可能有多个局部极小值，而梯度下降法有可能陷入局部最优解的问题。特别地，如果函数是一个凸函数（Convex Function）时，因只有一个局部最小值即全局最小值，梯度下降法总是能够收敛到全局最优解。</p>
-<p><img src="https://i.loli.net/2020/04/02/sbL6Q3xumGp8Uag.png" alt="图4 某凸函数图像（视频截图）"></p>
-<h2 id="2-1-梯度下降法的相关概念"><a href="#2-1-梯度下降法的相关概念" class="headerlink" title="2.1 梯度下降法的相关概念"></a>2.1 梯度下降法的相关概念</h2><p>假设函数：h_θ (x)，拟合样本及其标签使用的函数。<br>损失函数：J(θ)，评估假设函数拟合的程度。<br>学习率：α，每次迭代过程，每一步沿梯度负方向前进的长度。  </p>
-<ul>
-<li>学习率太小，梯度下降法到达最小值时间较长（收敛速度慢）。  </li>
-<li>学习率较大，梯度下降法可能无法收敛甚至发散。  </li>
-<li>接近局部最小值时，移动的幅度越来越小.  </li>
+<blockquote>
+<p>本文由markdown语言编写创建;<br>逻辑器神经元图使用<a href="https://app.diagrams.net/" target="_blank" rel="noopener">diagrams.net</a>绘制;<br>部分截图来自coursera-吴恩达机器学习课件.</p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#1">神经网络的表述</a>  <ul>
+<li><a href="#2">非线性假设</a>  </li>
+<li><a href="#3">神经元和大脑</a>  </li>
+<li><a href="#4">模型表示</a>  <ul>
+<li><a href="#5">前向传播</a>  </li>
+<li><a href="#6">特征与假设函数</a>  </li>
 </ul>
-<h2 id="2-2-梯度下降法的步骤"><a href="#2-2-梯度下降法的步骤" class="headerlink" title="2.2 梯度下降法的步骤"></a>2.2 梯度下降法的步骤</h2><p>Step1:初始化损失函数各参数值，求取损失函数当前所处位置的梯度<br>$$∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step2:更新损失函数的参数<br>$$θ_i:=θ_i-α ∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step3:重复Step2直到某次更新是所有参数变化值均小于ε，结束程序  </p>
-<h1 id="3-针对线性回归问题的编程实现-Matlab"><a href="#3-针对线性回归问题的编程实现-Matlab" class="headerlink" title="3. 针对线性回归问题的编程实现(Matlab)"></a>3. 针对线性回归问题的编程实现(Matlab)</h1><p>接下来我们通过Matlab对一个简单的线性回归问题做一个解决。代码思路如下：</p>
-<p><img src="https://i.loli.net/2020/04/02/GmDlFTIaq5RNfwL.png" alt="图5 代码思路"></p>
-<p>最终可视化结果如下：  </p>
-<p><img src="https://i.loli.net/2020/04/02/1avzNyuelptO2bL.png" alt="图6 模型可视化结果"></p>
-<p>编程实现 ：  </p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% Coded by MinYi Wu</span></span><br><span class="line">clear all;</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 生成训练集</span></span><br><span class="line">X=[<span class="number">80</span>:<span class="number">2</span>:<span class="number">120</span>];</span><br><span class="line">Y_<span class="built_in">true</span>=<span class="number">3.</span>*X+<span class="number">200</span>;</span><br><span class="line">[~,num]=<span class="built_in">size</span>(X);</span><br><span class="line"><span class="comment">%为标签加上默认偏差</span></span><br><span class="line">rng(<span class="string">'default'</span>)<span class="comment">%使每次运行程序生成的训练集相同</span></span><br><span class="line">Y=Y_<span class="built_in">true</span>+<span class="number">5.</span>*<span class="built_in">randn</span>(<span class="number">1</span>,num);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 假设函数为Y=th_0+th_1*X</span></span><br><span class="line"><span class="comment">%Y1= th_0+th_1.*X;%假设函数</span></span><br><span class="line"><span class="comment">%J=1/2/num*sum((Y1-Y).^2);%损失函数</span></span><br><span class="line">dJdt0=@(th_0,th_1) <span class="number">1</span>/num*sum(th_0+th_1.*X-Y);<span class="comment">%J对th_0的偏导数</span></span><br><span class="line">dJdt1=@(th_0,th_1) <span class="number">1</span>/num*sum((th_0+th_1.*X-Y).*X);<span class="comment">%J对th_1的偏导数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 模型训练</span></span><br><span class="line"><span class="comment">%初始化参数</span></span><br><span class="line">a0=<span class="number">0.0001</span>;a1=<span class="number">0.0001</span>;<span class="comment">%learning rate</span></span><br><span class="line"><span class="comment">%error为两次迭代偏差</span></span><br><span class="line">t0_0=<span class="number">0</span>;t0_1=<span class="number">0</span>;<span class="comment">%t0</span></span><br><span class="line">t1_0=<span class="number">0</span>;t1_1=<span class="number">0</span>;<span class="comment">%t1</span></span><br><span class="line">iter=<span class="number">0</span>;<span class="comment">%迭代次数</span></span><br><span class="line">e=<span class="number">100</span>;e1=<span class="number">100</span>;e0=<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">abs</span>(e1)&gt;<span class="number">1e-4</span>|<span class="built_in">abs</span>(e0)&gt;<span class="number">1e-4</span>)<span class="comment">%若过小则停止迭代</span></span><br><span class="line">    t1_1=t1_0-a1*double(dJdt1(t0_0,t1_0));</span><br><span class="line">    t0_1=t0_0-a0*double(dJdt0(t0_0,t1_0));</span><br><span class="line">    e0=t0_1-t0_0;e1=t1_1-t1_0;</span><br><span class="line">    t1_0=t1_1;t0_0=t0_1;</span><br><span class="line">    iter=iter+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Y2=t0_0+t1_0.*X;</span><br><span class="line">fprintf(<span class="string">'总共迭代%d次，其中th_0=%f，th_1=%f\n'</span>,iter,t0_0,t1_1)</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 绘图显示</span></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y_<span class="built_in">true</span>)</span><br><span class="line">title(<span class="string">'不含偏差的数据集'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y\_true'</span>)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y\_true=3*X+200'</span>)</span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y)</span><br><span class="line">title(<span class="string">'含偏差的数据集及其拟合直线'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y'</span>)</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="built_in">plot</span>(X,Y2)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y=Y\_true+5*randn(1,num)'</span>,<span class="string">'拟合直线'</span>)</span><br><span class="line"><span class="built_in">hold</span> off</span><br></pre></td></tr></table></figure>
+</li>
+<li><a href="#7">神经网络的直观理解</a>  <ul>
+<li><a href="#8">AND</a>  </li>
+<li><a href="#9">OR</a>  </li>
+<li><a href="#10">NOT</a>  </li>
+<li><a href="#11">Not And Not</a>  </li>
+<li><a href="#12">XOR</a>  </li>
+<li><a href="#13">XNOR</a>  </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="#14">多类别识别</a>  </li>
+</ul>
+</li>
+<li><a href="#神经网络的训练">神经网络的训练</a>  <ul>
+<li><a href="#损失函数">损失函数</a>    </li>
+<li><a href="#反向传播backpropagation">反向传播</a>  </li>
+<li><a href="#反向传播算法直观理解">反向传播算法直观理解</a>  </li>
+<li><a href="#梯度检验">梯度检验</a>  </li>
+<li><a href="#随机初始化">随机初始化</a>    </li>
+<li><a href="#参数优化">参数优化</a>  </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="#神经网络综合">神经网络综合</a>  </li>
+<li><a href="#补充">补充</a><ul>
+<li><a href="#感知机模型与神经网络">感知机模型与神经网络</a>  </li>
+<li><a href="#反向传播公式推导">反向传播公式推导</a></li>
+<li><a href="#随机梯度下降算法">随机梯度下降算法</a>  </li>
+</ul>
+</li>
+<li><a href="#小结">小结</a></li>
+</ul>
+<h2 id="1">神经网络的表述</h2>  
 
-<p>#参考</p>
+
+<h3 id="2">非线性假设</h3>    
+
+<p>逻辑回归的缺点：如果决策边界复杂，则假设函数也会变得十分复杂。这就导致需要进行组合的非线性特征过多，则需要计算和选择特征产生的计算量会非常大。    </p>
+<p>面对复杂的分类问题，我们可能需要很复杂的假设函数，如下图所示:  </p>
+<div align=center>
+    <img src="img/8-1.png" width="">
+   <br>
+   图8-1 复杂的决策边界
+</div>
+
+<br>
+
+<p>图中的决策边界是以由两个原始特征形成的复合特征组为自变量的假设函数形成的。</p>
+<p>复合特征组中的各元素是原始自变量的不同幂次乘积。例如若原始特征有$x_1,; \cdots ;x_{100}$，则其二次项就有$x_1^2,x_1x_2,; \cdots ;x_{100}^2$，共有$\frac{100^2}{2!}=5000(O(n^2))$个复合特征；而若是三次项就有$x_1^3,x_1x_2x_3,; \cdots ;x_{100}^3$，共有$\frac{100^3}{3!}=170000(O(n^3))$个复合特征。</p>
+<p>若是原始特征本就很多，例如计算机视觉中的图像识别，我们将一张$50x50$的图片，拉成$R^{2500}$的一个向量，若要生成任意两个像素间的复合特征，会有3百万的新特征。</p>
+<p>而这么多特征用logistic回归做假设函数，则难以进行特征选择和模型训练，所以我们需要开发新的模型。</p>
+<h3 id="3">神经元和大脑</h3>
+
+
+<p>视觉传感与触觉和听觉有极大关系。本节还介绍了一些关于大脑的一些研究。</p>
+<h3 id="4">模型表示</h3>
+
+<p>大脑神经元结构如下：  </p>
+<div align=center>
+    <img src="img/8-2.png" width="350">
+   <br>
+   图8-2 典型神经元结构
+</div>
+
+<br>
+
+
+<p>信息从上一个神经元的突触，传送到下一个神经元的树突，经过细胞核处理后，由轴突传送到突触进入下一个传送阶段。</p>
+<p>模仿大脑神经元的传送原理，我们开发了神经网络模型。</p>
+<p>大脑的基本单元是神经元，而神经网络的基本单元是逻辑元，其结构如下：  </p>
+<div align=center>
+    <img src="img/8-3.png" width="350">
+   <br>
+   图8-3 神经网络基本单元
+</div>
+
+<br>
+
+<p>其中，$x_1,x_2,x_3$是输入，$x_0$是模型内的偏置单元，橙色圆是处理单元，代表logistic函数。从输入$x_0,x_1,x_2,x_3$到处理单元间的流程线上是各输入单元的权重值$\theta$；从处理单元到输出$h_\theta(x)$上无运算，处理后直接输出。</p>
+<p>神经网络是其基本单元的合成版，如下图所示：  </p>
+<div align=center>
+    <img src="img/8-4.png" width="400">
+   <br>
+   图8-4 单隐藏层神经网络
+</div>
+
+<br>  
+
+
+
+<p>其中Layer1是输入层，Layer2是隐藏层，Layer3是输出层。</p>
+<p>规定：  </p>
+<ul>
+<li>$\Theta^{j}$代表从第j层到第j+1层单元的映射权重矩阵。若第j层有$s_{j}$个单元，而第j+1层有$s_{j+1}$个单元，则$\Theta^{(j)}$的维度为$s_{j+1}\times(s_j+1)$（1为第j层的偏置单元）。  <blockquote>
+<p>该处容易搞反，row为下一层的单元数，column为当前层单元数+1  </p>
+</blockquote>
+</li>
+<li>$a_i^{(j)}$代表第j层的第i个单元的激活函数。</li>
+<li>默认每一层的输入都增加一个偏置单元，取值为1。</li>
+</ul>
+<h4 id="5">前向传播FORWARD PROPAGATION</h4>
+
+
+<p>从输入层到输出层的各个单元的值以及损失函数的计算称为<strong>前向传播</strong>。</p>
+<p>针对一般的情形，若输入层单元数为$n$，隐含层层数为$m$，令$x=[x_0 ; x_1; \cdots x_n ]=a^{(1)}$，后续隐藏层的输出看做一个向量分别记作$a^{(j)},; j=2,; \cdots , m+1$，将输出层单元记作$a^{(m+2)}$。</p>
+<p><strong>前向传播算法流程</strong>：</p>
 <ol>
-<li>吴恩达-机器学习-ch2</li>
+<li>从输出层开始，每层在传播到下一层前都需要加入一个偏置单元$a_0^{(j)},; j=2,; \cdots , m+1$。</li>
+<li>后续各层的各单元的总输入为<br>$$z_i^{(j)}=\sum_{k=0}^{s_j}\Theta_{ik}^{(j-1)}x_k ; ,j=1,2,…m+2$$</li>
+<li>经过单元内的激励函数后的输出为<br>$$a_i^{(j)}=g(z_i^{(j)})$$</li>
+<li>最终输出层的输出为<br>$$h_\Theta(x)=a^{(m+2)}=g(z^{(m+2)})$$</li>
 </ol>
+<p>针对图8-4的神经网络而言，最终神经网络的输出为$h_\Theta(x)=a^{(1+2)}=g(z^{(3)})$</p>
+<h4 id="6">特征与假设函数</h4>
+
+<p>针对图8-4的神经网络，最终输出是用$a_1^{(2)},a_2^{(2)},a_3^{(2)}$做输入特征，以进行logistic回归分类，而$a_1^{(2)},a_2^{(2)},a_3^{(2)}$又是通过$x_1<del>x_3$做logistc回归得到的特征，因此能够生产复杂的假设函数。(这里的$x_1</del>x_3$可以更改为 $x_1x_2,x_2x_3,\cdots$ 等其他输入)</p>
+<div align=center>
+    <img src="img/8-6.png" width="400">
+   <br>
+   图8-5 另一种构造的神经网络
+</div>
+
+<br>  
+
+
+<p>如图8-5所示，Layer2是对Layer1的特征的复合组合，Layer3是对Layer2特征的复合组合，以此达到更好的假设函数。</p>
+<blockquote>
+<p>神经网络若有多个隐含层，可以采用各隐含层单元数相同的架构，也可以用单元数不同的架构，如图8-5所示。</p>
+</blockquote>
+<h2 id="7">神经网络的直观理解</h2>
+
+<p>对于logistic函数g(z)，其函数图像如下：  </p>
+<div align=center>
+    <img src="img/8-5.png" width="300">
+   <br>
+   图8-6 logistic函数
+</div>
+
+<br>
+
+<p>不妨设$x_1,x_2$为二元变量，取值为${0/1}$，则有下列逻辑运算器成立。</p>
+<h4 id="8">AND</h4>
+<div align=center>
+    <img src="img/8-and.png" width="200">
+   <br>
+   图8-and AND逻辑元神经网络实现
+</div>
+
+<br>
+
+
+<p>$$h_\theta(x)=g(-30+20x_1+20x_2)=g(z)$$<br>|  x1  |  x2  | AND  | g(z) |<br>| :–: | :–: | :–: | :–: |<br>|  0   |  0   |   0  |   0  |<br>|  0   |  1   |   0  |   0  |<br>|  1   |  0   |   0  |   0  |<br>|  1   |  1   |   1  |   1  |</p>
+<h4 id="9">OR</h4>
+
+<div align=center>
+    <img src="img/8-or.png" width="200">
+   <br>
+   图8-or OR逻辑元神经网络实现
+</div>
+
+<br>
+
+
+<p>$$h_\theta(x)=g(-10+20x_1+20x_2)=g(z)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">OR</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<h4 id="10">NOT</h4>
+<div align=center>
+    <img src="img/8-not.png" width="200">
+   <br>
+   图8-not NOT逻辑元神经网络实现
+</div>
+
+<br>
+
+
+<p>$$h_\theta(x)=g(10-20x_1)=g(z)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">NOT</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<h4 id="11">双非Not And Not</h4>  
+<div align=center>
+    <img src="img/8-nan.png" width="200">
+   <br>
+   图8-nan NOT AND NOT逻辑元神经网络实现
+</div>
+
+<br>
+
+<p>$$h_\theta(x)=g(10-20x_1-20x_2)=g(z)$$  </p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">N A N</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>双非运算器满足：$Not ;A ;and ;Not ;B = NOT( A ;OR; B )$</p>
+<h4 id="12">异或XOR</h4>  
+
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">XOR</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>异或运算器满足：A^B =  ( A &amp; ~ B) | (A &amp; ~ B )  </p>
+<p>其中^,&amp;,|,~分别是异或、与、或、非的逻辑符号；由此说明异或逻辑运算器可以由与或非逻辑运算器组合生成。</p>
+<h4 id="13">同或XNOR</h4>  
+<div align=center>
+    <img src="img/8-xnor.png" width="400">
+   <br>
+   图8-xnor XNOR逻辑元神经网络实现
+</div>
+
+<br>
+
+<p>$$h_\theta(x)=g(10-20x_1-20x_2)$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">x1</th>
+<th align="center">x2</th>
+<th align="center">XNOR</th>
+<th align="center">g(z)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>同或运算器满足：$A ; XNOR ; B = NOT( A ; XNOR; B )$</p>
+<h3 id="14">多类别识别</h3>
+
+<p>若是有多个类别$n$需要区分，我们可以在设置输出层单元数为$n$对应类别数，各个输出单元输出0或1，用输出one-hot向量来区分预测的种类。</p>
+<p>例如：预测类别数为4，则$h_\Theta(x)=[1;0;0;0 ]^T$代表行人，$h_\Theta(x)=[0;1;0;0 ]^T$代表小汽车，$h_\Theta(x)=[0;0;1;0 ]^T$代表摩托车，$h_\Theta(x)=[0;0;0;1 ]^T$代表货车。</p>
+<p>同时我们的训练集中的标签值也应该更改为相应的one-hot向量。</p>
+<p>针对1次输入，神经网络中的输出层的各个输出单元都会对应有一个0~1的输出。我们在最终预测时，可以将其中的输出最大值的输出单元置1，其余置0，以此得到一个预测类别。</p>
+<h2 id="神经网络的训练"><a href="#神经网络的训练" class="headerlink" title="神经网络的训练"></a>神经网络的训练</h2><h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>二分类问题的神经网络的输出层仅需1个神经元($y=0/1$)；K分类问题的神经网络的输出层的神经元需要K个($y \in R^K$)，用以输出k个不同的one-hot向量以区别K类。</p>
+<p>logistic回归带正则项的损失函数为：<br>$$J(\theta)=\frac{1}{m}\sum_{i-1}^{m}[-y^{(i)}log(h_\theta(x^{(i)}))-(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+\frac{\lambda}{2m}\sum_{j=1}^{n}\theta_j^2$$</p>
+<blockquote>
+<p>不对偏置项做正则惩罚。</p>
+</blockquote>
+<p>一个多分类问题的神经网络架构如下：  </p>
+<div align=center>
+    <img src="img/9-1.png" width="300">
+   <br>
+   图9-1 某多分类神经网络
+</div>
+
+<br>
+
+<p>规定：</p>
+<ul>
+<li>m：输入样本的个数</li>
+<li>K：类别数</li>
+<li>$L$：神经网络中的层数</li>
+<li>$s_l$：第$l$层的单元个数（不包括偏置单元）</li>
+<li>$(h_\Theta(x))_i$：$h_\Theta(x)$的第i个输出</li>
+</ul>
+<p>而神经网络带正则项的损失函数为<br>$$J(\Theta)=\frac{1}{m}\sum_{i-1}^{m}\sum_{k=1}^{K}[-y_k^{(i)}log(h_\Theta(x^{(i)}))<em>k-(1-y_k^{(i)})log(1-(h_\Theta(x^{(i)}))_k)]+\frac{\lambda}{2m}\sum</em>{l=1}^{L-1}\sum_{t=1}^{s_l}\sum_{j=1}^{s_{l+1}}\Theta_{jt}^2$$</p>
+<blockquote>
+<p>双重求和对神经网络的输出层各输出单元求和。<br>三重求和对神经网络所有的权重因子进行正则项求和。<br>$t=1-&gt;t=s_l$，$j=1-&gt;j=s_{l+1}$表示不对各层偏置项做正则惩罚  </p>
+</blockquote>
+<h3 id="反向传播Backpropagation"><a href="#反向传播Backpropagation" class="headerlink" title="反向传播Backpropagation"></a>反向传播Backpropagation</h3><p>神经网络的目标是$min_\Theta ;J(\Theta)$以得到最好的神经网络参数$\Theta$。</p>
+<p>因此我们需要完成计算$J(\Theta)$和$\frac{\partial}{\partial{\Theta_{i,j}}}J(\Theta)$。</p>
+<p><strong>反向传播算法</strong>：  </p>
+<ol>
+<li>导入m个训练样本${(x^(i),y^{(i)})},; i=1,\cdots,m$  </li>
+<li>对于训练样本t=1-&gt;m:  <ol>
+<li>对于所有i,j,l，设定$\Delta_{ij}^{(l)}=0$，即$\Delta^{(l)}=0$ </li>
+<li>$a^{(1)}=x^{(t)}$  </li>
+<li>前向传播计算所有的$a^{(l)},;l=2,\cdots,L$  </li>
+<li>$\delta^{(L)}=a^{(L)}-y^{(t)}$  </li>
+<li>$\delta^{(l)}=((\Theta^{(l)})^T\delta^{(l+1)}).<em>g’(z^{(l)})=((\Theta^{(l)})^T\delta^{(l+1)}).*a^{(l)}.</em>(1-a^{(l)}),l=L-1,\cdots,2$   </li>
+<li>$\Delta_{ij}^{(l)}:=\Delta_{ij}^{(l)}+a_j^{(l)}\delta_i^{(l+1)}$，即$\Delta^{(l)}:=\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T$  </li>
+<li>建立D矩阵：<ul>
+<li>$D_{i,j}^{(l)}=\frac{1}{m}(\Delta_{i,j}^{(l)}+\lambda\Theta_{i,j}^{(i)}),;if;j\not=0$</li>
+<li>$D_{i,j}^{(l)}=\frac{1}{m}(\Delta_{i,j}^{(l)},;if ;j=0$</li>
+</ul>
+</li>
+<li>得到$\Theta$的偏导数$\frac{\partial}{\partial{\Theta_{i,j}^{(l)}}}J(\Theta)=D_{i,j}^{(l)}$。</li>
+<li>对于所有i,j,l，用优化算法更新$\Theta_{i,j}^{(l)}$。</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>l:当前层在第几层<br>i,j:权重线的索引<br>.*:对应元素相乘</p>
+</blockquote>
+<p>其中2.6是对以该单元为起点的后层单元误差的反向加权求和，2.7对其求均值，非偏置项加上正则项，一次得到损失函数相对于各参数的偏导数，2.9中可以用梯度下降法等优化方法对参数矩阵进行优化。</p>
+<h3 id="反向传播算法直观理解"><a href="#反向传播算法直观理解" class="headerlink" title="反向传播算法直观理解"></a>反向传播算法直观理解</h3><p>是图8-4的神经网络的简化：若是仅考虑输出层和最后一层隐藏层，可认为是一个logistc回归函数。</p>
+<p>则输出单元的误差可以通过各连接权重的倒数分配给输入单元，由此层层传递，可以一直计算到第一个隐藏层的单元的误差，进而对权重矩阵进行更新。</p>
+<h3 id="梯度检验"><a href="#梯度检验" class="headerlink" title="梯度检验"></a>梯度检验</h3><p>因为神经网络的训练耗时较长，故我们应先验证自己编写的反向传播算法是否正确，即用数值梯度检验来验证梯度是否一直在下降，再做进一步训练。</p>
+<p>将参数矩阵$\Theta$平展为向量$\theta\in R^n$，再分别求损失函数$J(\theta)$相对与$\theta$各分量的偏导数，即$\frac{\partial}{\partial{\theta_{i}}}J(\theta)=\frac{J(\cdots ,\theta_i+\epsilon,\cdots)-J(\cdots ,\theta_i-\epsilon,\cdots)}{2\epsilon},; i=1,\cdots,n$，其中$\epsilon$是一个极小的实数。</p>
+<p>在一个样本输入后，计算反向传播计算得到神经网络模型的损失函数关于当前假设函数参数的偏导数矩阵，对其平展；然后使用上述数值计算方法也得到神经网络模型损失函数关于当前假设函数参数的偏导数矩阵。两者进行比较，若两个向量各对应元素数值相差较大，梯度下降算法有误需更正；若两者相近则可以进行关闭梯度检验进行下一步的模型训练。</p>
+<h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p>训练阶段，若将参数矩阵$\Theta$中元素全设为0，此法不可取，原因是：在前向传播的过程中，若是第i-&gt;i+1层的权重全为0，则第i+1层所有单元的值均相等（等于0），后面的层的单元值也都为0，反向传播过程，误差对各参数偏导也都相等，无法区分不同参数的权重，难以完成有效的神经网络训练，所以我们需要进行随机初始化。</p>
+<p>若要对每个参数限制边界，并对他们进行均匀分布初始化，则可以用以下matlab/octave代码：        </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%i:箭头右边的单元</span></span><br><span class="line"><span class="comment">%j:箭头左边的单元</span></span><br><span class="line"><span class="comment">%l:第l层</span></span><br><span class="line"><span class="comment">%INIT_EPSILON:均匀分布的边界</span></span><br><span class="line">Theta_ij_l=<span class="built_in">rand</span>(s_ladd1,s_l+<span class="number">1</span>)*(<span class="number">2</span>*INIT_EPSILON)-INIT_EPSILON</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h3><p>我们前面接触的线性回归和logistic回归均是由梯度下降法进行参数优化，因为其的假设函数是凸函数，且训练步数少。但神经网络的假设函数往往比较复杂，参数多，而梯度下降算法除了不一定能达到全局最优外，还有另一问题是计算时间过长。</p>
+<blockquote>
+<p>因为要在全部训练数据上最小化损失，所以损失函数是在所有训练数据上的损失之和。因此，在每轮迭代都需全部计算数据损失和海量数据情况下，是很耗时的。</p>
+</blockquote>
+<p>一个可行的参数优化算法是视频中提到的，通过将参数矩阵平展得到一个向量，调用matlab/octave中的fminc优化算法来求解最优解后，重新反平展为权重矩阵。</p>
+<p>此外，也有其他的优化算法，例如随机梯度下降算法SGD(stochastic gradient descent)。该算法优化的不是在全部训练数据上的损失函数，而是每轮迭代中随机优化的某一些数据上的损失函数（正如在<a href="#反向传播Backpropagation">反向传播Backpropagation</a>写的反向传播算法），因此加快了训练速度。而又因其随机局部性，故而可能产生“无法达到局部最优”的问题。我们将在本文最后介绍<a href="#随机梯度下降算法">随机梯度下降算法</a>。</p>
+<h2 id="神经网络综合"><a href="#神经网络综合" class="headerlink" title="神经网络综合"></a>神经网络综合</h2><p>如果你要训练一个神经网络模型，</p>
+<ol>
+<li>需要选择一个神经网络结构：  <ul>
+<li>输入层单元个数：需要对应一个样本输入的特征维数  </li>
+<li>输出层单元个数：需要对应分类的类别数  </li>
+<li>隐藏层单元个数：一般认为越多越好  </li>
+<li>隐藏层层数：默认有1个，若多个隐藏层，推荐各层的单元格数相同  </li>
+</ul>
+</li>
+<li>其次训练神经网络：  <ul>
+<li>随机初始化权重</li>
+<li>利用前向传播计算所有输入样本的$h_\Theta(x)$</li>
+<li>计算$J(\Theta)$</li>
+<li>反向传播计算$J(\Theta)$关于$\Theta$的偏导数</li>
+<li>梯度检验上一步得到的偏导数</li>
+<li>使用优化算法最小化代价函数，得到模型参数$\Theta$  </li>
+</ul>
+</li>
+</ol>
+<p>训练时使用到所有的样本，每输入一个样本就要使用一次前向传播和一次反向传播，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i &#x3D; 1:m,</span><br><span class="line">   Perform forward propagation and backpropagation using example (x(i),y(i))</span><br><span class="line">   (Get activations a(l) and delta terms d(l) for l &#x3D; 2,...,L</span><br></pre></td></tr></table></figure>
+
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="感知机模型与神经网络"><a href="#感知机模型与神经网络" class="headerlink" title="感知机模型与神经网络"></a>感知机模型与神经网络</h3><p>感知机模型：<br>输入特征为$x \in R^n$，输出为$y \in {+1,-1}$，假设函数为$h_w(x)=sign(w^Tx+b)$，其中$w$和$b$为感知机模型参数，$sign(.)$为符号参数。</p>
+<p>则<br>$$<br>h_w(x)=\begin{cases}<br>+1&amp; w^Tx+b &gt;= 0\<br>-1&amp; w^Tx+b &lt; 0<br>\end{cases}<br>$$</p>
+<div align=center>
+    <img src="img/9-2.png" width="100">
+   <br>
+   图9-2 三种模型函数的图像
+</div>
+
+<br>
+
+<p>它与线性回归、logistic回归均可作为神经元的转换函数。但是一般选取logistic模型作为激活函数：  </p>
+<ul>
+<li>线性函数做激活函数，相当于无激活单元，因此无法构造复杂的特征，隐含层对输入层输入的特征加工依旧是其线性组合，此时的神经网络相当于线性回归模型。  </li>
+<li>感知器做激活函数，因为隐藏层各单元值只有离散的两个值，不容易找到合适的解。（思想类同于参数矩阵应该随机初始化不能全置为0）  </li>
+<li>Logistic性能优良，常作为神经网络的激活函数。</li>
+</ul>
+<p>感知机模型只能完成线性可分的数据集的学习，对于线性不可分的数据集也可像我们在<a href="#神经网络直观理解">神经网络直观理解</a>中提到的方法，完成非线性的决策边界。</p>
+<blockquote>
+<p>感知机模型中的$b$相当于logistic回归中的偏置项，两个模型具有很大的相似性。</p>
+</blockquote>
+<p>特别地，周志华《机器学习》一书中的神经网络是以各层神经元存在阈值的做法做前向传播和后项传播的处理。其实按照吴恩达的讲法也是可以的，就是相当于把各层各个单元的偏置项归一成各层的唯一偏置项，以此简化了模型的表达。</p>
+<h3 id="反向传播公式推导"><a href="#反向传播公式推导" class="headerlink" title="反向传播公式推导"></a>反向传播公式推导</h3><p>两层神经网络BP学习算法各参数梯度计算和推导见周志华《机器学习》一书P102~P104。这里做简要的纯数学推导。</p>
+<div align=center>
+    <img src="img/9-4.png" width="300">
+   <br>
+   图9-3 双层神经网络模型
+</div>
+<br>
+
+<div align=center>
+    <img src="img/9-5.png" width="600">
+</div>
+<br>
+
+<blockquote>
+<p>这里是直接以在word上建立的公式做pdf截图  </p>
+</blockquote>
+<p>神经网络最后的参数更新，引入超参数$\eta$（注意控制以防震荡或收敛过慢），每个样本均进行一次更新，此谓随机梯度下降算法。接下来，我们介绍随机梯度下降算法。  </p>
+<h3 id="随机梯度下降算法"><a href="#随机梯度下降算法" class="headerlink" title="随机梯度下降算法"></a>随机梯度下降算法</h3><p>模型内部有些参数，是用来计算测试集中目标值$Y$的真实值和由假设函数得到的预测值$\hat{Y}$的偏差程度的，基于这些参数，就形成了损失函数$J(\theta)$。</p>
+<p>优化算法的功能，是通过改善训练方式，来最小化(或最大化)损失函数$J(\theta)$，以此找到最优的$\theta$和其对应的假设函数。</p>
+<p>梯度下降法又称批量梯度下降法，它会计算整个训练集的梯度，但只会进行一次更新（累积各次训练的梯度值求均值），因此在处理大型数据集时速度很慢且难以控制，甚至导致内存溢出。其次，梯度下降法权重更新的快慢是由学习率η决定的，并且可以在凸面误差曲面中收敛到全局最优值，但在非凸曲面中可能趋于局部最优值。另外，梯度下降法在训练大型数据集时存在冗余的权重更新。</p>
+<p>批量梯度下降的上述问题在随机梯度下降方法中得到了解决。</p>
+<p><strong>随机梯度下降算法</strong>(SDG)</p>
+<p>随机梯度下降算法（Stochastic gradient descent，SGD）对每个训练样本进行参数更新，每次执行都进行一次更新，且执行速度更快。</p>
+<p>频繁的更新使得参数间具有高方差，损失函数会以不同的强度波动，有助于我们发现新的和可能更优的局部最小值。但问题同样存在，由于频繁的更新和波动，最终将收敛到最小限度，但同时因波动频繁存在超调量（学习曲线有多处”山峰”），我们可能无法给出损失函数的最小值。</p>
+<div align=center>
+    <img src="img/9-3.png" width="300">
+   <br>
+   图9-4 采用SGD的学习曲线
+</div>
+<br>  
+
+<p>虽然已经表明，当缓慢降低学习率η时，标准梯度下降的收敛模式与SGD的模式相同。<br>另一种称为“小批量梯度下降”的变体，则可以解决高方差的参数更新和不稳定收敛的问题。</p>
+<p><strong>小批量梯度下降</strong>(Mini-Batch Gradient Descent, MBGD)</p>
+<p>为了避免SGD和标准梯度下降中存在的问题，一个改进方法为小批量梯度下降（Mini Batch Gradient Descent），因为对每个批次中的n个训练样本，这种方法只执行一次更新。  </p>
+<p>使用小批量梯度下降的优点是：  </p>
+<p>1) 可以减少参数更新的波动，最终得到效果更好和更稳定的收敛。<br>2) 还可以使用最新的深层学习库中通用的矩阵优化方法，使计算小批量数据的梯度更加高效。<br>3) 通常来说，小批量样本的大小范围是从50到256，可以根据实际问题而有所不同。<br>4) 在训练神经网络时，通常都会选择小批量梯度下降算法。  </p>
+<p><strong>伪代码</strong>：<br>设定假设函数的参数为$\theta_j,;j=1 ; \cdots ;n$，损失函数为$J(\theta)$，∇(θ)为损失函数对各参数的偏导数向量。训练集中样本为$(x(i),y(i)),;i=1 ; \cdots ;m$。</p>
+<p>梯度下降法伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Repeat until convergence&#123;</span><br><span class="line">   sum&#x3D;0</span><br><span class="line">   for i&#x3D;1 to m,&#123;</span><br><span class="line">      sum+&#x3D;J(θ;x(i);y(i))</span><br><span class="line">   &#125;   </span><br><span class="line">   for j&#x3D;1 to n,&#123;</span><br><span class="line">      θ_j &#x3D; θ_j − η&#x2F;m ⋅ ∇(θ)_j × sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>随机梯度下降算法伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Repeat until convergence&#123;</span><br><span class="line">   for i&#x3D;1 to m,&#123;</span><br><span class="line">      for j&#x3D;1 to n,&#123;</span><br><span class="line">         θ_j &#x3D; θ_j − η ⋅ ∇(θ)_j × J(θ;x(i);y(i))</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>小批量梯度下降算法伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#设小批量为k</span><br><span class="line">Repeat until convergence&#123;</span><br><span class="line">   for t&#x3D;0 to floor(m&#x2F;k)-1,&#123;</span><br><span class="line">      sum&#x3D;0</span><br><span class="line">      for i&#x3D;t*k+1 to t*k+k,&#123;</span><br><span class="line">         sum+&#x3D;J(θ;x(i);y(i))</span><br><span class="line">      &#125;   </span><br><span class="line">      for j&#x3D;1 to n,&#123;</span><br><span class="line">         θ_j &#x3D; θ_j − η&#x2F;m ⋅ ∇(θ)_j × sum</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Ch8 主要是对神经网络模型的结构的阐述，先引出logistic回归模型的不足：对复杂的<strong>非线性假设</strong>模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络<strong>模型的组成</strong>、<strong>前向传播算法</strong>，并就网络为何能<strong>构造复杂的特征</strong>做出了解释，并提供了<strong>简单逻辑运算器</strong>（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对<strong>多分类神经网络</strong>的构建方法。</p>
+<p>Ch9 是对神经网络模型的进一步深入，对神经网络<strong>模型的训练</strong>进行展开：首先类比logistic回归模型提出了神经网络模型的<strong>损失函数</strong>，并且叙述了用于求解最佳参数所用的<strong>反向传播算法</strong>。在训练网络前，首先需要使用<strong>梯度检验</strong>的方法验证反向传播算法是否正确。在正式训练时，初始化参数矩阵需使用<strong>随机初始化</strong>方法。最后对Ch8 和Ch9 的神经网络模型做了综合性的<strong>总结</strong>。</p>
+<p>最后我们补充介绍了<strong>感知机模型与神经网络</strong>的相似之处，并对<strong>随机梯度下降法</strong>与<strong>小批量梯度下降法</strong>进行了简要说明，并提供其<strong>伪代码</strong>。</p>
+<h2 id="参考与延伸阅读"><a href="#参考与延伸阅读" class="headerlink" title="参考与延伸阅读"></a>参考与延伸阅读</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/27449596" target="_blank" rel="noopener">一文看懂各种神经网络优化算法-知乎</a></li>
+<li><a href="https://www.cnblogs.com/lliuye/p/9451903.html" target="_blank" rel="noopener">(BGD)、(SGD)、(MBGD)的理解-博客园</a></li>
+</ul>
 
       
 
@@ -321,7 +850,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/03/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/28/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%98%B6%E6%AE%B5%E5%B0%8F%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -335,18 +864,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          计算机视觉
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">深度学习计算</div>
+    <a href="/2020/04/27/NG_ML_ch8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习ch8学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -373,7 +893,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-回归问题解决逻辑"><span class="toc-number">1.</span> <span class="toc-text">1. 回归问题解决逻辑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-梯度下降法"><span class="toc-number">2.</span> <span class="toc-text">2. 梯度下降法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-梯度下降法的相关概念"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 梯度下降法的相关概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-梯度下降法的步骤"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 梯度下降法的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-针对线性回归问题的编程实现-Matlab"><span class="toc-number">3.</span> <span class="toc-text">3. 针对线性回归问题的编程实现(Matlab)</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1"><span class="toc-number">1.1.</span> <span class="toc-text">神经网络的表述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">1.1.1.</span> <span class="toc-text">非线性假设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3"><span class="toc-number">1.1.2.</span> <span class="toc-text">神经元和大脑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4"><span class="toc-number">1.1.3.</span> <span class="toc-text">模型表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">前向传播FORWARD PROPAGATION</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">特征与假设函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7"><span class="toc-number">1.2.</span> <span class="toc-text">神经网络的直观理解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">AND</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">OR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">NOT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">双非Not And Not</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12"><span class="toc-number">1.2.0.5.</span> <span class="toc-text">异或XOR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13"><span class="toc-number">1.2.0.6.</span> <span class="toc-text">同或XNOR</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14"><span class="toc-number">1.2.1.</span> <span class="toc-text">多类别识别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神经网络的训练"><span class="toc-number">1.3.</span> <span class="toc-text">神经网络的训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#损失函数"><span class="toc-number">1.3.1.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向传播Backpropagation"><span class="toc-number">1.3.2.</span> <span class="toc-text">反向传播Backpropagation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向传播算法直观理解"><span class="toc-number">1.3.3.</span> <span class="toc-text">反向传播算法直观理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度检验"><span class="toc-number">1.3.4.</span> <span class="toc-text">梯度检验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机初始化"><span class="toc-number">1.3.5.</span> <span class="toc-text">随机初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数优化"><span class="toc-number">1.3.6.</span> <span class="toc-text">参数优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神经网络综合"><span class="toc-number">1.4.</span> <span class="toc-text">神经网络综合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充"><span class="toc-number">1.5.</span> <span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#感知机模型与神经网络"><span class="toc-number">1.5.1.</span> <span class="toc-text">感知机模型与神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向传播公式推导"><span class="toc-number">1.5.2.</span> <span class="toc-text">反向传播公式推导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机梯度下降算法"><span class="toc-number">1.5.3.</span> <span class="toc-text">随机梯度下降算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">1.6.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考与延伸阅读"><span class="toc-number">1.7.</span> <span class="toc-text">参考与延伸阅读</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -444,6 +964,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">

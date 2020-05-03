@@ -6,28 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch10学习笔记 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch2学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch10 是对假设函数在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数泛化更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用二划分（70% train 30% test）&#x2F; 三划分（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于高方差&#x2F;高偏差问题，可认为其分别对应于过拟合&#x2F;欠拟合，并对开篇的解决方">
+  <meta name="description" content="Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch10学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/index.html">
+<meta property="og:title" content="吴恩达机器学习ch2学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/03/03/NG_ML_ch2/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch10 是对假设函数在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数泛化更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用二划分（70% train 30% test）&#x2F; 三划分（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于高方差&#x2F;高偏差问题，可认为其分别对应于过拟合&#x2F;欠拟合，并对开篇的解决方">
+<meta property="og:description" content="Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-7.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10.1.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-5.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-6.png">
-<meta property="article:published_time" content="2020-04-25T10:27:24.000Z">
-<meta property="article:modified_time" content="2020-04-28T03:24:03.961Z">
+<meta property="og:image" content="https://i.ibb.co/KXkHKZV/1-1.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/A24UfTEV5DNOsgr.png">
+<meta property="og:image" content="https://i.ibb.co/3YTvTGR/1-3.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/sbL6Q3xumGp8Uag.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/GmDlFTIaq5RNfwL.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/1avzNyuelptO2bL.png">
+<meta property="article:published_time" content="2020-03-03T05:16:20.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:42:23.704Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/img/10-3.png">
+<meta name="twitter:image" content="https://i.ibb.co/KXkHKZV/1-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -171,130 +170,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-吴恩达机器学习ch10" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-NG_ML_ch2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch10学习笔记
+      吴恩达机器学习ch2学习笔记
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/" class="archive-article-date">
-  	<time datetime="2020-04-25T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/03/03/NG_ML_ch2/" class="archive-article-date">
+  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch10 是对<strong>假设函数</strong>在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数<strong>泛化</strong>更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用<strong>二划分</strong>（70% train 30% test）/ <strong>三划分</strong>（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于<strong>高方差/高偏差</strong>问题，可认为其分别对应于<strong>过拟合/欠拟合</strong>，并对开篇的解决方案归类，日后可相应针对特定的场景选择方案进行解决。</p>
-<a id="more"></a>
+        <p>Ch2主要是对机器学习中的回归问题进行建模，以及对损失函数相关问题进行了数学上的推导分析。本篇笔记除了对以上进行归纳外，也用Matlab实现了线性回归问题的解决。</p>
+<a id="more"></a>    
 
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#评估假设函数">评估假设函数</a>      <ul>
-<li><a href="#泛化误差">泛化误差</a>      </li>
-<li><a href="#模型选择">模型选择</a>      </li>
-<li><a href="#高偏差高方差问题待补充">高偏差&amp;高方差问题(待补充)</a>      </li>
-<li><a href="#正则化">正则化</a>      </li>
-<li><a href="#学习曲线">学习曲线</a>     </li>
-</ul>
-</li>
-<li><a href="#接下来的工作">接下来的工作</a></li>
-</ul>
-<h2 id="评估假设函数"><a href="#评估假设函数" class="headerlink" title="评估假设函数"></a>评估假设函数</h2><p>对于预测不准的问题，解决方法有：</p>
-<ol>
-<li>增加数据集样本</li>
-<li>减少假设函数中的特征</li>
-<li>增加假设函数中的特征</li>
-<li>尝试增加特征的非线性组合</li>
-<li>增大正则项$\lambda$</li>
-<li>减小正则项$\lambda$</li>
-</ol>
-<p>但假设函数若在训练样本中拟合误差小，仍有可能因为<strong>过拟合</strong>在预测新样本时出现较大的失误。因此，有了将训练样本分类的想法：70%样本用于做训练集，用于评估训练效果；30%样本用于做测试集，用于评估泛化效果。</p>
-<blockquote>
-<p>注意：划分训练/测试集，需要针对原样本是否有序而进行乱序处理。</p>
-</blockquote>
-<p>因此新的步骤是：</p>
-<ol>
-<li>在训练集上训练得到使得$J_{train}(\Theta)$最小化的$\Theta$</li>
-<li>计算测试集误差$J_{test}(\Theta)$</li>
-</ol>
-<h3 id="泛化误差"><a href="#泛化误差" class="headerlink" title="泛化误差"></a>泛化误差</h3><blockquote>
-<p>$m_{test}$是测试集的样本个数</p>
-</blockquote>
-<p>对于回归问题<br>$$J_{test}(\Theta)=\frac1{2m_{test}}\sum_{i=1}^{m_{test}}(h_{\Theta}(x^{(i)}<em>{test})-y^{(i)}</em>{test})^2$$</p>
-<p>对于分类问题<br>$$err(h_{\Theta}(x^{(i)}),y^{(i)})=\left {<br>    \begin{aligned}<br>        &amp;1, ;if; h_{\Theta}(x^{(i)})\leq 0.5; and; y^{(i)}=0 ;or; h_{\Theta}(x^{(i)})&lt;0.5 ;and; y^{(i)}=1\<br>        &amp;0, ;otherwise<br>    \end{aligned}<br>    \right .<br>    $$</p>
-<p>$$J_{test}(\Theta)=\frac{1}{m_{test}}\sum_{i=1}^{m_{test}}err(h_{\Theta}(x^{(i)}<em>{test}),y^{(i)}</em>{test})$$</p>
-<h3 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h3><p>因为在训练集上进行训练，故算法能够很好拟合训练集，其训练误差往往会小于在其他数据集上的预测误差。对此模型直接拿去在测试集上做预测往往效果不佳。</p>
-<p>故我们想到要做模型的选择。</p>
-<p>一个典型的例子是高次特征假设函数的选取。</p>
-<p>将样本分为3个集合：</p>
+<hr>
+<h1 id="1-回归问题解决逻辑"><a href="#1-回归问题解决逻辑" class="headerlink" title="1. 回归问题解决逻辑"></a>1. 回归问题解决逻辑</h1><p><img src="https://i.ibb.co/KXkHKZV/1-1.png" alt="图1 回归问题解决方法"></p>
+<h1 id="2-梯度下降法"><a href="#2-梯度下降法" class="headerlink" title="2. 梯度下降法"></a>2. 梯度下降法</h1><p>针对一组训练集，我们可以提出多个假设函数（Hypothesis）。一旦我们确定了假设函数的形式，其参数需要通过训练得到。如何得知参数是否合适，这就需要用损失函数（Cost Function）来验证我们构造的函数是否优良，<br>进而又对参数进行更新，形成闭环。</p>
+<p>损失函数J(θ)一般有多个自变量θ_i，其图形是一个高维图。我们一般不会以画图寻找最小值，而需要通过优化算法求取。</p>
+<p><img src="https://i.loli.net/2020/04/02/A24UfTEV5DNOsgr.png" alt="图2 含两个参数的损失函数图像（视频截图）"></p>
+<p>微积分中，一般通过对多元函数的自变量求偏导数，以向量形式呈现的各自变量偏导数即为梯度向量。多元函数在某一点的梯度向量即为此函数在该点增速最快（相同步长，函数值增加最大）的地方。由此可知，沿着梯度向量的方向，函数增加越快，更容易找到最大值。反之，逆着梯度向量的方向，则函数减小最快，更容易找到最小值。梯度下降法Gradient descent）便秉承了这一思想。</p>
+<p><img src="https://i.ibb.co/3YTvTGR/1-3.png" alt="图3 梯度下降法到达损失函数局部极小值（视频截图）"></p>
+<p>一个多元函数，可能有多个局部极小值，而梯度下降法有可能陷入局部最优解的问题。特别地，如果函数是一个凸函数（Convex Function）时，因只有一个局部最小值即全局最小值，梯度下降法总是能够收敛到全局最优解。</p>
+<p><img src="https://i.loli.net/2020/04/02/sbL6Q3xumGp8Uag.png" alt="图4 某凸函数图像（视频截图）"></p>
+<h2 id="2-1-梯度下降法的相关概念"><a href="#2-1-梯度下降法的相关概念" class="headerlink" title="2.1 梯度下降法的相关概念"></a>2.1 梯度下降法的相关概念</h2><p>假设函数：h_θ (x)，拟合样本及其标签使用的函数。<br>损失函数：J(θ)，评估假设函数拟合的程度。<br>学习率：α，每次迭代过程，每一步沿梯度负方向前进的长度。  </p>
 <ul>
-<li>60%训练集(traininng set)</li>
-<li>20%交叉验证集(cross validation set)</li>
-<li>20%测试集(test set)</li>
+<li>学习率太小，梯度下降法到达最小值时间较长（收敛速度慢）。  </li>
+<li>学习率较大，梯度下降法可能无法收敛甚至发散。  </li>
+<li>接近局部最小值时，移动的幅度越来越小.  </li>
 </ul>
-<p>模型选择步骤：</p>
+<h2 id="2-2-梯度下降法的步骤"><a href="#2-2-梯度下降法的步骤" class="headerlink" title="2.2 梯度下降法的步骤"></a>2.2 梯度下降法的步骤</h2><p>Step1:初始化损失函数各参数值，求取损失函数当前所处位置的梯度<br>$$∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step2:更新损失函数的参数<br>$$θ_i:=θ_i-α ∂/(∂θ_i ) J(θ_0,θ_1,…,θ_n ),i=0,1,…,n$$<br>Step3:重复Step2直到某次更新是所有参数变化值均小于ε，结束程序  </p>
+<h1 id="3-针对线性回归问题的编程实现-Matlab"><a href="#3-针对线性回归问题的编程实现-Matlab" class="headerlink" title="3. 针对线性回归问题的编程实现(Matlab)"></a>3. 针对线性回归问题的编程实现(Matlab)</h1><p>接下来我们通过Matlab对一个简单的线性回归问题做一个解决。代码思路如下：</p>
+<p><img src="https://i.loli.net/2020/04/02/GmDlFTIaq5RNfwL.png" alt="图5 代码思路"></p>
+<p>最终可视化结果如下：  </p>
+<p><img src="https://i.loli.net/2020/04/02/1avzNyuelptO2bL.png" alt="图6 模型可视化结果"></p>
+<p>编程实现 ：  </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% Coded by MinYi Wu</span></span><br><span class="line">clear all;</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 生成训练集</span></span><br><span class="line">X=[<span class="number">80</span>:<span class="number">2</span>:<span class="number">120</span>];</span><br><span class="line">Y_<span class="built_in">true</span>=<span class="number">3.</span>*X+<span class="number">200</span>;</span><br><span class="line">[~,num]=<span class="built_in">size</span>(X);</span><br><span class="line"><span class="comment">%为标签加上默认偏差</span></span><br><span class="line">rng(<span class="string">'default'</span>)<span class="comment">%使每次运行程序生成的训练集相同</span></span><br><span class="line">Y=Y_<span class="built_in">true</span>+<span class="number">5.</span>*<span class="built_in">randn</span>(<span class="number">1</span>,num);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 假设函数为Y=th_0+th_1*X</span></span><br><span class="line"><span class="comment">%Y1= th_0+th_1.*X;%假设函数</span></span><br><span class="line"><span class="comment">%J=1/2/num*sum((Y1-Y).^2);%损失函数</span></span><br><span class="line">dJdt0=@(th_0,th_1) <span class="number">1</span>/num*sum(th_0+th_1.*X-Y);<span class="comment">%J对th_0的偏导数</span></span><br><span class="line">dJdt1=@(th_0,th_1) <span class="number">1</span>/num*sum((th_0+th_1.*X-Y).*X);<span class="comment">%J对th_1的偏导数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%% 模型训练</span></span><br><span class="line"><span class="comment">%初始化参数</span></span><br><span class="line">a0=<span class="number">0.0001</span>;a1=<span class="number">0.0001</span>;<span class="comment">%learning rate</span></span><br><span class="line"><span class="comment">%error为两次迭代偏差</span></span><br><span class="line">t0_0=<span class="number">0</span>;t0_1=<span class="number">0</span>;<span class="comment">%t0</span></span><br><span class="line">t1_0=<span class="number">0</span>;t1_1=<span class="number">0</span>;<span class="comment">%t1</span></span><br><span class="line">iter=<span class="number">0</span>;<span class="comment">%迭代次数</span></span><br><span class="line">e=<span class="number">100</span>;e1=<span class="number">100</span>;e0=<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">abs</span>(e1)&gt;<span class="number">1e-4</span>|<span class="built_in">abs</span>(e0)&gt;<span class="number">1e-4</span>)<span class="comment">%若过小则停止迭代</span></span><br><span class="line">    t1_1=t1_0-a1*double(dJdt1(t0_0,t1_0));</span><br><span class="line">    t0_1=t0_0-a0*double(dJdt0(t0_0,t1_0));</span><br><span class="line">    e0=t0_1-t0_0;e1=t1_1-t1_0;</span><br><span class="line">    t1_0=t1_1;t0_0=t0_1;</span><br><span class="line">    iter=iter+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Y2=t0_0+t1_0.*X;</span><br><span class="line">fprintf(<span class="string">'总共迭代%d次，其中th_0=%f，th_1=%f\n'</span>,iter,t0_0,t1_1)</span><br><span class="line"></span><br><span class="line"><span class="comment">%% 绘图显示</span></span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y_<span class="built_in">true</span>)</span><br><span class="line">title(<span class="string">'不含偏差的数据集'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y\_true'</span>)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y\_true=3*X+200'</span>)</span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">scatter</span>(X,Y)</span><br><span class="line">title(<span class="string">'含偏差的数据集及其拟合直线'</span>)</span><br><span class="line">xlabel(<span class="string">'X'</span>),ylabel(<span class="string">'Y'</span>)</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="built_in">plot</span>(X,Y2)</span><br><span class="line"><span class="built_in">legend</span>(<span class="string">'Y=Y\_true+5*randn(1,num)'</span>,<span class="string">'拟合直线'</span>)</span><br><span class="line"><span class="built_in">hold</span> off</span><br></pre></td></tr></table></figure>
+
+<p>#参考</p>
 <ol>
-<li>对训练集针对不同高次假设函数进行训练，得到各次项假设函数的$\Theta$.</li>
-<li>分别对第一步得到的各高次项假设函数在交叉验证集中求取损失，选出损失最小的那个高次项假设函数。</li>
-<li>用第二步选出的假设函数对测试集评估泛化误差。</li>
+<li>吴恩达-机器学习-ch2</li>
 </ol>
-<h3 id="高偏差-amp-高方差问题-待补充"><a href="#高偏差-amp-高方差问题-待补充" class="headerlink" title="高偏差&amp;高方差问题(待补充)"></a>高偏差&amp;高方差问题(待补充)</h3><p><a href="https://blog.csdn.net/simple_the_best/article/details/71167786" target="_blank" rel="noopener">理解机器学习中的偏差与方差-CSDN</a></p>
-<p><a href="https://blog.csdn.net/u010626937/article/details/74435109" target="_blank" rel="noopener">什么是高/低方差、高/低偏差-CSDN</a></p>
-<p>学习算法的泛化误差可分为三个部分：偏差(bias)，方差(variance)，噪声(noise)。噪声属于不可约减的误差，所以在估计学习算法性能时，我们主要关注偏差与方差。</p>
-<p><strong>偏差</strong>：预测值与真实值之间的差距。偏差越大，则预测的结果越偏离真实数据集标签。</p>
-<p><strong>方差</strong>：预测值的变化范围，即样本内各点预测值的离散程度。方差越大，预测的结果就越分散。</p>
-<p>预测函数的偏差&amp;方差形象理解：（图中红色圆心为真实标签，蓝色点为各样本点预测值）<br><img src="img/10-3.png" alt="10-3"></p>
-<p>偏差和方差随模型复杂度的变化关系如下图：<br><img src="img/10-7.png" alt="10-7"></p>
-<p>所以高偏差和高方差可与欠拟合和过拟合联系起来，高偏差对应于欠拟合，高方差对应于过拟合。</p>
-<p>随着变量幂次的升高，训练误差越来越小，而泛化误差（$J_{cv}(\Theta)$或$J_{test}(\Theta)$）往往先降低，再升高。</p>
-<p>如下图所示<br><img src="img/10.1.png" alt="10.1.png"></p>
-<p>由图可看出具体的趋势是：</p>
-<ul>
-<li><p>$J_{cv}(\Theta) \approx J_{test}(\Theta)$</p>
-</li>
-<li><p>高偏差/欠拟合：$J_{train}(\Theta)$和$J_{cv}(\Theta)$都很高;</p>
-</li>
-<li><p>高方差/过拟合：$J_{train}(\Theta)$很低，而$J_{cv}(\Theta)$很高.</p>
-</li>
-</ul>
-<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>$$J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\frac{\lambda}{2n}\sum_{j=1}^m\theta^2$$</p>
-<blockquote>
-<p>$m$和$n$不一样：正则化项求和是对$\theta_j$求和，而损失函数是对各样本平方差求平均。</p>
-</blockquote>
-<p>$$<br>J_{train}(\theta)=\frac{1}{2m_{train}}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\frac{\lambda}{2n}\sum_{j=1}^m\theta^2<br>$$</p>
-<p>$$<br>J_{train}(\theta)=\frac{1}{2m_{cv}}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2<br>$$</p>
-<p>$$<br>J_{train}(\theta)=\frac{1}{2m_{test}}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2<br>$$</p>
-<p>三者随$\lambda$的取值的变化情况为<br><img src="img/10-2.png" alt="10-2"></p>
-<p>曲线来源：训练集的误差包含正则项，$\lambda$越小，则故误差越小。</p>
-<p>而对于交叉验证集/测试集，则会出现欠拟合和过拟合的情况。</p>
-<p>曲线左边，是过拟合（$\lambda$过小）；曲线右边是欠拟合。<br>（$\lambda$过大，）</p>
-<p>用正则化进行模型选择的步骤：</p>
-<ol>
-<li>选择一系列$\lambda$，通常取倍数倍数列（λ∈{0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24})）。</li>
-<li>用其训练不同正则项模型。</li>
-<li>用训练模型，分别求取交叉验证集上的误差。</li>
-<li>寻找最小的误差，用得到的$\theta$、$\lambda$用于测试集的预测。</li>
-</ol>
-<h3 id="学习曲线"><a href="#学习曲线" class="headerlink" title="学习曲线"></a>学习曲线</h3><p>学习曲线刻画的是训练样本数$m$对$J_{train}(\theta)$和$J_{cv}(\theta)$的影响</p>
-<p>正常的学习曲线<br><img src="img/10-4.png" alt="10-4"></p>
-<p>欠拟合的学习曲线<br><img src="img/10-5.png" alt="10-5"></p>
-<p>过拟合的学习曲线<br><img src="img/10-6.png" alt="10-6"></p>
-<h2 id="接下来的工作"><a href="#接下来的工作" class="headerlink" title="接下来的工作"></a>接下来的工作</h2><p>对于本章开篇的一些面对预测不准的解决方法，我们可以找到对应的一些问题。即面对不同的问题我们采取不同的解决方法。</p>
-<ol>
-<li>增加数据集样本–&gt;高方差/过拟合</li>
-<li>减少假设函数中的特征–&gt;高方差/过拟合</li>
-<li>增加假设函数中的特征–&gt;高偏差/欠拟合</li>
-<li>尝试增加特征的非线性组合–&gt;高偏差/欠拟合</li>
-<li>增大正则项$\lambda$–&gt;高方差/过拟合</li>
-<li>减小正则项$\lambda$–&gt;高偏差/欠拟合</li>
-</ol>
-<p>上述讨论基本上是对线性/logistic回归问题，而对于神经网络，也有同样的问题和解决策略：<br>一个神经网络的神经元越少，越可能陷入欠拟合的问题，而神经元越多，则带来欠拟合问题的同时，也带来计算量大的问题，我们可以引入正则项来解决。</p>
 
       
 
@@ -396,7 +324,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/25/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch10/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/03/NG_ML_ch2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -410,18 +338,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch11/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/23/computer%20version/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          吴恩达机器学习ch11学习笔记
+          计算机视觉
         
       </div>
     </a>
   
   
-    <a href="/2020/03/30/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch7学习笔记</div>
+    <a href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深度学习计算</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -448,7 +376,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#评估假设函数"><span class="toc-number">1.1.</span> <span class="toc-text">评估假设函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#泛化误差"><span class="toc-number">1.1.1.</span> <span class="toc-text">泛化误差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型选择"><span class="toc-number">1.1.2.</span> <span class="toc-text">模型选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高偏差-amp-高方差问题-待补充"><span class="toc-number">1.1.3.</span> <span class="toc-text">高偏差&amp;高方差问题(待补充)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则化"><span class="toc-number">1.1.4.</span> <span class="toc-text">正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#学习曲线"><span class="toc-number">1.1.5.</span> <span class="toc-text">学习曲线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来的工作"><span class="toc-number">1.2.</span> <span class="toc-text">接下来的工作</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-回归问题解决逻辑"><span class="toc-number">1.</span> <span class="toc-text">1. 回归问题解决逻辑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-梯度下降法"><span class="toc-number">2.</span> <span class="toc-text">2. 梯度下降法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-梯度下降法的相关概念"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 梯度下降法的相关概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-梯度下降法的步骤"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 梯度下降法的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-针对线性回归问题的编程实现-Matlab"><span class="toc-number">3.</span> <span class="toc-text">3. 针对线性回归问题的编程实现(Matlab)</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -519,6 +447,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">

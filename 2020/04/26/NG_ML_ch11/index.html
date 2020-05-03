@@ -6,27 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch6学习笔记 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch11学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch6主要是对机器学习中的分类问题进行建模。 “逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“Logistic Regression”。首先对二分类问题进行讨论，定义了新的损失函数，并对该损失函数的来源（极大似然估计）以及损失函数的梯度下降法进行了推导。 多分类问题是在二分类问题上的进一步延伸。">
+  <meta name="description" content="Ch11 是对机器学习系统结构设计的探讨。对于模型训练，推荐先从简单入手，不断调优。对于二分类问题，有可能因为正负样本数量不均衡，导致类偏差的问题，引入了查准率和查全率的概念。最后对数据集的规模是否对模型有用，做了探讨。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch6学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="吴恩达机器学习ch11学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/04/26/NG_ML_ch11/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch6主要是对机器学习中的分类问题进行建模。 “逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“Logistic Regression”。首先对二分类问题进行讨论，定义了新的损失函数，并对该损失函数的来源（极大似然估计）以及损失函数的梯度下降法进行了推导。 多分类问题是在二分类问题上的进一步延伸。">
+<meta property="og:description" content="Ch11 是对机器学习系统结构设计的探讨。对于模型训练，推荐先从简单入手，不断调优。对于二分类问题，有可能因为正负样本数量不均衡，导致类偏差的问题，引入了查准率和查全率的概念。最后对数据集的规模是否对模型有用，做了探讨。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/ApV6SebEqdGFlza.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/kgFN782bzToEqnW.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/aq6OrnLVw2MTF9A.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/ZkLDSxwXIyUzJni.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/3w8DYtyMGoQaLpb.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/l18dPcEfHyYAXKo.png">
-<meta property="article:published_time" content="2020-03-23T12:22:49.000Z">
-<meta property="article:modified_time" content="2020-04-05T15:11:58.325Z">
+<meta property="og:image" content="http://yoursite.com/2020/04/26/NG_ML_ch11/img/11-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/26/NG_ML_ch11/img/11-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/26/NG_ML_ch11/img/11-3.png">
+<meta property="article:published_time" content="2020-04-26T02:36:24.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:43:45.196Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/04/02/ApV6SebEqdGFlza.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/26/NG_ML_ch11/img/11-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -170,139 +167,94 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-吴恩达机器学习ch6学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-NG_ML_ch11" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch6学习笔记
+      吴恩达机器学习ch11学习笔记
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T12:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/26/NG_ML_ch11/" class="archive-article-date">
+  	<time datetime="2020-04-26T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch6主要是对机器学习中的分类问题进行建模。</p>
-<p>“逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“<strong>Logistic Regression</strong>”。首先对<strong>二分类</strong>问题进行讨论，定义了<strong>新的损失函数</strong>，并对该损失函数的来源（<strong>极大似然估计</strong>）以及损失函数的<strong>梯度下降法</strong>进行了推导。</p>
-<p><strong>多分类</strong>问题是在二分类问题上的进一步延伸。</p>
-<a id="more"></a>    
-
-<hr>
-<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>例子：</p>
-<ul>
-<li>邮件分类</li>
-<li>交易是否属于欺诈</li>
-<li>良恶肿瘤</li>
-</ul>
-<p>分类问题的分类：</p>
-<ul>
-<li>二分类：$y=0 \ or \ 1$<ul>
-<li>$h_\theta(x)$可以是&gt;1 or &lt;0</li>
-<li>使用线性回归效果不好，容易受离群值影响</li>
-<li>logistic regression：$0\leq h_\theta(x) \leq1$，普遍应用的分类算法</li>
-</ul>
-</li>
-<li>多分类</li>
-</ul>
-<h1 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h1><p><img src="https://i.loli.net/2020/04/02/ApV6SebEqdGFlza.png" alt="6-1.png"></p>
-<center>图1 逻辑回归的思路</center>
-
-<p>$<del>$<br>$</del>$</p>
-<p>可以看出logistic regression满足一下两个条件：</p>
-<p>$$h_θ (x)=P(y=1|x;θ)$$<br>$$P(y=1│x;θ)+P(y=0│x;θ)=1$$</p>
-<blockquote>
-<p>$h_θ (x)$表示在假设函数的参数下，给定特征x代表y=1的概率。</p>
-<ul>
-<li>当$h_θ (x)≥0.5&lt;=&gt;θ^T x≥0$，认定$y=1$;</li>
-<li>当$h_θ (x)&lt;0.5&lt;=&gt;θ^T x&lt;0$，认定$y=0$。        </li>
-</ul>
-<p>$1-h_θ (x)$表示在假设函数的参数下，给定特征x代表y=0的概率。</p>
-</blockquote>
-<h2 id="决策边界-Decision-Bounding"><a href="#决策边界-Decision-Bounding" class="headerlink" title="决策边界 Decision Bounding"></a>决策边界 Decision Bounding</h2><p>$h_\theta(x)=0.5$的直线。是假设函数的固有属性，只要给定了假设函数的参数，则决策边界唯一确定。    </p>
-<p><img src="https://i.loli.net/2020/04/02/kgFN782bzToEqnW.png" alt="6-2.png"></p>
-<center>图2 决策边界</center>
-
-<p>$<del>$<br>$</del>$</p>
-<p>当界限越来越难分，可以通过构造复杂的特征得到更复杂的决策边界。</p>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>损失函数的作用：<br>寻找假设函数的最优参数$\theta$。</p>
-<p><img src="https://i.loli.net/2020/04/02/aq6OrnLVw2MTF9A.png" alt="6-4.png"></p>
-<center>图3 MSE用于分类问题的缺陷</center>
-
-<p>$<del>$<br>$</del>$</p>
-<p>若使用均方差作为损失函数，有局部极小值，难以达到全局最小值。所以需要重新定义损失函数，使之成为凸函数可以使用梯度下降法。</p>
-<p>构想单个预测的损失函数：<br>$$<br>Cost(h_\theta(x),y)=-ylog(h_\theta(x))-(1-y)log(1-h_\theta(x)) \tag{6-1}<br>$$</p>
-<p><img src="https://i.loli.net/2020/04/02/ZkLDSxwXIyUzJni.png" alt="6-5.png"></p>
-<center>图4 损失函数凸性证明（y=1）</center>
-
-<p>$<del>$<br>$</del>$</p>
-<p>当y=1，若$h_\theta(x)$=1时，单个预测的损失函数值为0；而$h_\theta(x)$趋向于0时，单个预测的损失函数值无穷大。符合单个预测的损失函数的定义。</p>
-<p><img src="https://i.loli.net/2020/04/02/3w8DYtyMGoQaLpb.png" alt="6-6.png"></p>
-<center>图5 损失函数凸性证明（y=0）</center>
-
-<p>$<del>$<br>$</del>$</p>
-<p>当y=0，同理可知单个预测的损失函数也符合定义。</p>
-<p>且单个预测的的损失函数是一个凸函数，可以使用梯度下降法进行迭代。</p>
-<p>得到整体的损失函数：<br>$$\begin{aligned}<br>J(\theta)&amp;=\frac{1}{m}\sum_{i-1}^{m}Cost(h_\theta(x^{(i)}),y^{(i)})\ \tag{6-2}<br>&amp;=\frac{1}{m}\sum_{i-1}^{m}[-y^{(i)}log(h_\theta(x^{(i)}))-(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>\end{aligned}<br>$$</p>
-<p>为啥选上式作为Logistic Regression的损失函数？</p>
-<p>上式是Logistic Regression问题的对数似然函数，以此可快速为模型寻找参数，而且这个损失函数是凸的。</p>
-<h2 id="极大似然法估计"><a href="#极大似然法估计" class="headerlink" title="极大似然法估计"></a>极大似然法估计</h2><p>Cost函数和J函数均是由极大似然法推导得到。过程如下（参考自<a href="https://blog.csdn.net/ZhikangFu/article/details/51315542" target="_blank" rel="noopener">Logistic Regression损失函数理解</a>）：</p>
-<p>$$\begin{aligned}<br>P(y=1|x;\theta)&amp;=h_\theta(x)\<br>P(y=0|x;\theta)&amp;=1-h_\theta(x)   \tag{6-3}<br>\end{aligned}<br>$$</p>
-<p>对(6-3)进行合并，可得到<br>$$<br>P(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y} \tag{6-4}<br>$$</p>
-<p>取似然函数为<br>$$L(\theta)=\prod_{i=1}^{m}P(y^{(i)}|x^{(i)};\theta)=\prod_{i=1}^{m}(h_\theta(x^{(i)}))^{y^{(i)} }(1-h_\theta(x^{(i)}))^{1-y^{(i)} } \tag{6-5} $$ </p>
-<p>对数似然函数为<br>$$l(\theta)=logL(\theta)=\sum_{i=1}^{m}[{y^{(i)} }log{(h_\theta(x^{(i)}))}+{(1-y^{(i)})}log(1-h_\theta(x^{(i)}))] \tag{6-6} $$</p>
-<p>最大似然估计是取$\theta$使得$l(\theta)$取得最大值。这里令损失函数为$J(\theta)=-\frac{1}{m}l(\theta)$，取其最小值，即取似然函数的最大值。</p>
-<p>求似然函数最大值，就是求出损失函数的最小值，由此得到的是假设函数的最优参数$\theta$。这就是Logistic Regression损失函数的数学推导。</p>
-<h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><p>这里对$J(\theta)$的迭代公式为：</p>
-<blockquote>
-<p>与多元线性回归梯度下降迭代公式相同</p>
-</blockquote>
-<p>$$\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \tag{6-7}$$<br>$$j=0, \cdots ,n$$</p>
-<p>推导过程：参考<a href="https://blog.csdn.net/Jiaach/article/details/78736577" target="_blank" rel="noopener">Logistic Regression代价函数导数求解过程</a></p>
-<p>$$<br>\begin{aligned}<br>J(\theta)<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[{y^{(i)} }log{(h_\theta(x^{(i)}))}+{(1-y^{(i)})}log(1-h_\theta(x^{(i)}))]\<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[-{y^{(i)} }log{(1+e^{-\theta x^{(i)} })}+(1-y^{(i)})(-\theta x^{(i)}-log{(1+e^{-\theta x^{(i)} })})]\<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[{y^{(i)} }\theta x^{(i)}-\theta x^{(i)}-log{(1+e^{-\theta x^{(i)} })}]\<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[{y^{(i)} }\theta x^{(i)}-log{(1+e^{\theta x^{(i)} })}]\<br>\end{aligned}$$</p>
-<p>由</p>
-<p>$$<br>\left {<br>\begin{aligned}<br>&amp;\frac{\partial{} }{\partial{\theta_j} }{ {y^{(i)}\theta x^{(i)} }}=y^{(i)}x_j^{(i)}\<br>&amp;\frac{\partial{} }{\partial{\theta_j} }{log{(1+e^{\theta x^{(i)} })} }=\frac{x_j^{(i)}e^{\theta x^{(i)} }}{1+e^{\theta x^{(i)} }}=x_j^{(i)}h_\theta(x^{(i)})<br>\end{aligned}<br>\right .<br>$$</p>
-<p>得到</p>
-<p>$$<br>\frac{\partial{J(\theta)} }{\partial{\theta_j} }=-\frac{1}{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}=\frac{1}{m}(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}<br>$$</p>
-<p>(6-7)梯度下降法成立。特征归一化能使Logistic Regression收敛加快。</p>
-<p>可使用正规方程法一次得到所有的$\theta$值。</p>
-<h2 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h2><ul>
-<li>梯度下降法</li>
-<li>共轭梯度法</li>
-<li>BFGS</li>
-<li>L-BFGS</li>
-</ul>
-<p>相比于梯度下降法，其他三个优化算法：</p>
-<ul>
-<li>优点：<ul>
-<li>不需要手动设置学习率$\alpha$</li>
-<li>收敛速度比其更快</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>算法更为复杂</li>
+        <p>Ch11 是对机器学习系统结构设计的探讨。对于模型训练，推荐先从简单入手，不断调优。对于二分类问题，有可能因为正负样本数量不均衡，导致类偏差的问题，引入了查准率和查全率的概念。最后对数据集的规模是否对模型有用，做了探讨。</p>
+<a id="more"></a>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#机器学习系统设计">机器学习系统设计</a><ul>
+<li><a href="#垃圾邮件分类">垃圾邮件分类</a></li>
+<li><a href="#误差分析">误差分析</a></li>
+<li><a href="#类偏差的误差度量">类偏差的误差度量</a></li>
+<li><a href="#准确率与召回率的权衡">准确率与召回率的权衡</a></li>
+<li><a href="#数据集规模">数据集规模</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p>每个类别i训练一个Logistic Regression分类器$h_\theta^{(i)}(x)$。</p>
-<p>对每个输入样本x，取各分类器预测概率值最高的为其类别:</p>
-<p>$$\max \limits_i h_\theta^{(i)}(x)$$</p>
-<p><img src="https://i.loli.net/2020/04/02/l18dPcEfHyYAXKo.png" alt="6-7.png"></p>
-<center>图6 多分类器</center>
-
-<p>$<del>$<br>$</del>$</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li>吴恩达-机器学习-ch6</li>
-<li><a href="https://blog.csdn.net/ZhikangFu/article/details/51315542" target="_blank" rel="noopener">Logistic Regression损失函数理解-CSDN</a></li>
-<li><a href="https://blog.csdn.net/Jiaach/article/details/78736577" target="_blank" rel="noopener">Logistic Regression代价函数导数求解过程-CSDN</a></li>
+<h2 id="机器学习系统设计"><a href="#机器学习系统设计" class="headerlink" title="机器学习系统设计"></a>机器学习系统设计</h2><h3 id="垃圾邮件分类"><a href="#垃圾邮件分类" class="headerlink" title="垃圾邮件分类"></a>垃圾邮件分类</h3><p>用邮件中出现的词组成词集合$R^n$，对于一封邮件，先生成1个零向量$0$，若出现某词，则在加上该词的one-hot向量，出现多次按1次计算。若要减少特征，可以将词集合更改为常见词集合。</p>
+<p>以此构建分类器算法，常见的策略有：</p>
+<ol>
+<li>使用更多的数据</li>
+<li>采取更好的特征：邮件的路由/正文信息</li>
+<li>为拼写错误开发算法</li>
 </ol>
+<h3 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h3><p>学习算法的构建过程：</p>
+<ol>
+<li>从简单的模型开始，快速完成训练并测试该模型</li>
+<li>绘制学习曲线，考虑是否加入更多数据/加入更多特征/其他策略进行训练</li>
+<li>进行误差分析：对交叉验证集中的误差来源进行分析和修正</li>
+</ol>
+<p>例如对邮件分类的问题，对交叉验证集出现误差进行分析：</p>
+<ul>
+<li>什么类别的邮件出现误判的可能性会比较大</li>
+<li>缺少了什么特征导致误判</li>
+</ul>
+<p>在对误差进行分析时，不能靠直觉（gut feeling），而应该用数值体现。看尝试（加入或减少一个特征/采用某种方法）对误差的影响，进而确定是否采取该措施。</p>
+<h3 id="类偏差的误差度量"><a href="#类偏差的误差度量" class="headerlink" title="类偏差的误差度量"></a>类偏差的误差度量</h3><p>我们之前对二分类模型的评价主要使用的是准确率的方法，即<br>$$<br>Accuracy = \frac{true ; positives + true ; negatives}{total;examples}<br>$$</p>
+<p>若训练集中正负样本量相差大，我们称为<strong>类偏差</strong>(Skewed Classes)。这种情况下，有可能会出现“若单独考虑准确率，训练后模型的预测结果不如全判断为0/1的模型效果好”的情形。所以我们需要引入新的评价体系。</p>
+<p>对于一个二分类问题，我们有以下的情形：<br><img src="img/11-1.png" alt="11-1"></p>
+<p>规定：</p>
+<ul>
+<li><p>准确率/查准率Precision：预测为正且正确的结果数占总预测结果数的比例<br>$$Precision = \frac{True;positives}{no.; of; predicted;as;positive} = \frac{True;positives}{True;positives + False;positives}$$</p>
+</li>
+<li><p>召回率/查全率Recall：预测为正且正确的结果数占实际为正的样本数的比例<br>$$Recall = \frac{True;positives}{no.; of; actual;positives} = \frac{True;positives}{True;positives + False; negatives}$$</p>
+</li>
+</ul>
+<blockquote>
+<p>对于一个垃圾邮件分类问题，若测试集中只有1%的垃圾邮件($y=1$)、99%的正常邮件($y=0$)，则：<br>1） 若假设函数为$y=1$，则accuracy=0.99，recall=0/(0+99)=0，precision=0/(0+1)<br>2） 若假设函数为$y=0$，则accuracy=0.01，recall=1/(1+99)=0.01，precision=1/(1+0)=1</p>
+</blockquote>
+<p>所以无论数据集是否偏斜，只需要满足Precision和Recall均很高即可保证其实用性。</p>
+<h3 id="准确率与召回率的权衡"><a href="#准确率与召回率的权衡" class="headerlink" title="准确率与召回率的权衡"></a>准确率与召回率的权衡</h3><p>对二分类问题，我们对假设函数取一个阈值，进而分类。<br>$h_\theta(x)\geq threshold$，则$y=1$；$h_\theta(x) &lt; threshold$，则$y=0$。</p>
+<p>但针对不同的threshold，我们会有不同的Precision和Recall值，我们可以得到如下曲线：</p>
+<p><img src="img/11-2.png" alt="11-2"></p>
+<ul>
+<li>threshould 设定越高，查准率Precision越高、查全率Recall越低。因为判断的准、但有更多正例被漏掉。</li>
+<li>threshould 设定越低，查准率Precision越低、查全率Recall越高。因为找的全，但有更多负例被错判为正例。</li>
+</ul>
+<p>于是我们引入一个评价指标：<br>$$F_1score = (2 * precision * recall) / (precision + recall)$$</p>
+<p>$F_1score$越接近于1，则算法分类效果越好：</p>
+<ul>
+<li>P=0，R=0–&gt;F1=0</li>
+<li>P=1,R=1–&gt;F1=1</li>
+</ul>
+<h3 id="数据集规模"><a href="#数据集规模" class="headerlink" title="数据集规模"></a>数据集规模</h3><p>一般有，数据量越大，算法的性能就越好，但对于不同的分类算法，性能提升的幅度不同。我们有下图：<br><img src="img/11-3.png" alt="11-3"></p>
+<p>但对于欠拟合的模型，即使增加数据也无法获得好的效果。</p>
+<p>所以：</p>
+<ul>
+<li>如果模型欠拟合：增加特征（对神经网络增加hidden units）;</li>
+<li>如果模型过拟合：增大数据集，使得$J_{cv} ≈ J_{train}$ ，从而降低过拟合。</li>
+</ul>
 
       
 
@@ -404,7 +356,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/26/NG_ML_ch11/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -418,18 +370,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/24/website-update-log/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/26/NG_ML_ch9/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          website update log
+          吴恩达机器学习ch9学习笔记
         
       </div>
     </a>
   
   
-    <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch4学习笔记</div>
+    <a href="/2020/04/25/NG_ML_ch10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习ch10学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -456,7 +408,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分类问题"><span class="toc-number">1.</span> <span class="toc-text">分类问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">2.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策边界-Decision-Bounding"><span class="toc-number">2.1.</span> <span class="toc-text">决策边界 Decision Bounding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#损失函数"><span class="toc-number">2.2.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极大似然法估计"><span class="toc-number">2.3.</span> <span class="toc-text">极大似然法估计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降法"><span class="toc-number">2.4.</span> <span class="toc-text">梯度下降法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化算法"><span class="toc-number">2.5.</span> <span class="toc-text">优化算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多分类问题"><span class="toc-number">2.6.</span> <span class="toc-text">多分类问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.7.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#机器学习系统设计"><span class="toc-number">1.1.</span> <span class="toc-text">机器学习系统设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#垃圾邮件分类"><span class="toc-number">1.1.1.</span> <span class="toc-text">垃圾邮件分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#误差分析"><span class="toc-number">1.1.2.</span> <span class="toc-text">误差分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类偏差的误差度量"><span class="toc-number">1.1.3.</span> <span class="toc-text">类偏差的误差度量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#准确率与召回率的权衡"><span class="toc-number">1.1.4.</span> <span class="toc-text">准确率与召回率的权衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集规模"><span class="toc-number">1.1.5.</span> <span class="toc-text">数据集规模</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -527,6 +479,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">

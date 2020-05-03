@@ -6,22 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch9学习笔记 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch10学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch9 是对神经网络模型的进一步深入。Ch8 主要是对神经网络模型的假设函数的阐述，而Ch9 则对神经网络模型的训练进行展开：首先类比logistic回归模型提出了神经网络模型的损失函数，并且叙述了用于求解最佳参数所用的反向传播算法。在训练网络前，首先需要使用梯度检验的方法验证反向传播算法是否正确。在正式训练时，初始化参数矩阵需使用随机初始化方法。最后对Ch8 和Ch9 的神经网络模型做了综合性的">
+  <meta name="description" content="Ch10 是对假设函数在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数泛化更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用二划分（70% train 30% test）&#x2F; 三划分（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于高方差&#x2F;高偏差问题，可认为其分别对应于过拟合&#x2F;欠拟合，并对开篇的解决方">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch9学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/index.html">
+<meta property="og:title" content="吴恩达机器学习ch10学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/04/25/NG_ML_ch10/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch9 是对神经网络模型的进一步深入。Ch8 主要是对神经网络模型的假设函数的阐述，而Ch9 则对神经网络模型的训练进行展开：首先类比logistic回归模型提出了神经网络模型的损失函数，并且叙述了用于求解最佳参数所用的反向传播算法。在训练网络前，首先需要使用梯度检验的方法验证反向传播算法是否正确。在正式训练时，初始化参数矩阵需使用随机初始化方法。最后对Ch8 和Ch9 的神经网络模型做了综合性的">
+<meta property="og:description" content="Ch10 是对假设函数在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数泛化更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用二划分（70% train 30% test）&#x2F; 三划分（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于高方差&#x2F;高偏差问题，可认为其分别对应于过拟合&#x2F;欠拟合，并对开篇的解决方">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/img/9-1.png">
-<meta property="article:published_time" content="2020-04-26T10:27:24.000Z">
-<meta property="article:modified_time" content="2020-04-28T03:23:54.292Z">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-7.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-6.png">
+<meta property="article:published_time" content="2020-04-25T10:27:24.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:43:38.649Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/img/9-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/25/NG_ML_ch10/img/10-3.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -165,112 +171,133 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-吴恩达机器学习ch9" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-NG_ML_ch10" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch9学习笔记
+      吴恩达机器学习ch10学习笔记
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/" class="archive-article-date">
-  	<time datetime="2020-04-26T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/04/25/NG_ML_ch10/" class="archive-article-date">
+  	<time datetime="2020-04-25T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch9 是对神经网络模型的进一步深入。Ch8 主要是对神经网络模型的假设函数的阐述，而Ch9 则对神经网络<strong>模型的训练</strong>进行展开：首先类比logistic回归模型提出了神经网络模型的<strong>损失函数</strong>，并且叙述了用于求解最佳参数所用的<strong>反向传播</strong>算法。在训练网络前，首先需要使用<strong>梯度检验</strong>的方法验证反向传播算法是否正确。在正式训练时，初始化参数矩阵需使用<strong>随机初始化</strong>方法。最后对Ch8 和Ch9 的神经网络模型做了综合性的<strong>总结</strong>。</p>
+        <p>Ch10 是对<strong>假设函数</strong>在训练集和测试集的不同效果进行了解读。开篇给出了使假设函数<strong>泛化</strong>更好的一些解决方案。为了让在训练集上生成的假设函数泛化能力更好，可以对数据集使用<strong>二划分</strong>（70% train 30% test）/ <strong>三划分</strong>（60% train 20% cross validation 20% test）的手段，以进行模型选择。对于<strong>高方差/高偏差</strong>问题，可认为其分别对应于<strong>过拟合/欠拟合</strong>，并对开篇的解决方案归类，日后可相应针对特定的场景选择方案进行解决。</p>
 <a id="more"></a>
 
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#损失函数">损失函数</a></li>
-<li><a href="#反向传播backpropagation">反向传播Backpropagation</a></li>
-<li><a href="#反向传播算法直观理解">反向传播算法直观理解</a></li>
-<li><a href="#参数优化">参数优化</a></li>
-<li><a href="#梯度检验">梯度检验</a></li>
-<li><a href="#随机初始化">随机初始化</a></li>
-<li><a href="#神经网络综合">神经网络综合</a></li>
+<li><a href="#评估假设函数">评估假设函数</a>      <ul>
+<li><a href="#泛化误差">泛化误差</a>      </li>
+<li><a href="#模型选择">模型选择</a>      </li>
+<li><a href="#高偏差高方差问题待补充">高偏差&amp;高方差问题(待补充)</a>      </li>
+<li><a href="#正则化">正则化</a>      </li>
+<li><a href="#学习曲线">学习曲线</a>     </li>
 </ul>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>二分类问题的神经网络的输出层仅需1个神经元($y=0/1$)；K分类问题的神经网络的输出层的神经元需要K个($y \in R^K$)，用以输出k个不同的one-hot向量以区别K类。</p>
-<p>一个多分类问题的神经网络架构如下：<br><img src="img/9-1.png" alt="9-1"></p>
-<p>logistic回归带正则项的损失函数为：<br>$$J(\theta)=\frac{1}{m}\sum_{i-1}^{m}[-y^{(i)}log(h_\theta(x^{(i)}))-(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+\frac{\lambda}{2m}\sum_{j=1}^{n}\theta_j^2$$</p>
+</li>
+<li><a href="#接下来的工作">接下来的工作</a></li>
+</ul>
+<h2 id="评估假设函数"><a href="#评估假设函数" class="headerlink" title="评估假设函数"></a>评估假设函数</h2><p>对于预测不准的问题，解决方法有：</p>
+<ol>
+<li>增加数据集样本</li>
+<li>减少假设函数中的特征</li>
+<li>增加假设函数中的特征</li>
+<li>尝试增加特征的非线性组合</li>
+<li>增大正则项$\lambda$</li>
+<li>减小正则项$\lambda$</li>
+</ol>
+<p>但假设函数若在训练样本中拟合误差小，仍有可能因为<strong>过拟合</strong>在预测新样本时出现较大的失误。因此，有了将训练样本分类的想法：70%样本用于做训练集，用于评估训练效果；30%样本用于做测试集，用于评估泛化效果。</p>
 <blockquote>
-<p>不对偏置项做正则惩罚。   </p>
+<p>注意：划分训练/测试集，需要针对原样本是否有序而进行乱序处理。</p>
 </blockquote>
-<p>规定：</p>
+<p>因此新的步骤是：</p>
+<ol>
+<li>在训练集上训练得到使得$J_{train}(\Theta)$最小化的$\Theta$</li>
+<li>计算测试集误差$J_{test}(\Theta)$</li>
+</ol>
+<h3 id="泛化误差"><a href="#泛化误差" class="headerlink" title="泛化误差"></a>泛化误差</h3><blockquote>
+<p>$m_{test}$是测试集的样本个数</p>
+</blockquote>
+<p>对于回归问题<br>$$J_{test}(\Theta)=\frac1{2m_{test}}\sum_{i=1}^{m_{test}}(h_{\Theta}(x^{(i)}<em>{test})-y^{(i)}</em>{test})^2$$</p>
+<p>对于分类问题<br>$$err(h_{\Theta}(x^{(i)}),y^{(i)})=\left {<br>    \begin{aligned}<br>        &amp;1, ;if; h_{\Theta}(x^{(i)})\leq 0.5; and; y^{(i)}=0 ;or; h_{\Theta}(x^{(i)})&lt;0.5 ;and; y^{(i)}=1\<br>        &amp;0, ;otherwise<br>    \end{aligned}<br>    \right .<br>    $$</p>
+<p>$$J_{test}(\Theta)=\frac{1}{m_{test}}\sum_{i=1}^{m_{test}}err(h_{\Theta}(x^{(i)}<em>{test}),y^{(i)}</em>{test})$$</p>
+<h3 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h3><p>因为在训练集上进行训练，故算法能够很好拟合训练集，其训练误差往往会小于在其他数据集上的预测误差。对此模型直接拿去在测试集上做预测往往效果不佳。</p>
+<p>故我们想到要做模型的选择。</p>
+<p>一个典型的例子是高次特征假设函数的选取。</p>
+<p>将样本分为3个集合：</p>
 <ul>
-<li>m：输入样本的个数</li>
-<li>K：类别数</li>
-<li>$L$：神经网络中的层数</li>
-<li>$s_l$：第$l$层的单元个数（不包括偏置单元）</li>
-<li>$(h_\Theta(x))_i$：$h_\Theta(x)$的第i个输出</li>
+<li>60%训练集(traininng set)</li>
+<li>20%交叉验证集(cross validation set)</li>
+<li>20%测试集(test set)</li>
 </ul>
-<p>而神经网络带正则项的损失函数为<br>$$J(\Theta)=\frac{1}{m}\sum_{i-1}^{m}\sum_{k=1}^{K}[-y_k^{(i)}log(h_\Theta(x^{(i)}))<em>k-(1-y_k^{(i)})log(1-(h_\Theta(x^{(i)}))_k)]+\frac{\lambda}{2m}\sum</em>{l=1}^{L-1}\sum_{t=1}^{s_l}\sum_{j=1}^{s_{l+1}}\Theta_{jt}^2$$</p>
-<blockquote>
-<p>双重求和对神经网络的输出层各输出单元求和。<br>三重求和对神经网络所有的权重因子进行正则项求和。<br>$t=1-&gt;t=s_l$，$j=1-&gt;j=s_{l+1}$表示不对各层偏置项做正则惩罚  </p>
-</blockquote>
-<h2 id="反向传播Backpropagation"><a href="#反向传播Backpropagation" class="headerlink" title="反向传播Backpropagation"></a>反向传播Backpropagation</h2><p>神经网络的目标是$min_\Theta ;J(\Theta)$以得到最好的神经网络参数$\Theta$。</p>
-<p>因此我们需要完成计算$J(\Theta)$和$\frac{\partial}{\partial{\Theta_{i,j}}}J(\Theta)$。</p>
-<p><strong>反向传播算法</strong>：  </p>
+<p>模型选择步骤：</p>
 <ol>
-<li>导入m个训练样本${(x^(i),y^{(i)})},; i=1,\cdots,m$  </li>
-<li>对于所有i,j,l，设定$\Delta_{ij}^{(l)}=0$，即$\Delta^{(l)}=0$  </li>
-<li>对于训练样本t=1-&gt;m:  <ol>
-<li>$a^{(1)}=x^{(t)}$  </li>
-<li>前向传播计算所有的$a^{(l)},;l=2,\cdots,L$  </li>
-<li>$\delta^{(L)}=a^{(L)}-y^{(t)}$  </li>
-<li>$\delta^{(l)}=((\Theta^{(l)})^T\delta^{(l+1)}).<em>g’(z^{(l)})=((\Theta^{(l)})^T\delta^{(l+1)}).*a^{(l)}.</em>(1-a^{(l)}),l=L-1,\cdots,2$   </li>
-<li>$\Delta_{ij}^{(l)}:=\Delta_{ij}^{(l)}+a_j^{(l)}\delta_i^{(l+1)}$，即$\Delta^{(l)}:=\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T$  </li>
+<li>对训练集针对不同高次假设函数进行训练，得到各次项假设函数的$\Theta$.</li>
+<li>分别对第一步得到的各高次项假设函数在交叉验证集中求取损失，选出损失最小的那个高次项假设函数。</li>
+<li>用第二步选出的假设函数对测试集评估泛化误差。</li>
 </ol>
+<h3 id="高偏差-amp-高方差问题-待补充"><a href="#高偏差-amp-高方差问题-待补充" class="headerlink" title="高偏差&amp;高方差问题(待补充)"></a>高偏差&amp;高方差问题(待补充)</h3><p><a href="https://blog.csdn.net/simple_the_best/article/details/71167786" target="_blank" rel="noopener">理解机器学习中的偏差与方差-CSDN</a></p>
+<p><a href="https://blog.csdn.net/u010626937/article/details/74435109" target="_blank" rel="noopener">什么是高/低方差、高/低偏差-CSDN</a></p>
+<p>学习算法的泛化误差可分为三个部分：偏差(bias)，方差(variance)，噪声(noise)。噪声属于不可约减的误差，所以在估计学习算法性能时，我们主要关注偏差与方差。</p>
+<p><strong>偏差</strong>：预测值与真实值之间的差距。偏差越大，则预测的结果越偏离真实数据集标签。</p>
+<p><strong>方差</strong>：预测值的变化范围，即样本内各点预测值的离散程度。方差越大，预测的结果就越分散。</p>
+<p>预测函数的偏差&amp;方差形象理解：（图中红色圆心为真实标签，蓝色点为各样本点预测值）<br><img src="img/10-3.png" alt="10-3"></p>
+<p>偏差和方差随模型复杂度的变化关系如下图：<br><img src="img/10-7.png" alt="10-7"></p>
+<p>所以高偏差和高方差可与欠拟合和过拟合联系起来，高偏差对应于欠拟合，高方差对应于过拟合。</p>
+<p>随着变量幂次的升高，训练误差越来越小，而泛化误差（$J_{cv}(\Theta)$或$J_{test}(\Theta)$）往往先降低，再升高。</p>
+<p>如下图所示<br><img src="img/10-1.png" alt="10-1.png"></p>
+<p>由图可看出具体的趋势是：</p>
+<ul>
+<li><p>$J_{cv}(\Theta) \approx J_{test}(\Theta)$</p>
 </li>
-<li>建立D矩阵：<ul>
-<li>$D_{i,j}^{(l)}=\frac{1}{m}(\Delta_{i,j}^{(l)}+\lambda\Theta_{i,j}^{(i)}),;if;j\not=0$</li>
-<li>$D_{i,j}^{(l)}=\frac{1}{m}(\Delta_{i,j}^{(l)},;if j=0$</li>
+<li><p>高偏差/欠拟合：$J_{train}(\Theta)$和$J_{cv}(\Theta)$都很高;</p>
+</li>
+<li><p>高方差/过拟合：$J_{train}(\Theta)$很低，而$J_{cv}(\Theta)$很高.</p>
+</li>
 </ul>
-</li>
-<li>得到$\Theta$的偏导数$\frac{\partial}{\partial{\Theta_{i,j}}}J(\Theta)=D_{i,j}$。</li>
-</ol>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>$$J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\frac{\lambda}{2n}\sum_{j=1}^m\theta^2$$</p>
 <blockquote>
-<p>l:当前层在第几层<br>i,j:权重线的索引<br>.*:对应元素相乘</p>
+<p>$m$和$n$不一样：正则化项求和是对$\theta_j$求和，而损失函数是对各样本平方差求平均。</p>
 </blockquote>
-<h2 id="反向传播算法直观理解"><a href="#反向传播算法直观理解" class="headerlink" title="反向传播算法直观理解"></a>反向传播算法直观理解</h2><p>与ch8中提到的神经网络的简化：若是仅考虑输出层和最后一层隐藏层，可认为是一个logistc回归函数。</p>
-<p>则输出单元的误差可以通过各连接权重的倒数分配给输入单元，由此层层传递，可以一直计算到第一个隐藏层的单元的误差，进而对权重矩阵进行更新。</p>
-<h2 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h2><p>通过将参数矩阵平展得到一个向量，调用fminc优化算法来求解最优解后，重新反平展为权重矩阵。</p>
-<h2 id="梯度检验"><a href="#梯度检验" class="headerlink" title="梯度检验"></a>梯度检验</h2><p>因为神经网络的训练耗时较长，故我们应先验证模型是否正确，即用数值梯度检验来验证梯度是否一直在下降，再做进一步训练。</p>
-<p>将参数矩阵$\Theta$平展为向量$\theta\in R^n$，再分别求损失函数$J(\theta)$相对与$\theta$各分量的偏导数，即$\frac{\partial}{\partial{\theta_{i}}}J(\theta)=\frac{J(\cdots ,\theta_i+\epsilon,\cdots)-J(\cdots ,\theta_i-\epsilon,\cdots)}{2\epsilon},; i=1,\cdots,n$，其中$\epsilon$是一个极小的实数。</p>
-<p>在一个样本输入后，计算反向传播计算得到神经网络模型的损失函数关于当前假设函数参数的偏导数矩阵，对其平展；然后使用上述数值计算方法也得到神经网络模型损失函数关于当前假设函数参数的偏导数矩阵。两者进行比较，若两个向量各对应元素数值相差较大，梯度下降算法有误需更正；若两者相近则可以进行关闭梯度检验进行下一步的模型训练。</p>
-<h2 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h2><p>将参数矩阵$\Theta$中元素全设为0，此法不可取：若是第i-&gt;i+1层的权重全为0，则第i+1层所有单元的值均相等（等于0），后面的层的单元值也都为0，难以完成训练，所以我们需要进行随机初始化。</p>
-<p>若要对每个参数限制边界，并对他们进行均匀分布初始化，则可以用以下代码：        </p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%i:箭头右边的单元</span></span><br><span class="line"><span class="comment">%j:箭头左边的单元</span></span><br><span class="line"><span class="comment">%l:第l层</span></span><br><span class="line"><span class="comment">%INIT_EPSILON:均匀分布的边界</span></span><br><span class="line">Theta_ij_l=<span class="built_in">rand</span>(s_ladd1,s_l+<span class="number">1</span>)*(<span class="number">2</span>*INIT_EPSILON)-INIT_EPSILON</span><br></pre></td></tr></table></figure>
-
-<h2 id="神经网络综合"><a href="#神经网络综合" class="headerlink" title="神经网络综合"></a>神经网络综合</h2><p>如果你要训练一个神经网络模型，</p>
+<p>$$<br>J_{train}(\theta)=\frac{1}{2m_{train}}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\frac{\lambda}{2n}\sum_{j=1}^m\theta^2<br>$$</p>
+<p>$$<br>J_{train}(\theta)=\frac{1}{2m_{cv}}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2<br>$$</p>
+<p>$$<br>J_{train}(\theta)=\frac{1}{2m_{test}}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2<br>$$</p>
+<p>三者随$\lambda$的取值的变化情况为<br><img src="img/10-2.png" alt="10-2"></p>
+<p>曲线来源：训练集的误差包含正则项，$\lambda$越小，则故误差越小。</p>
+<p>而对于交叉验证集/测试集，则会出现欠拟合和过拟合的情况。</p>
+<p>曲线左边，是过拟合（$\lambda$过小）；曲线右边是欠拟合。<br>（$\lambda$过大，）</p>
+<p>用正则化进行模型选择的步骤：</p>
 <ol>
-<li>需要选择一个神经网络结构：  <ul>
-<li>输入层单元个数：需要对应一个样本输入的特征维数  </li>
-<li>输出层单元个数：需要对应分类的类别数  </li>
-<li>隐藏层单元个数：一般认为越多越好  </li>
-<li>隐藏层层数：默认有1个，若多个隐藏层，推荐各层的单元格数相同  </li>
-</ul>
-</li>
-<li>其次训练神经网络：  <ul>
-<li>随机初始化权重</li>
-<li>利用前向传播计算所有输入样本的$h_\Theta(x)$</li>
-<li>计算$J(\Theta)$</li>
-<li>反向传播计算$J(\Theta)$关于$\Theta$的偏导数</li>
-<li>梯度检验上一步得到的偏导数</li>
-<li>使用优化算法最小化代价函数，得到模型参数$\Theta$  </li>
-</ul>
-</li>
+<li>选择一系列$\lambda$，通常取倍数倍数列（λ∈{0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24})）。</li>
+<li>用其训练不同正则项模型。</li>
+<li>用训练模型，分别求取交叉验证集上的误差。</li>
+<li>寻找最小的误差，用得到的$\theta$、$\lambda$用于测试集的预测。</li>
 </ol>
-<p>训练时使用到所有的样本，交替使用前向传播和反向传播，如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i &#x3D; 1:m,</span><br><span class="line">   Perform forward propagation and backpropagation using example (x(i),y(i))</span><br><span class="line">   (Get activations a(l) and delta terms d(l) for l &#x3D; 2,...,L</span><br></pre></td></tr></table></figure>
-
+<h3 id="学习曲线"><a href="#学习曲线" class="headerlink" title="学习曲线"></a>学习曲线</h3><p>学习曲线刻画的是训练样本数$m$对$J_{train}(\theta)$和$J_{cv}(\theta)$的影响</p>
+<p>正常的学习曲线<br><img src="img/10-4.png" alt="10-4"></p>
+<p>欠拟合的学习曲线<br><img src="img/10-5.png" alt="10-5"></p>
+<p>过拟合的学习曲线<br><img src="img/10-6.png" alt="10-6"></p>
+<h2 id="接下来的工作"><a href="#接下来的工作" class="headerlink" title="接下来的工作"></a>接下来的工作</h2><p>对于本章开篇的一些面对预测不准的解决方法，我们可以找到对应的一些问题。即面对不同的问题我们采取不同的解决方法。</p>
+<ol>
+<li>增加数据集样本–&gt;高方差/过拟合</li>
+<li>减少假设函数中的特征–&gt;高方差/过拟合</li>
+<li>增加假设函数中的特征–&gt;高偏差/欠拟合</li>
+<li>尝试增加特征的非线性组合–&gt;高偏差/欠拟合</li>
+<li>增大正则项$\lambda$–&gt;高方差/过拟合</li>
+<li>减小正则项$\lambda$–&gt;高偏差/欠拟合</li>
+</ol>
+<p>上述讨论基本上是对线性/logistic回归问题，而对于神经网络，也有同样的问题和解决策略：<br>一个神经网络的神经元越少，越可能陷入欠拟合的问题，而神经元越多，则带来欠拟合问题的同时，也带来计算量大的问题，我们可以引入正则项来解决。</p>
 
       
 
@@ -372,7 +399,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/25/NG_ML_ch10/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -386,18 +413,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/26/NG_ML_ch11/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          吴恩达机器学习ch8学习笔记
+          吴恩达机器学习ch11学习笔记
         
       </div>
     </a>
   
   
-    <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch11/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch11学习笔记</div>
+    <a href="/2020/03/30/NG_ML_ch7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习ch7学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -424,7 +451,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#损失函数"><span class="toc-number">1.1.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反向传播Backpropagation"><span class="toc-number">1.2.</span> <span class="toc-text">反向传播Backpropagation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反向传播算法直观理解"><span class="toc-number">1.3.</span> <span class="toc-text">反向传播算法直观理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数优化"><span class="toc-number">1.4.</span> <span class="toc-text">参数优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度检验"><span class="toc-number">1.5.</span> <span class="toc-text">梯度检验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#随机初始化"><span class="toc-number">1.6.</span> <span class="toc-text">随机初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神经网络综合"><span class="toc-number">1.7.</span> <span class="toc-text">神经网络综合</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#评估假设函数"><span class="toc-number">1.1.</span> <span class="toc-text">评估假设函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#泛化误差"><span class="toc-number">1.1.1.</span> <span class="toc-text">泛化误差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型选择"><span class="toc-number">1.1.2.</span> <span class="toc-text">模型选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高偏差-amp-高方差问题-待补充"><span class="toc-number">1.1.3.</span> <span class="toc-text">高偏差&amp;高方差问题(待补充)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则化"><span class="toc-number">1.1.4.</span> <span class="toc-text">正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#学习曲线"><span class="toc-number">1.1.5.</span> <span class="toc-text">学习曲线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来的工作"><span class="toc-number">1.2.</span> <span class="toc-text">接下来的工作</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -495,6 +522,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">

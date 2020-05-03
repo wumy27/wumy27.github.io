@@ -6,26 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch4学习笔记 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch6学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是多个特征。其中特征可以由多个单特征构成，也可由单特征的指数&#x2F;对数&#x2F;次方…等运算项构成。假设函数取线性公式；损失函数仍然采用了均方差公式。除了用梯度下降法进行参数更新外，还提出了正规方程法，可以一步到位计算出参数，但也有其局限所在。 针对数值特征，进一步提出能加快梯度下降法迭代速度的归一化概念。">
+  <meta name="description" content="Ch6主要是对机器学习中的分类问题进行建模。 “逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“Logistic Regression”。首先对二分类问题进行讨论，定义了新的损失函数，并对该损失函数的来源（极大似然估计）以及损失函数的梯度下降法进行了推导。 多分类问题是在二分类问题上的进一步延伸。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch4学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="吴恩达机器学习ch6学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/NG_ML_ch6/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是多个特征。其中特征可以由多个单特征构成，也可由单特征的指数&#x2F;对数&#x2F;次方…等运算项构成。假设函数取线性公式；损失函数仍然采用了均方差公式。除了用梯度下降法进行参数更新外，还提出了正规方程法，可以一步到位计算出参数，但也有其局限所在。 针对数值特征，进一步提出能加快梯度下降法迭代速度的归一化概念。">
+<meta property="og:description" content="Ch6主要是对机器学习中的分类问题进行建模。 “逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“Logistic Regression”。首先对二分类问题进行讨论，定义了新的损失函数，并对该损失函数的来源（极大似然估计）以及损失函数的梯度下降法进行了推导。 多分类问题是在二分类问题上的进一步延伸。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/t27lLkDnOKJToCE.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/c9w7ds8f2tvJXpZ.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/a8voVqsK2dS5tAj.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/sJULKGHvwx8uSja.png">
-<meta property="og:image" content="https://i.loli.net/2020/04/02/iFEwHfbUJp13QrR.png">
-<meta property="article:published_time" content="2020-03-23T12:21:40.000Z">
-<meta property="article:modified_time" content="2020-04-05T15:08:46.306Z">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/ApV6SebEqdGFlza.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/kgFN782bzToEqnW.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/aq6OrnLVw2MTF9A.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/ZkLDSxwXIyUzJni.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/3w8DYtyMGoQaLpb.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/l18dPcEfHyYAXKo.png">
+<meta property="article:published_time" content="2020-03-23T12:22:49.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:42:52.146Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/04/02/t27lLkDnOKJToCE.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/02/ApV6SebEqdGFlza.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -169,110 +170,141 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-吴恩达机器学习ch4学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-NG_ML_ch6" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch4学习笔记
+      吴恩达机器学习ch6学习笔记
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-03-23T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/03/23/NG_ML_ch6/" class="archive-article-date">
+  	<time datetime="2020-03-23T12:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是<strong>多个特征</strong>。其中特征可以由多个单特征构成，也可由单特征的指数/对数/次方…等运算项构成。<br>假设函数取<strong>线性公式</strong>；损失函数仍然采用了<strong>均方差公式</strong>。除了用梯度下降法进行参数更新外，还提出了<strong>正规方程法</strong>，可以一步到位计算出参数，但也有其局限所在。</p>
-<p>针对数值特征，进一步提出能加快梯度下降法迭代速度的<strong>归一化</strong>概念。</p>
+        <p>Ch6主要是对机器学习中的分类问题进行建模。</p>
+<p>“逻辑斯提克回归”的名字来源是源于Logistic函数，因为有用到线性回归的函数，所以合称为“<strong>Logistic Regression</strong>”。首先对<strong>二分类</strong>问题进行讨论，定义了<strong>新的损失函数</strong>，并对该损失函数的来源（<strong>极大似然估计</strong>）以及损失函数的<strong>梯度下降法</strong>进行了推导。</p>
+<p><strong>多分类</strong>问题是在二分类问题上的进一步延伸。</p>
 <a id="more"></a>    
 
 <hr>
-<h1 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h1><p>$n$：特征数量    </p>
-<p>$x^{(i)}$：第i个输入</p>
-<p>${x}_j^{(i)}$：第i个输入的第j个特征    </p>
-<p>$y^{(i)}$：第i个输入的标签</p>
-<p>参数：$\theta$    </p>
-<p>假设函数：<br>$$<br>h_\theta(x)=<br>{\left[<br>\begin{matrix} \theta_{0} &amp; \cdots &amp; \theta_{n} \end{matrix}<br>\right ]}<br>{\left[<br>\begin{matrix} x_{0} \ \cdots \ x_{n} \end{matrix}<br>\right ]}=\theta^Tx \tag{4-1}<br>$$</p>
-<p>代价函数：<br>$$J(\theta)=\frac{1}{2m}\sum_{i=1}^{n}(h_\theta(x^{(i)})-y^{(i)})^2 \tag{4-2}$$</p>
-<p>梯度下降法：<br>$$\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \tag{4-3}$$<br>$$j=0, \cdots ,n$$</p>
-<h2 id="单特征的多项式回归"><a href="#单特征的多项式回归" class="headerlink" title="单特征的多项式回归"></a>单特征的多项式回归</h2><p>多特征可以由单特征构造：由单特征的不同项式进行生成多特征。</p>
-<h2 id="迭代收敛"><a href="#迭代收敛" class="headerlink" title="迭代收敛"></a>迭代收敛</h2><p><img src="https://i.loli.net/2020/04/02/t27lLkDnOKJToCE.png" alt="迭代收敛"></p>
-<center>图1 迭代收敛</center>
-
-<p>观察迭代过程是否收敛有两种方法：    </p>
-<ol>
-<li>自动收敛测试，看最终的代价函数值是否小于一个$\epsilon$。</li>
-<li>收敛曲线（直观）：损失函数值随迭代次数的变化曲线。</li>
-</ol>
-<p><img src="https://i.loli.net/2020/04/02/c9w7ds8f2tvJXpZ.png" alt="学习率设置"></p>
-<center>图2 学习率设置</center>
-
+<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>例子：</p>
 <ul>
-<li>学习率过小，迭代速度慢</li>
-<li>学习率过大，发散</li>
-<li>选择学习率，倍数更迭（…,0.001,[0.003],0.01,[0.03],0.1,[0.3],1,…）[]中倍率为3x</li>
+<li>邮件分类</li>
+<li>交易是否属于欺诈</li>
+<li>良恶肿瘤</li>
 </ul>
-<h2 id="求解模型参数"><a href="#求解模型参数" class="headerlink" title="求解模型参数"></a>求解模型参数</h2><p>求解参数$\theta$的方法有：</p>
-<ol>
-<li>梯度下降法：一步步迭代</li>
-<li>正规方程法：提供求解参数最优解的方法</li>
-</ol>
-<p><img src="https://i.loli.net/2020/04/02/a8voVqsK2dS5tAj.png" alt="正规方程法"></p>
-<center>图3 正规方程法思路</center>
+<p>分类问题的分类：</p>
+<ul>
+<li>二分类：$y=0 \ or \ 1$<ul>
+<li>$h_\theta(x)$可以是&gt;1 or &lt;0</li>
+<li>使用线性回归效果不好，容易受离群值影响</li>
+<li>logistic regression：$0\leq h_\theta(x) \leq1$，普遍应用的分类算法</li>
+</ul>
+</li>
+<li>多分类</li>
+</ul>
+<h1 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h1><p><img src="https://i.loli.net/2020/04/02/ApV6SebEqdGFlza.png" alt="6-1.png"></p>
+<center>图1 逻辑回归的思路</center>
 
-<h3 id="正规方程法"><a href="#正规方程法" class="headerlink" title="正规方程法"></a>正规方程法</h3><p>$$<br>\begin{aligned}<br>J(\theta)&amp;=\frac{1}{2m}\sum_{i=1}^{n}(\theta^T x^{(i)})-y^{(i)})^2\<br>&amp;=\frac{1}{2m}(\theta^T X-y)^T(\theta^T X-y)\<br>&amp;=\frac{1}{2m}(X\theta-y)^T(X\theta-y)\   \tag{4-4}<br>&amp;=\frac{1}{2m}(\theta^TX^T-y^T)(X\theta-y)\<br>&amp;=\frac{1}{2m}(\theta^TX^TX\theta-y^TX\theta-\theta^TX^Ty+y^Ty)<br>\end{aligned}<br>$$</p>
-<p>$$<br>\frac{\partial{J(\theta)}}{\partial\theta}=\frac{1}{2m}(2X^TX\theta-X^TY-X^TY+0) \tag{4-5}<br>$$</p>
-<p>由$\frac{\partial{J(\theta)}}{\partial\theta}=0$得正规方程公式</p>
-<p>$$\theta=(X^TX)^{-1}X^Ty \tag{4-6}$$</p>
+<p>$<del>$<br>$</del>$</p>
+<p>可以看出logistic regression满足一下两个条件：</p>
+<p>$$h_θ (x)=P(y=1|x;θ)$$<br>$$P(y=1│x;θ)+P(y=0│x;θ)=1$$</p>
 <blockquote>
-<p>推导参考:<a href="https://blog.csdn.net/chenlin41204050/article/details/78220280" target="_blank" rel="noopener">正规方程求解特征参数的推导过程</a></p>
-</blockquote>
-<p>正规方程可以不需归一化便可优良求解。</p>
-<h3 id="梯度下降法-vs-正规方程法"><a href="#梯度下降法-vs-正规方程法" class="headerlink" title="梯度下降法 vs 正规方程法"></a>梯度下降法 vs 正规方程法</h3><p>m training examples, n features.</p>
+<p>$h_θ (x)$表示在假设函数的参数下，给定特征x代表y=1的概率。</p>
 <ul>
-<li>梯度下降法<ul>
-<li>需要选择学习率$\alpha$</li>
-<li>需要迭代次数多</li>
-<li>当n过大时（10^6）时，仍然工作较好</li>
+<li>当$h_θ (x)≥0.5&lt;=&gt;θ^T x≥0$，认定$y=1$;</li>
+<li>当$h_θ (x)&lt;0.5&lt;=&gt;θ^T x&lt;0$，认定$y=0$。        </li>
 </ul>
-</li>
-<li>正规方程法<ul>
-<li>不需选择$\alpha$</li>
-<li>不许迭代，一步到位</li>
-<li>需要计算$(X^TX)^{-1}$</li>
-<li>在n非常大时，运算速度慢</li>
-</ul>
-</li>
-</ul>
-<p>在分类等问题中，正规方程法不适用，梯度下降法是更普适的方法。</p>
-<p>在使用正规方程法时，若$(X^TX)$不可逆时，可以使用伪逆矩阵进行替代$(X^TX)^{-1}$。Matlab中<code>pinv()</code>计算伪逆矩阵，<code>inv()</code>计算逆矩阵。</p>
-<h3 id="正规方程法的进一步思考"><a href="#正规方程法的进一步思考" class="headerlink" title="正规方程法的进一步思考"></a>正规方程法的进一步思考</h3><p>$(X^TX)$不可逆的原因有：</p>
-<ol>
-<li>包含了多余的特征，特征重复。</li>
-<li>训练样本比要求解的特征参数多，欠拟合。<ul>
-<li>Sol：删除部分特征，用正则化</li>
-</ul>
-</li>
-</ol>
-<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>让各个数值特征放缩在相同尺度，这样梯度下降法效果更好，更快收敛。</p>
-<p><img src="https://i.loli.net/2020/04/02/sJULKGHvwx8uSja.png" alt="归一化"></p>
-<center>图4 归一化</center>
+<p>$1-h_θ (x)$表示在假设函数的参数下，给定特征x代表y=0的概率。</p>
+</blockquote>
+<h2 id="决策边界-Decision-Bounding"><a href="#决策边界-Decision-Bounding" class="headerlink" title="决策边界 Decision Bounding"></a>决策边界 Decision Bounding</h2><p>$h_\theta(x)=0.5$的直线。是假设函数的固有属性，只要给定了假设函数的参数，则决策边界唯一确定。    </p>
+<p><img src="https://i.loli.net/2020/04/02/kgFN782bzToEqnW.png" alt="6-2.png"></p>
+<center>图2 决策边界</center>
 
-<p>让特征数据在标准范围[-1,1]的范围内。若是与标准范围相差不大则不需要进行归一；变量范围与标准范围相差过大，则需要进行归一化，</p>
-<p><img src="https://i.loli.net/2020/04/02/iFEwHfbUJp13QrR.png" alt="归一化判断标准"></p>
-<center>图5 归一化判断标准</center>
+<p>$<del>$<br>$</del>$</p>
+<p>当界限越来越难分，可以通过构造复杂的特征得到更复杂的决策边界。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>损失函数的作用：<br>寻找假设函数的最优参数$\theta$。</p>
+<p><img src="https://i.loli.net/2020/04/02/aq6OrnLVw2MTF9A.png" alt="6-4.png"></p>
+<center>图3 MSE用于分类问题的缺陷</center>
 
-<h2 id="均值归一化"><a href="#均值归一化" class="headerlink" title="均值归一化"></a>均值归一化</h2><p>归一化后，数据的均值为0，最大值与最小值之差=1。</p>
+<p>$<del>$<br>$</del>$</p>
+<p>若使用均方差作为损失函数，有局部极小值，难以达到全局最小值。所以需要重新定义损失函数，使之成为凸函数可以使用梯度下降法。</p>
+<p>构想单个预测的损失函数：<br>$$<br>Cost(h_\theta(x),y)=-ylog(h_\theta(x))-(1-y)log(1-h_\theta(x)) \tag{6-1}<br>$$</p>
+<p><img src="https://i.loli.net/2020/04/02/ZkLDSxwXIyUzJni.png" alt="6-5.png"></p>
+<center>图4 损失函数凸性证明（y=1）</center>
+
+<p>$<del>$<br>$</del>$</p>
+<p>当y=1，若$h_\theta(x)$=1时，单个预测的损失函数值为0；而$h_\theta(x)$趋向于0时，单个预测的损失函数值无穷大。符合单个预测的损失函数的定义。</p>
+<p><img src="https://i.loli.net/2020/04/02/3w8DYtyMGoQaLpb.png" alt="6-6.png"></p>
+<center>图5 损失函数凸性证明（y=0）</center>
+
+<p>$<del>$<br>$</del>$</p>
+<p>当y=0，同理可知单个预测的损失函数也符合定义。</p>
+<p>且单个预测的的损失函数是一个凸函数，可以使用梯度下降法进行迭代。</p>
+<p>得到整体的损失函数：<br>$$\begin{aligned}<br>J(\theta)&amp;=\frac{1}{m}\sum_{i-1}^{m}Cost(h_\theta(x^{(i)}),y^{(i)})\ \tag{6-2}<br>&amp;=\frac{1}{m}\sum_{i-1}^{m}[-y^{(i)}log(h_\theta(x^{(i)}))-(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>\end{aligned}<br>$$</p>
+<p>为啥选上式作为Logistic Regression的损失函数？</p>
+<p>上式是Logistic Regression问题的对数似然函数，以此可快速为模型寻找参数，而且这个损失函数是凸的。</p>
+<h2 id="极大似然法估计"><a href="#极大似然法估计" class="headerlink" title="极大似然法估计"></a>极大似然法估计</h2><p>Cost函数和J函数均是由极大似然法推导得到。过程如下（参考自<a href="https://blog.csdn.net/ZhikangFu/article/details/51315542" target="_blank" rel="noopener">Logistic Regression损失函数理解</a>）：</p>
+<p>$$\begin{aligned}<br>P(y=1|x;\theta)&amp;=h_\theta(x)\<br>P(y=0|x;\theta)&amp;=1-h_\theta(x)   \tag{6-3}<br>\end{aligned}<br>$$</p>
+<p>对(6-3)进行合并，可得到<br>$$<br>P(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y} \tag{6-4}<br>$$</p>
+<p>取似然函数为<br>$$L(\theta)=\prod_{i=1}^{m}P(y^{(i)}|x^{(i)};\theta)=\prod_{i=1}^{m}(h_\theta(x^{(i)}))^{y^{(i)} }(1-h_\theta(x^{(i)}))^{1-y^{(i)} } \tag{6-5} $$ </p>
+<p>对数似然函数为<br>$$l(\theta)=logL(\theta)=\sum_{i=1}^{m}[{y^{(i)} }log{(h_\theta(x^{(i)}))}+{(1-y^{(i)})}log(1-h_\theta(x^{(i)}))] \tag{6-6} $$</p>
+<p>最大似然估计是取$\theta$使得$l(\theta)$取得最大值。这里令损失函数为$J(\theta)=-\frac{1}{m}l(\theta)$，取其最小值，即取似然函数的最大值。</p>
+<p>求似然函数最大值，就是求出损失函数的最小值，由此得到的是假设函数的最优参数$\theta$。这就是Logistic Regression损失函数的数学推导。</p>
+<h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><p>这里对$J(\theta)$的迭代公式为：</p>
+<blockquote>
+<p>与多元线性回归梯度下降迭代公式相同</p>
+</blockquote>
+<p>$$\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \tag{6-7}$$<br>$$j=0, \cdots ,n$$</p>
+<p>推导过程：参考<a href="https://blog.csdn.net/Jiaach/article/details/78736577" target="_blank" rel="noopener">Logistic Regression代价函数导数求解过程</a></p>
+<p>$$<br>\begin{aligned}<br>J(\theta)<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[{y^{(i)} }log{(h_\theta(x^{(i)}))}+{(1-y^{(i)})}log(1-h_\theta(x^{(i)}))]\<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[-{y^{(i)} }log{(1+e^{-\theta x^{(i)} })}+(1-y^{(i)})(-\theta x^{(i)}-log{(1+e^{-\theta x^{(i)} })})]\<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[{y^{(i)} }\theta x^{(i)}-\theta x^{(i)}-log{(1+e^{-\theta x^{(i)} })}]\<br>&amp;=-\frac{1}{m}\sum_{i=1}^{m}[{y^{(i)} }\theta x^{(i)}-log{(1+e^{\theta x^{(i)} })}]\<br>\end{aligned}$$</p>
+<p>由</p>
+<p>$$<br>\left {<br>\begin{aligned}<br>&amp;\frac{\partial{} }{\partial{\theta_j} }{ {y^{(i)}\theta x^{(i)} }}=y^{(i)}x_j^{(i)}\<br>&amp;\frac{\partial{} }{\partial{\theta_j} }{log{(1+e^{\theta x^{(i)} })} }=\frac{x_j^{(i)}e^{\theta x^{(i)} }}{1+e^{\theta x^{(i)} }}=x_j^{(i)}h_\theta(x^{(i)})<br>\end{aligned}<br>\right .<br>$$</p>
+<p>得到</p>
+<p>$$<br>\frac{\partial{J(\theta)} }{\partial{\theta_j} }=-\frac{1}{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}=\frac{1}{m}(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}<br>$$</p>
+<p>(6-7)梯度下降法成立。特征归一化能使Logistic Regression收敛加快。</p>
+<p>可使用正规方程法一次得到所有的$\theta$值。</p>
+<h2 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h2><ul>
+<li>梯度下降法</li>
+<li>共轭梯度法</li>
+<li>BFGS</li>
+<li>L-BFGS</li>
+</ul>
+<p>相比于梯度下降法，其他三个优化算法：</p>
+<ul>
+<li>优点：<ul>
+<li>不需要手动设置学习率$\alpha$</li>
+<li>收敛速度比其更快</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>算法更为复杂</li>
+</ul>
+</li>
+</ul>
+<h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p>每个类别i训练一个Logistic Regression分类器$h_\theta^{(i)}(x)$。</p>
+<p>对每个输入样本x，取各分类器预测概率值最高的为其类别:</p>
+<p>$$\max \limits_i h_\theta^{(i)}(x)$$</p>
+<p><img src="https://i.loli.net/2020/04/02/l18dPcEfHyYAXKo.png" alt="6-7.png"></p>
+<center>图6 多分类器</center>
+
+<p>$<del>$<br>$</del>$</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li>吴恩达-机器学习-ch4</li>
-<li><a href="https://blog.csdn.net/chenlin41204050/article/details/78220280" target="_blank" rel="noopener">正规方程的推导-CSDN</a></li>
+<li>吴恩达-机器学习-ch6</li>
+<li><a href="https://blog.csdn.net/ZhikangFu/article/details/51315542" target="_blank" rel="noopener">Logistic Regression损失函数理解-CSDN</a></li>
+<li><a href="https://blog.csdn.net/Jiaach/article/details/78736577" target="_blank" rel="noopener">Logistic Regression代价函数导数求解过程-CSDN</a></li>
 </ol>
 
       
@@ -375,7 +407,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch4%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/NG_ML_ch6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -389,18 +421,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/23/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/24/website-update-log/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          吴恩达机器学习ch6学习笔记
+          website update log
         
       </div>
     </a>
   
   
-    <a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">EfficientDet学习笔记</div>
+    <a href="/2020/03/23/NG_ML_ch4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习ch4学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -427,7 +459,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多元线性回归"><span class="toc-number">1.</span> <span class="toc-text">多元线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单特征的多项式回归"><span class="toc-number">1.1.</span> <span class="toc-text">单特征的多项式回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代收敛"><span class="toc-number">1.2.</span> <span class="toc-text">迭代收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求解模型参数"><span class="toc-number">1.3.</span> <span class="toc-text">求解模型参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正规方程法"><span class="toc-number">1.3.1.</span> <span class="toc-text">正规方程法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降法-vs-正规方程法"><span class="toc-number">1.3.2.</span> <span class="toc-text">梯度下降法 vs 正规方程法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正规方程法的进一步思考"><span class="toc-number">1.3.3.</span> <span class="toc-text">正规方程法的进一步思考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归一化"><span class="toc-number">1.4.</span> <span class="toc-text">归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#均值归一化"><span class="toc-number">1.5.</span> <span class="toc-text">均值归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.6.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#分类问题"><span class="toc-number">1.</span> <span class="toc-text">分类问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Logistic-Regression"><span class="toc-number">2.</span> <span class="toc-text">Logistic Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策边界-Decision-Bounding"><span class="toc-number">2.1.</span> <span class="toc-text">决策边界 Decision Bounding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#损失函数"><span class="toc-number">2.2.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极大似然法估计"><span class="toc-number">2.3.</span> <span class="toc-text">极大似然法估计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降法"><span class="toc-number">2.4.</span> <span class="toc-text">梯度下降法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化算法"><span class="toc-number">2.5.</span> <span class="toc-text">优化算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多分类问题"><span class="toc-number">2.6.</span> <span class="toc-text">多分类问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.7.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -498,6 +530,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">

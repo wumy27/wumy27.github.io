@@ -6,32 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch8学习笔记 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch4学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Ch8 先引出logistic回归模型的不足：对复杂的非线性假设模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络模型的组成、前向传播算法，并就网络为何能构造复杂的特征做出了解释，并提供了简单逻辑运算器（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对多分类神经网络的构建方法。">
+  <meta name="description" content="Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是多个特征。其中特征可以由多个单特征构成，也可由单特征的指数&#x2F;对数&#x2F;次方…等运算项构成。假设函数取线性公式；损失函数仍然采用了均方差公式。除了用梯度下降法进行参数更新外，还提出了正规方程法，可以一步到位计算出参数，但也有其局限所在。 针对数值特征，进一步提出能加快梯度下降法迭代速度的归一化概念。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch8学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/index.html">
+<meta property="og:title" content="吴恩达机器学习ch4学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/NG_ML_ch4/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Ch8 先引出logistic回归模型的不足：对复杂的非线性假设模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络模型的组成、前向传播算法，并就网络为何能构造复杂的特征做出了解释，并提供了简单逻辑运算器（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对多分类神经网络的构建方法。">
+<meta property="og:description" content="Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是多个特征。其中特征可以由多个单特征构成，也可由单特征的指数&#x2F;对数&#x2F;次方…等运算项构成。假设函数取线性公式；损失函数仍然采用了均方差公式。除了用梯度下降法进行参数更新外，还提出了正规方程法，可以一步到位计算出参数，但也有其局限所在。 针对数值特征，进一步提出能加快梯度下降法迭代速度的归一化概念。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-6.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-5.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-and.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-or.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-not.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-nan.png">
-<meta property="og:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-xnor.png">
-<meta property="article:published_time" content="2020-04-27T04:00:24.000Z">
-<meta property="article:modified_time" content="2020-04-28T03:23:03.310Z">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/t27lLkDnOKJToCE.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/c9w7ds8f2tvJXpZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/a8voVqsK2dS5tAj.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/sJULKGHvwx8uSja.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/iFEwHfbUJp13QrR.png">
+<meta property="article:published_time" content="2020-03-23T12:21:40.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:42:40.718Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/img/8-1.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/02/t27lLkDnOKJToCE.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -175,298 +169,114 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-吴恩达机器学习ch8" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-NG_ML_ch4" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch8学习笔记
+      吴恩达机器学习ch4学习笔记
     </h1>
   
 
+        <!--显示阅读次数-->
         
-        <a href="/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/" class="archive-article-date">
-  	<time datetime="2020-04-27T04:00:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-27</time>
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/03/23/NG_ML_ch4/" class="archive-article-date">
+  	<time datetime="2020-03-23T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ch8 先引出logistic回归模型的不足：对复杂的<strong>非线性假设</strong>模型的产生的决策边界难以进行拟合与训练。然后受到大脑神经元的启发，我们开发了神经网络模型。本章介绍了神经网络<strong>模型的组成</strong>、<strong>前向传播算法</strong>，并就网络为何能<strong>构造复杂的特征</strong>做出了解释，并提供了<strong>简单逻辑运算器</strong>（与、或、非异或、同或）的神经网络表示。最后在二分类神经网络的基础上描述了对<strong>多分类神经网络</strong>的构建方法。</p>
-<a id="more"></a>
+        <p>Ch4主要是对机器学习中的多元回归问题进行建模，这里的多元指的是<strong>多个特征</strong>。其中特征可以由多个单特征构成，也可由单特征的指数/对数/次方…等运算项构成。<br>假设函数取<strong>线性公式</strong>；损失函数仍然采用了<strong>均方差公式</strong>。除了用梯度下降法进行参数更新外，还提出了<strong>正规方程法</strong>，可以一步到位计算出参数，但也有其局限所在。</p>
+<p>针对数值特征，进一步提出能加快梯度下降法迭代速度的<strong>归一化</strong>概念。</p>
+<a id="more"></a>    
 
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#1">神经网络的表述</a><ul>
-<li><a href="#2">非线性假设</a></li>
-<li><a href="#3">神经元和大脑</a></li>
-<li><a href="#4">模型表示</a><ul>
-<li><a href="#5">前向传播</a></li>
-<li><a href="#6">特征与假设函数</a></li>
-</ul>
-</li>
-<li><a href="#7">神经网络的直观理解</a><ul>
-<li><a href="#8">AND</a></li>
-<li><a href="#9">OR</a></li>
-<li><a href="#10">NOT</a></li>
-<li><a href="#11">Not And Not</a></li>
-<li><a href="#12">XOR</a></li>
-<li><a href="#13">XNOR</a></li>
-</ul>
-</li>
-<li><a href="#14">多类别识别</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="1">神经网络的表述</h2>
+<hr>
+<h1 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h1><p>$n$：特征数量    </p>
+<p>$x^{(i)}$：第i个输入</p>
+<p>${x}_j^{(i)}$：第i个输入的第j个特征    </p>
+<p>$y^{(i)}$：第i个输入的标签</p>
+<p>参数：$\theta$    </p>
+<p>假设函数：<br>$$<br>h_\theta(x)=<br>{\left[<br>\begin{matrix} \theta_{0} &amp; \cdots &amp; \theta_{n} \end{matrix}<br>\right ]}<br>{\left[<br>\begin{matrix} x_{0} \ \cdots \ x_{n} \end{matrix}<br>\right ]}=\theta^Tx \tag{4-1}<br>$$</p>
+<p>代价函数：<br>$$J(\theta)=\frac{1}{2m}\sum_{i=1}^{n}(h_\theta(x^{(i)})-y^{(i)})^2 \tag{4-2}$$</p>
+<p>梯度下降法：<br>$$\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)} \tag{4-3}$$<br>$$j=0, \cdots ,n$$</p>
+<h2 id="单特征的多项式回归"><a href="#单特征的多项式回归" class="headerlink" title="单特征的多项式回归"></a>单特征的多项式回归</h2><p>多特征可以由单特征构造：由单特征的不同项式进行生成多特征。</p>
+<h2 id="迭代收敛"><a href="#迭代收敛" class="headerlink" title="迭代收敛"></a>迭代收敛</h2><p><img src="https://i.loli.net/2020/04/02/t27lLkDnOKJToCE.png" alt="迭代收敛"></p>
+<center>图1 迭代收敛</center>
 
-
-<p>逻辑回归的缺点：<br>如果决策边界复杂，则假设函数也会变得十分复杂。这就导致需要进行组合的非线性特征过多，则需要计算和选择特征产生的计算量会非常大。</p>
-<h3 id="2">非线性假设</h3>
-
-<p>面对复杂的分类问题，我们可能需要很复杂的假设函数，如下图所示<br><img src="img/8-1.png" alt="8-1"></p>
-<p>图中是以由两个原始特征形成的复合特征组为自变量的假设函数。</p>
-<p>复合特征组中的各元素是原始自变量的不同幂次乘积。例如若原始特征有$x_1,; \cdots ;x_{100}$，<br>则其二次项就有$x_1^2,x_1x_2,; \cdots ;x_{100}^2$，共有$\frac{100^2}{2!}=5000(O(n^2))$个复合特征；<br>而若是三次项就有$x_1^3,x_1x_2x_3,; \cdots ;x_{100}^3$，共有$\frac{100^3}{3!}=170000(O(n^3))$个复合特征。</p>
-<p>若是原始特征本就很多，例如计算机视觉中的图像识别，我们将一张图片的所有像素的亮度拉成一个向量。例如一张$50x50$的图片，拉成$R^2500$的一个向量，若要生成任意两个像素间的复合特征，会有3百万的新特征。</p>
-<p>而这么多特征用logistic回归做假设函数，则难以进行训练，所以我们需要开发新的模型。</p>
-<h3 id="3">神经元和大脑</h3>
-
-
-<p>视觉传感与触觉和听觉有极大关系。本节还介绍了一些关于大脑的一些研究。</p>
-<h3 id="4">模型表示</h3>
-
-<p>大脑神经元结构如下：<br><img src="img/8-2.png" alt="8-2"></p>
-<p>信息从上一个神经元的突触，传送到下一个神经元的树突，经过细胞核处理后，由轴突传送到突触进入下一个传送阶段。</p>
-<p>模仿大脑神经元的传送原理，我们开发了神经网络模型。</p>
-<p>大脑的基本单元是神经元，而神经网络的基本单元是逻辑元，其结构如下：<br><img src="img/8-3.png" alt="8-3"></p>
-<p>其中，$x_1,x_2,x_3$是输入，$x_0$是模型内的偏置单元，橙色圆是处理单元，代表logistic函数。从输入$x_0,x_1,x_2,x_3$到处理单元间的流程线上是各输入单元的权重值$\theta$；从处理单元到输出$h_\theta(x)$上无运算，处理后直接输出。</p>
-<p>神经网络是其基本单元的合成版，如下图所示：<br><img src="img/8-4.png" alt="8-4"></p>
-<p>其中Layer1是输入层，Layer2是隐藏层，Layer3是输出层。</p>
-<p>规定：</p>
-<ul>
-<li>$\Theta^{j}$代表从第j层到第j+1层单元的映射权重矩阵。若第j层有$s_{j}$个单元，而第j+1层有$s_{j+1}$个单元，则$\Theta^{(j)}$的维度为$s_{j+1}x(s_j+1)$（1为第j层的偏置单元）。</li>
-<li><blockquote>
-<p>容易搞反，row为下一层的单元数，column为当前层单元数+1</p>
-</blockquote>
-</li>
-<li>$a_i^{(j)}$代表第j层的第i个单元的激活函数。</li>
-<li>默认每一层的输入都增加一个偏置单元，取值为1。</li>
-</ul>
-<h4 id="5">前向传播FORWARD PROPAGATION</h4>
-
-
-<p>从输入层到输出层的整个顺序流程称为<strong>前向传播</strong>。</p>
-<p>针对一般的情形，若输入层单元数为$n$，隐含层层数为$m$，令$x=[x_0 ; x_1; \cdots x_n ]=a^{(1)}$，后续隐藏层的输出看做一个向量分别记作$a^{(j)},; j=2,; \cdots , m+1$，将输出层单元记作$a^{(m+2)}$。</p>
-<p><strong>前向传播算法流程</strong>：</p>
+<p>观察迭代过程是否收敛有两种方法：    </p>
 <ol>
-<li>从输出层开始，每层在传播到下一层前都需要加入一个偏置单元$a_0^{(j)}j=2,; \cdots , m+1$。</li>
-<li>后续各层的各单元的输入为<br>$$z_i^{(j)}=\sum_{k=0}^{s_j}\Theta_{ik}^{(j-1)}x_k ; ,j=1,2,…m+2$$</li>
-<li>经过单元内的激励函数后的输出为<br>$$a_i^{(j)}=g(z_i^{(j)})$$</li>
-<li>最终输出层的输出为<br>$$h_\Theta(x)=a^{(m+2)}=g(z^{(m+2)})$$</li>
+<li>自动收敛测试，看最终的代价函数值是否小于一个$\epsilon$。</li>
+<li>收敛曲线（直观）：损失函数值随迭代次数的变化曲线。</li>
 </ol>
-<p>针对图8-4的神经网络而言，最终神经网络的输出为$h_\Theta(x)=a^{(3)}=g(z^{(3)})$</p>
-<h4 id="6">特征与假设函数</h4>
+<p><img src="https://i.loli.net/2020/04/02/c9w7ds8f2tvJXpZ.png" alt="学习率设置"></p>
+<center>图2 学习率设置</center>
 
-<p>针对图8-4的神经网络，最终输出是用$a_1^{(2)},a_2^{(2)},a_3^{(2)}$做输入特征，以进行logistic回归分类，而$a_1^{(2)},a_2^{(2)},a_3^{(2)}$又是通过$x_1<del>x_3$做logistc回归得到的特征，因此能够生产复杂的假设函数。(这里的$x_1</del>x_3$可以更改为$x_1x_2,x_2x_3,\cdots$等其他输入)</p>
-<p><img src="img/8-6.png" alt="8-6"><br>如图8-6所示，Layer2是对Layer1的特征的复合组合，Layer3是对Layer2特征的复合组合，以此达到更好的假设函数。</p>
+<ul>
+<li>学习率过小，迭代速度慢</li>
+<li>学习率过大，发散</li>
+<li>选择学习率，倍数更迭（…,0.001,[0.003],0.01,[0.03],0.1,[0.3],1,…）[]中倍率为3x</li>
+</ul>
+<h2 id="求解模型参数"><a href="#求解模型参数" class="headerlink" title="求解模型参数"></a>求解模型参数</h2><p>求解参数$\theta$的方法有：</p>
+<ol>
+<li>梯度下降法：一步步迭代</li>
+<li>正规方程法：提供求解参数最优解的方法</li>
+</ol>
+<p><img src="https://i.loli.net/2020/04/02/a8voVqsK2dS5tAj.png" alt="正规方程法"></p>
+<center>图3 正规方程法思路</center>
+
+<h3 id="正规方程法"><a href="#正规方程法" class="headerlink" title="正规方程法"></a>正规方程法</h3><p>$$<br>\begin{aligned}<br>J(\theta)&amp;=\frac{1}{2m}\sum_{i=1}^{n}(\theta^T x^{(i)})-y^{(i)})^2\<br>&amp;=\frac{1}{2m}(\theta^T X-y)^T(\theta^T X-y)\<br>&amp;=\frac{1}{2m}(X\theta-y)^T(X\theta-y)\   \tag{4-4}<br>&amp;=\frac{1}{2m}(\theta^TX^T-y^T)(X\theta-y)\<br>&amp;=\frac{1}{2m}(\theta^TX^TX\theta-y^TX\theta-\theta^TX^Ty+y^Ty)<br>\end{aligned}<br>$$</p>
+<p>$$<br>\frac{\partial{J(\theta)}}{\partial\theta}=\frac{1}{2m}(2X^TX\theta-X^TY-X^TY+0) \tag{4-5}<br>$$</p>
+<p>由$\frac{\partial{J(\theta)}}{\partial\theta}=0$得正规方程公式</p>
+<p>$$\theta=(X^TX)^{-1}X^Ty \tag{4-6}$$</p>
 <blockquote>
-<p>神经网络若有多个隐含层，可以采用各隐含层单元数相同的架构，也可以用单元数不同的架构，如图8-6所示。</p>
+<p>推导参考:<a href="https://blog.csdn.net/chenlin41204050/article/details/78220280" target="_blank" rel="noopener">正规方程求解特征参数的推导过程</a></p>
 </blockquote>
-<h2 id="7">神经网络的直观理解</h2>
+<p>正规方程可以不需归一化便可优良求解。</p>
+<h3 id="梯度下降法-vs-正规方程法"><a href="#梯度下降法-vs-正规方程法" class="headerlink" title="梯度下降法 vs 正规方程法"></a>梯度下降法 vs 正规方程法</h3><p>m training examples, n features.</p>
+<ul>
+<li>梯度下降法<ul>
+<li>需要选择学习率$\alpha$</li>
+<li>需要迭代次数多</li>
+<li>当n过大时（10^6）时，仍然工作较好</li>
+</ul>
+</li>
+<li>正规方程法<ul>
+<li>不需选择$\alpha$</li>
+<li>不许迭代，一步到位</li>
+<li>需要计算$(X^TX)^{-1}$</li>
+<li>在n非常大时，运算速度慢</li>
+</ul>
+</li>
+</ul>
+<p>在分类等问题中，正规方程法不适用，梯度下降法是更普适的方法。</p>
+<p>在使用正规方程法时，若$(X^TX)$不可逆时，可以使用伪逆矩阵进行替代$(X^TX)^{-1}$。Matlab中<code>pinv()</code>计算伪逆矩阵，<code>inv()</code>计算逆矩阵。</p>
+<h3 id="正规方程法的进一步思考"><a href="#正规方程法的进一步思考" class="headerlink" title="正规方程法的进一步思考"></a>正规方程法的进一步思考</h3><p>$(X^TX)$不可逆的原因有：</p>
+<ol>
+<li>包含了多余的特征，特征重复。</li>
+<li>训练样本比要求解的特征参数多，欠拟合。<ul>
+<li>Sol：删除部分特征，用正则化</li>
+</ul>
+</li>
+</ol>
+<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>让各个数值特征放缩在相同尺度，这样梯度下降法效果更好，更快收敛。</p>
+<p><img src="https://i.loli.net/2020/04/02/sJULKGHvwx8uSja.png" alt="归一化"></p>
+<center>图4 归一化</center>
 
-<p>对于logistic函数g(z)，其函数图像如下：<br><img src="img/8-5.png" alt="logistic"></p>
-<p>不妨设$x_1,x_2$为二元变量，取值为${0/1}$，则有下列逻辑运算器成立。</p>
-<h4 id="8">AND</h4>
+<p>让特征数据在标准范围[-1,1]的范围内。若是与标准范围相差不大则不需要进行归一；变量范围与标准范围相差过大，则需要进行归一化，</p>
+<p><img src="https://i.loli.net/2020/04/02/iFEwHfbUJp13QrR.png" alt="归一化判断标准"></p>
+<center>图5 归一化判断标准</center>
 
-
-
-<p>$$h_\theta(x)=g(-30+20x_1+20x_2)=g(z)$$<br>|  x1  |  x2  | AND  | g(z) |<br>| :–: | :–: | :–: | :–: |<br>|  0   |  0   |      |      |<br>|  0   |  1   |      |      |<br>|  1   |  0   |      |      |<br>|  1   |  1   |      |      |</p>
-<p><img src="img/8-and.png" alt="AND"></p>
-<h4 id="9">OR</h4>
-
-<p>$$h_\theta(x)=g(-10+20x_1+20x_2)=g(z)$$</p>
-<table>
-<thead>
-<tr>
-<th align="center">x1</th>
-<th align="center">x2</th>
-<th align="center">OR</th>
-<th align="center">g(z)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-</tbody></table>
-<p><img src="img/8-or.png" alt="OR"></p>
-<h4 id="10">NOT</h4>
-
-<p>$$h_\theta(x)=g(10-20x_1)=g(z)$$</p>
-<table>
-<thead>
-<tr>
-<th align="center">x1</th>
-<th align="center">NOT</th>
-<th align="center">g(z)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-</tbody></table>
-<p><img src="img/8-not.png" alt="NOT"></p>
-<h4 id="11">双非Not And Not</h4>
-
-<p>$$h_\theta(x)=g(10-20x_1-20x_2)=g(z)$$</p>
-<table>
-<thead>
-<tr>
-<th align="center">x1</th>
-<th align="center">x2</th>
-<th align="center">N A N</th>
-<th align="center">g(z)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-</tbody></table>
-<p><img src="img/8-nan.png" alt="NOTANDNOT"></p>
-<p>双非运算器满足：$Not ;A ;and ;Not ;B = NOT( A ;OR; B )$</p>
-<h4 id="12">异或XOR</h4>
-
-<table>
-<thead>
-<tr>
-<th align="center">x1</th>
-<th align="center">x2</th>
-<th align="center">XOR</th>
-<th align="center">g(z)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-</tbody></table>
-<p>异或运算器满足：A^B =  ( A &amp; ~ B) | (A &amp; ~ B )</p>
-<p>其中^,&amp;,|,~分别是异或、与、或、非的逻辑符号；由此说明异或逻辑运算器可以由与或非逻辑运算器组合生成。</p>
-<h4 id="13">同或XNOR</h4>
-
-<p>$$h_\theta(x)=g(10-20x_1-20x_2)$$</p>
-<table>
-<thead>
-<tr>
-<th align="center">x1</th>
-<th align="center">x2</th>
-<th align="center">XNOR</th>
-<th align="center">g(z)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-</tbody></table>
-<p><img src="img/8-xnor.png" alt="XNOR"></p>
-<p>同或运算器满足：$A ; XNOR ; B = NOT( A ; XNOR; B )$</p>
-<h2 id="14">多类别识别</h2>
-
-<p>若是有多个类别$n$需要区分，我们可以在设置输出层单元数为$n$对应类别数，各个输出单元输出0或1，用输出one-hot向量来区分预测的种类。</p>
-<p>例如：预测类别数为4，则$h_\Theta(x)=[1;0;0;0 ]^T$代表行人，$h_\Theta(x)=[0;1;0;0 ]^T$代表小汽车，$h_\Theta(x)=[0;0;1;0 ]^T$代表摩托车，$h_\Theta(x)=[0;0;0;1 ]^T$代表货车。</p>
-<p>同时我们的训练集中的标签值也应该更改为相应的one-hot向量。</p>
-<p>针对1次输入，神经网络中的输出层的各个输出单元都会对应有一个0~1的输出。我们在最终预测时，可以将其中的输出最大值的输出单元置1，其余置0，以此得到一个预测类别。</p>
+<h2 id="均值归一化"><a href="#均值归一化" class="headerlink" title="均值归一化"></a>均值归一化</h2><p>归一化后，数据的均值为0，最大值与最小值之差=1。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li>吴恩达-机器学习-ch4</li>
+<li><a href="https://blog.csdn.net/chenlin41204050/article/details/78220280" target="_blank" rel="noopener">正规方程的推导-CSDN</a></li>
+</ol>
 
       
 
@@ -568,7 +378,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/27/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/NG_ML_ch4/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -582,9 +392,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/03/23/NG_ML_ch6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          吴恩达机器学习ch6学习笔记
+        
+      </div>
+    </a>
   
-    <a href="/2020/04/26/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ch9/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch9学习笔记</div>
+  
+    <a href="/2020/03/23/EfficientDet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">EfficientDet学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -611,7 +430,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1"><span class="toc-number">1.1.</span> <span class="toc-text">神经网络的表述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">1.1.1.</span> <span class="toc-text">非线性假设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3"><span class="toc-number">1.1.2.</span> <span class="toc-text">神经元和大脑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4"><span class="toc-number">1.1.3.</span> <span class="toc-text">模型表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">前向传播FORWARD PROPAGATION</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">特征与假设函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7"><span class="toc-number">1.2.</span> <span class="toc-text">神经网络的直观理解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">AND</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">OR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">NOT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">双非Not And Not</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12"><span class="toc-number">1.2.0.5.</span> <span class="toc-text">异或XOR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13"><span class="toc-number">1.2.0.6.</span> <span class="toc-text">同或XNOR</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14"><span class="toc-number">1.3.</span> <span class="toc-text">多类别识别</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多元线性回归"><span class="toc-number">1.</span> <span class="toc-text">多元线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单特征的多项式回归"><span class="toc-number">1.1.</span> <span class="toc-text">单特征的多项式回归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代收敛"><span class="toc-number">1.2.</span> <span class="toc-text">迭代收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求解模型参数"><span class="toc-number">1.3.</span> <span class="toc-text">求解模型参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正规方程法"><span class="toc-number">1.3.1.</span> <span class="toc-text">正规方程法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降法-vs-正规方程法"><span class="toc-number">1.3.2.</span> <span class="toc-text">梯度下降法 vs 正规方程法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正规方程法的进一步思考"><span class="toc-number">1.3.3.</span> <span class="toc-text">正规方程法的进一步思考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归一化"><span class="toc-number">1.4.</span> <span class="toc-text">归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#均值归一化"><span class="toc-number">1.5.</span> <span class="toc-text">均值归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.6.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -682,6 +501,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<script  async  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">
