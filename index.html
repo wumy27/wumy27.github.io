@@ -163,6 +163,139 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-NG_ML_CH14_降维" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/18/NG_ML_CH14_%E9%99%8D%E7%BB%B4/">NG_ML_CH14_降维</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/09/18/NG_ML_CH14_%E9%99%8D%E7%BB%B4/" class="archive-article-date">
+  	<time datetime="2020-09-18T14:07:39.277Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>‘’‘</p>
+<p>吴恩达 机器学习 第14章</p>
+<p>’‘’</p>
+<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间/平面的点，降维分布到平面/线上，可以看成是一种映射关系。</p>
+<img src="../img/14-1.png" alt="14-1" style="zoom:48%;" />
+
+<p>上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。</p>
+<img src="../img/14-2.png" alt="14-2" style="zoom:75%;" />
+
+<p>上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&gt;z^{(i)}\in \mathbb{R}^2$。</p>
+<p>数据压缩的好处：</p>
+<ul>
+<li><p>减少计算机内存使用</p>
+</li>
+<li><p>加速算法的学习速度</p>
+</li>
+<li><p>数据可视化</p>
+<blockquote>
+<p>选取特征进行数据降维后，通过可视化手段可以看出样本点的分布规律，进而对具有类似特点的样本点组成类。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="主成分分析PCA"><a href="#主成分分析PCA" class="headerlink" title="主成分分析PCA"></a>主成分分析PCA</h2><p>目的：最小化数据集中所有样本点到投影面的距离和。</p>
+<img src="../img/14-3.png" alt="14-3" style="zoom:75%;" />
+
+<blockquote>
+<p>所以选择橙色的投影面而非粉色。</p>
+</blockquote>
+<p>流程：找到n个方向向量(主成分)，将数据从m维降到n维，以最小化投影误差。</p>
+<h3 id="PCA与线性回归的区别"><a href="#PCA与线性回归的区别" class="headerlink" title="PCA与线性回归的区别"></a>PCA与线性回归的区别</h3><img src="../img/14-4.png" alt="14-4" style="zoom:60%;" />
+
+<p>PCA没有标签y，任何一个特征$x_i$均同等重要，需要在其基础上进行主成分(方向)的寻找。最小化投影误差，而非像线性回归的误差函数——预测值与标签之间的方差。</p>
+<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><ol>
+<li><p>特征中心化</p>
+<p>$\mu=\frac{1}{m}\sum_{i=1}^m x_j^{(i)}$</p>
+<p>替换每个$x_j^{(i)}$为$x_j^{(i)}-\mu_j$</p>
+</li>
+<li><p>（可选）若特征的数值不在同一数量级，则需要归一化</p>
+<p>$x_j^{(i)}&lt;–\frac{x_j^{(i)}-\mu_j}{s_j}$</p>
+</li>
+<li><p>计算协方差矩阵$\Sigma$</p>
+<p>$\Sigma=\frac{1}{m}\sum_{i=1}^n(x^{(i)})(x^{(i)})^T$</p>
+<blockquote>
+<p>总共有m个样本，每个样本均有一个协方差矩阵，$\Sigma$即为对这m个协方差矩阵求均值。</p>
+</blockquote>
+</li>
+<li><p>选取$\Sigma$的k个特征向量为主成分</p>
+<blockquote>
+<p> $[U,S,V]=svd(\Sigma)$,$eig(\Sigma)$均能返回特征向量</p>
+<p>$U\in\mathbb{R}^{n\times n}–&gt;U’\in\mathbb{R}^{n\times k},X\in \mathbb{R}^n–&gt;Z=U^TX\in\mathbb{R}^{k}$</p>
+</blockquote>
+</li>
+<li><p>得到降维结果</p>
+</li>
+</ol>
+<h4 id="主成分选择"><a href="#主成分选择" class="headerlink" title="主成分选择"></a>主成分选择</h4><p>目的：原向量与投影的矢量差最小</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>先降维后训练</li>
+</ul>
+<p>PCA只能先用训练集进行训练，由此定义了从x到z的映射后，再将映射应用到交叉验证集和测试集中。</p>
+<ul>
+<li>PCA是防止过拟合的方法？</li>
+</ul>
+<p>通过减少特征数量，而降低了过拟合的可能性。但最好使用正则化的方法，其效果更好。PCA因为不关心y值，所有会丢失一些有效信息。</p>
+<ul>
+<li>不应该优先考虑PCA</li>
+</ul>
+<p>在应用PCA前，应先使用原始的x进行训练，只有在效果不太好的时候，再考虑用PCA降维。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/18/NG_ML_CH14_%E9%99%8D%E7%BB%B4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-NG_ML_CH18_OCR" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -900,96 +1033,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/04/27/NG_ML_ch8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-NG_ML_ch9" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/26/NG_ML_ch9/">吴恩达机器学习ch9学习笔记</a>
-    </h1>
-  
-
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2020/04/26/NG_ML_ch9/" class="archive-article-date">
-  	<time datetime="2020-04-26T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Ch9 是对神经网络模型的进一步深入。Ch8 主要是对神经网络模型的假设函数的阐述，而Ch9 则对神经网络<strong>模型的训练</strong>进行展开：首先类比logistic回归模型提出了神经网络模型的<strong>损失函数</strong>，并且叙述了用于求解最佳参数所用的<strong>反向传播</strong>算法。在训练网络前，首先需要使用<strong>梯度检验</strong>的方法验证反向传播算法是否正确。在正式训练时，初始化参数矩阵需使用<strong>随机初始化</strong>方法。最后对Ch8 和Ch9 的神经网络模型做了综合性的<strong>总结</strong>。</p>
-        
-          <a class="article-more-a" href="/2020/04/26/NG_ML_ch9/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/26/NG_ML_ch9/">展开全文 >></a>
         </p>
       
 
