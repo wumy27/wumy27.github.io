@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch16学习笔记 | BevanWu的修炼小栈</title>
+  <title>Tag: Machine Learning | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="推荐系统">
-<meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch16学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/09/18/NG_ML_CH16_recommand_system/index.html">
+  <meta name="description" content="学习笔记&#x2F;技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BevanWu的修炼小栈">
+<meta property="og:url" content="http://yoursite.com/tags/Machine-Learning/page/2/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="推荐系统">
+<meta property="og:description" content="学习笔记&#x2F;技术博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/09/18/img/16-1.png">
-<meta property="article:published_time" content="2020-09-18T02:36:24.000Z">
-<meta property="article:modified_time" content="2020-09-22T01:46:47.962Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/09/18/img/16-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -165,207 +161,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-NG_ML_CH16_recommand_system" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch16学习笔记
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/03/30/NG_ML_ch7/" class="archive-article-date">
+  	<time datetime="2020-03-30T10:27:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/03/30/NG_ML_ch7/">吴恩达机器学习ch7学习笔记</a>
     </h1>
   
 
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2020/09/18/NG_ML_CH16_recommand_system/" class="archive-article-date">
-  	<time datetime="2020-09-18T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><a id="more"></a>
-<p>例子：不同用户对不同电影有着不同偏好，以5分制进行评分  </p>
-<table>
-<thead>
-<tr>
-<th align="center">Movie</th>
-<th align="center">Alice(1)</th>
-<th align="center">Bob(2)</th>
-<th align="center">Carol(3)</th>
-<th align="center">Dave(4)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Love at last</td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">Romance forever</td>
-<td align="center">5</td>
-<td align="center">?</td>
-<td align="center">?</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">Cute puppies of love</td>
-<td align="center">?</td>
-<td align="center">4</td>
-<td align="center">0</td>
-<td align="center">?</td>
-</tr>
-<tr>
-<td align="center">Nonstop Car chases</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">5</td>
-<td align="center">4</td>
-</tr>
-<tr>
-<td align="center">Swords vs. karate</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">5</td>
-<td align="center">?</td>
-</tr>
-</tbody></table>
-<h2 id="基于内容的推荐系统"><a href="#基于内容的推荐系统" class="headerlink" title="基于内容的推荐系统"></a>基于内容的推荐系统</h2><p>对内容进行不同维度的评分，形成内容的特征向量（看具体场景是否加偏置项1），学习用户的偏好对内容特征向量的假设函数，则可推测各用户对不同电影的评分。  </p>
-<table>
-<thead>
-<tr>
-<th align="center">Movie</th>
-<th align="center">$x_1$(romance)</th>
-<th align="center">$x_2$(action)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Love at last</td>
-<td align="center">0.9</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">Romance forever</td>
-<td align="center">1.0</td>
-<td align="center">0.01</td>
-</tr>
-<tr>
-<td align="center">Cute puppies of love</td>
-<td align="center">0.99</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">Nonstop Car chases</td>
-<td align="center">0.1</td>
-<td align="center">1.0</td>
-</tr>
-<tr>
-<td align="center">Swords vs. karate</td>
-<td align="center">0</td>
-<td align="center">0.9</td>
-</tr>
-</tbody></table>
-<p>加上偏置项，则可得到每一个不同的电影内容的特征向量，如电影1的内容特征向量为<br>$$<br>x^{(1)}=[1 \quad 0.9 \quad 0]^T<br>$$<br>对任意一个用户j，学习一个参数$\theta^{(j)}\in \mathbb{R^3}$。以此预测用户j对电影i的评分：<br>$$<br>y^{(i,j)}={(\theta^{(j)})}^Tx^{(i)}<br>$$<br>本例中Alice对$x_1$和$x_2$的偏好程度为5和0，所以最终对第三部电影打分为$[0 \quad 5 \quad 0]*[1\quad 0.99\quad 0]^T=4.95$  </p>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>记$n_u$为用户数目，$n_m$为电影数目，如果用户j对电影i有评分则记$r(i,j)=1$，$y^{(i,j)}$为用户j对电影i的评分，<br>$\theta^{(j)}\in\mathbb{R^{n+1}}$为用户的偏好向量，$x^{(i)}$为电影的特征向量，$m^{(j)}$为用户j评分过的电影数目。  </p>
-<p>则问题的目标为<br>$$<br>\min_{\theta^{(j)}}\frac{1}{2m^{(j)}}\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})+\frac{\lambda}{2m^{(j)}}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$</p>
-<h3 id="问题优化"><a href="#问题优化" class="headerlink" title="问题优化"></a>问题优化</h3><p>对于单个用户，因为$m^{(j)}$是固定值，可以去掉$m^{(j)}$，简化问题。<br>$$<br>\min_{\theta^{(j)}}\frac{1}{2}\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$<br>对所有用户偏好求解，则可以拆分进行优化。<br>$$<br>\min_{\theta^{(j)},\cdots,\theta^{(n_u)}}\frac{1}{2}\sum_{j=1}^{n_u}\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$</p>
-<h3 id="优化过程"><a href="#优化过程" class="headerlink" title="优化过程"></a>优化过程</h3><p>对式(5)，利用梯度下降算法：<br>$$<br>\theta_k^{(j)}:=\theta_k^{(j)}-\alpha\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x^{(i)}<em>k\quad(k=0)\<br>\theta_k^{(j)}:=\theta_k^{(j)}-\alpha(\sum</em>{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x^{(i)}_k+\lambda\theta_k^{(j)})\quad(k\neq0)<br>$$</p>
-<h3 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h3><p>不知道每部电影的评分，只知道部分用户对部分电影的打分情况或者各用户对不同类别的电影的偏好。  </p>
-<p>例如：  </p>
-<ol>
-<li>求取对单部电影的评分，即给定$\theta^{(1)},\cdots,\theta^{(n_u)}$，求取$x^{(i)}$，目标函数为  </li>
-</ol>
-<p>$$<br>\min_{x^{(i)}}\frac{1}{2}\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{k=1}^{n}(x_k^{(i)})^2<br>$$</p>
-<ol start="2">
-<li>求取对多部电影的评分，即给定$\theta^{(1)},\cdots,\theta^{(n_u)}$，求取$x^{(1)},\cdots,x^{(n_m)}$，目标函数为  </li>
-</ol>
-<p>$$<br>\min_{x^{(1)},\cdots,x^{(n_m)}}\frac{1}{2}\sum_{i=1}^{n_m}\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}(x^{(i)})^2<br>$$</p>
-<ol start="3">
-<li>给定$x^{(1)},\cdots,x^{(n_m)}$，求取$\theta^{(1)},\cdots,\theta^{(n_u)}$  </li>
-</ol>
-<p>例1为例2的简化版，这里不予考虑。例3可以通过初始化$\theta$，转化为求取x的问题，<br>即转化为例2，例2也可转化为例3。初步求解的想法是，两者不断迭代，由此得到合理的评分和偏好特征。  </p>
-<p>协同过滤算法的优化函数是整合式(5)和式(6)，得到新的目标函数，此举不需要迭代运算，可以同时进行优化求解。  </p>
-<p>损失函数为<br>$$<br>J(x^{(1)},\cdots,x^{(n_m)},\theta^{(1)},\cdots,\theta^{(n_u)})=\frac{1}{2}\sum_{i=1}^{n_m}\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2\<br>+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}(x^{(i)})^2\<br>+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$<br>优化目标为<br>$$<br>\min_{x^{(1)},\cdots,x^{(n_m)},\theta^{(1)},\cdots,\theta^{(n_u)}} J(x^{(1)},\cdots,x^{(n_m)},\theta^{(1)},\cdots,\theta^{(n_u)})<br>$$</p>
-<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><ol>
-<li>用小值随机初始化$x^{(1)},\cdots,x^{(n_m)},\theta^{(1)},\cdots,\theta^{(n_u)}$  </li>
-<li>梯度下降算法或其他优化算法min J，对于所有$j=1,\cdots,n_u;i=1,\cdots,n_m$：  <ul>
-<li>$\theta_k^{(j)}:=\theta_k^{(j)}-\alpha(\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x^{(i)}_k+\lambda\theta_k^{(j)})$  </li>
-<li>$x_k^{(i)}:=x_k^{(i)}-\alpha(\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta^{(j)}_k+\lambda x_k^{(i)})$  </li>
-</ul>
-</li>
-<li>利用$\theta^{(i)}$和$x^{(i)}$预测其打分。  </li>
-</ol>
-<blockquote>
-<p>注：通过矢量化的方法可以加速运算过程。  </p>
-</blockquote>
-<h3 id="矢量化：低秩矩阵分解"><a href="#矢量化：低秩矩阵分解" class="headerlink" title="矢量化：低秩矩阵分解"></a>矢量化：<a href="https://www.cnblogs.com/missidiot/p/9869182.html" target="_blank" rel="noopener">低秩矩阵分解</a></h3><h4 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h4><ol>
-<li>秩（Rank）：矩阵的秩度量的就是矩阵的行列之间的相关性，即矩阵的行/列向量的极大无关组，<br>且行秩等于列秩。为了求矩阵A的秩，我们是通过矩阵初等变换把A化为阶梯型矩阵，若该阶梯型矩阵有r个非零行，<br>那A的秩rank(A)就等于r。 如果矩阵的各行或列是线性无关的，矩阵就是满秩的，也就是秩等于行数。  </li>
-<li>低秩（Low-Rank）：如果X是一个m行n列的数值矩阵，rank(X)是X的秩，<br>假如rank (X)远小于m和n，则我们称X是低秩矩阵。低秩矩阵每行或每列都可以用其他的行或列线性表出，<br>可见它包含大量的冗余信息。利用这种冗余信息，可以对缺失数据进行恢复，也可以对数据进行特征提取。  </li>
-<li>低秩分解（Low Rank Filters）  <ol>
-<li>目的：去除冗余，减少权值参数  </li>
-<li>方法：采用K*1和1*K的卷积核替换掉一个K*K的卷积核  </li>
-</ol>
-</li>
-<li>矩阵补全（Matrix Completion）：是为了顾及矩阵中确实的部分（不可观察的部分），<br>可以看做是用矩阵Y’近似矩阵Y，然后用X中的元素作为矩阵M中不可观察部分的元素的估计。  </li>
-<li>矩阵分解（Matrix Factorization）：用矩阵A*B来近似矩阵M，<br>那么A*B的元素就可以用于估计M中对应不可见位置的元素值，而A*B可以看成M的分解。  </li>
-</ol>
-<h4 id="与协同过滤的关系"><a href="#与协同过滤的关系" class="headerlink" title="与协同过滤的关系"></a>与协同过滤的关系</h4><p>因为协同过滤本质上是考虑大量用户的偏好信息（协同），来对某一用户的偏好做出预测（过滤），<br>那么当我们把这样的偏好用评分矩阵M表达后，这即等价于用M其他行的已知值（每一行包含一个用户对所有商品的已知评分），<br>来估计并填充某一行的缺失值。若要对所有用户进行预测，便是填充整个矩阵，这是所谓“协同过滤本质是矩阵填充”。   </p>
-<p>矩阵填充如何来做呢？矩阵分解是一种主流方法。这是因为，协同过滤有一个隐含的重要假设，<br>可简单表述为：如果用户A和用户B同时偏好商品X，那么用户A和用户B对其他商品的偏好性有更大的几率相似。<br>这个假设反映在矩阵M上即是矩阵的低秩。极端情况之一是若所有用户对不同商品的偏好保持一致，<br>那么填充完的M每行应两两相等，即秩为1。  </p>
-<p>所以这时我们可以对矩阵M进行低秩矩阵分解，用U*V来逼近M，<br>以用于填充——对于用户数为m，商品数为n的情况，M是m*n的矩阵，<br>U是m*r，V是r*n，其中r是人工指定的参数。这里利用M的低秩性，<br>以秩为r的矩阵M’=U*V来近似M，用M’上的元素值来填充M上的缺失值，达到预测效果。  </p>
-<p>根据维度的不同，矩阵特征的不同，分解手段也很多样：  </p>
-<ul>
-<li>矩阵（2维）：特征值分解、奇异值分解  </li>
-<li>张量（3维以上）：Canonical Polyadic Decomposition (CPD)、 Tucker Decomposition、Block Term Decomposition  </li>
-</ul>
-<p>具体介绍可见<a href="https://www.cnblogs.com/missidiot/p/9869182.html" target="_blank" rel="noopener">低秩分解</a>。  </p>
-<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>例如实际的各用户给分矩阵如下：<br>$$<br>Y=\left[<br>\begin{matrix}<br>5&amp;5&amp;0&amp;0\<br>5&amp;?&amp;?&amp;0\<br>?&amp;4&amp;0&amp;?\<br>0&amp;0&amp;5&amp;4\<br>0&amp;0&amp;5&amp;0<br>\end{matrix}<br>\right]<br>$$<br>而预测得分的公式为<br>$$<br>Y’=X\Theta^T=\left[<br>\begin{matrix}<br>(\theta^{(1)})^T(x^{(1)})&amp;(\theta^{(2)})^T(x^{(1)})&amp;…&amp;(\theta^{(n_u)})^T(x^{(1)})\<br>(\theta^{(1)})^T(x^{(2)})&amp;(\theta^{(2)})^T(x^{(2)})&amp;…&amp;(\theta^{(n_u)})^T(x^{(2)})\<br>\vdots&amp;\vdots&amp;\vdots&amp;\vdots\<br>(\theta^{(1)})^T(x^{(n_m)})&amp;(\theta^{(2)})^T(x^{(n_m)})&amp;…&amp;(\theta^{(n_u)})^T(x^{(n_m)})\<br>\end{matrix}<br>\right]<br>$$<br>其中<br>$$<br>X=\left[<br>\begin{matrix}<br>–&amp;(x^{(1)})^T&amp;–\<br>–&amp;(x^{(2)})^T&amp;–\<br>&amp;\vdots&amp;\<br>–&amp;(x^{(n_m)})^T&amp;–\<br>\end{matrix}<br>\right]<br>$$</p>
-<p>$$<br>\Theta=\left[<br>\begin{matrix}<br>–&amp;(\theta^{(1)})^T&amp;–\<br>–&amp;(\theta^{(2)})^T&amp;–\<br>&amp;\vdots&amp;\<br>–&amp;(\theta^{(n_u)})^T&amp;–\<br>\end{matrix}<br>\right]<br>$$</p>
-<p>以上过程即为矩阵分解过程，且因为用户量巨大，会有趋同性，所以Y是低秩矩阵，可通过矩阵分解手段加快学习。  </p>
-<h3 id="内容推荐"><a href="#内容推荐" class="headerlink" title="内容推荐"></a>内容推荐</h3><p>如何通过某用户已知的打分数据，为其推荐电影？以内容特征向量间的距离度量两电影的相似度。  </p>
-<p>确定电影i的特征为$x^{(i)}\in \mathbb{R}^n$，例如$x_1=romance,x_2=action,x_3=comedy,x_4=…$  </p>
-<p>选择离电影i最近的电影j作为下一个推荐，即$\min ||x^{(i)}-x^{(j)}||$。  </p>
-<p>如果需要选多个相似的电影，则对$\min ||x^{(i)}-x^{(j)}||$从低到高择选即可。  </p>
-<h2 id="均值归一化"><a href="#均值归一化" class="headerlink" title="均值归一化"></a>均值归一化</h2><p>若是某用户初始没有评分数据，则由目标函数迭代得出的最终结果，用户未打分的电影评分均会接近零分，<br>这显然不是正常的结果。通过<code>均值归一化</code>，先求各部电影的得分均值$\mu_i$，<br>然后各用户对电影i的评分减去$\mu_i$，得到新的打分矩阵，<br>通过该打分矩阵学习$\theta^{(j)},x^{(i)}$。<br>然后通过假设函数求取得分后再加上均值$\mu_i$，最终分数即为用户对电影i的打分。  </p>
-<img src="../img/16-1.png" alt="16-1" style="zoom:70%;" />
-
-<blockquote>
-<p>注：相当于用均值填补缺失值。  </p>
-</blockquote>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -377,7 +202,7 @@
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -390,116 +215,168 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/18/NG_ML_CH16_recommand_system/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          吴恩达机器学习ch17学习笔记
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch15学习笔记</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/03/23/NG_ML_ch6/" class="archive-article-date">
+  	<time datetime="2020-03-23T12:22:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
         </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#推荐系统"><span class="toc-number">1.</span> <span class="toc-text">推荐系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基于内容的推荐系统"><span class="toc-number">1.1.</span> <span class="toc-text">基于内容的推荐系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-number">1.1.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题优化"><span class="toc-number">1.1.2.</span> <span class="toc-text">问题优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化过程"><span class="toc-number">1.1.3.</span> <span class="toc-text">优化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协同过滤算法"><span class="toc-number">1.1.4.</span> <span class="toc-text">协同过滤算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法流程"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">算法流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矢量化：低秩矩阵分解"><span class="toc-number">1.1.5.</span> <span class="toc-text">矢量化：低秩矩阵分解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关概念"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">相关概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#与协同过滤的关系"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">与协同过滤的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内容推荐"><span class="toc-number">1.1.6.</span> <span class="toc-text">内容推荐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#均值归一化"><span class="toc-number">1.2.</span> <span class="toc-text">均值归一化</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/03/23/NG_ML_ch6/">吴恩达机器学习ch6学习笔记</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
         </div>
-        
-    </div>
-</aside>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/03/23/NG_ML_ch4/" class="archive-article-date">
+  	<time datetime="2020-03-23T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/03/23/NG_ML_ch4/">吴恩达机器学习ch4学习笔记</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
 
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/03/03/NG_ML_ch2/" class="archive-article-date">
+  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/03/03/NG_ML_ch2/">吴恩达机器学习ch2学习笔记</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
+
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/tags/Machine-Learning/">&amp;laquo; Prev</a><a class="page-number" href="/tags/Machine-Learning/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 
 
           </div>
@@ -522,9 +399,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

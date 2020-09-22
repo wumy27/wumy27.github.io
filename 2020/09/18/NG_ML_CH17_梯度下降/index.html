@@ -6,23 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>NG_ML_CH17_梯度下降 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch17学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: 吴恩达机器学习ch17学习笔记date: 2020-09-18 22:05:20comments: false #是否可评论toc: true #是否显示文章目录categories: “computer” #分类tags:   #标签    - Machine Learning​— 大数据集学习数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），而且误差">
+  <meta name="description" content="大数据集学习数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），而且误差函数对各样本对待无差别（无论偏差大小，均以相同的学习率进行更新）。故我们可以考虑使用小样本进行梯度下降。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NG_ML_CH17_梯度下降">
+<meta property="og:title" content="吴恩达机器学习ch17学习笔记">
 <meta property="og:url" content="http://yoursite.com/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="title: 吴恩达机器学习ch17学习笔记date: 2020-09-18 22:05:20comments: false #是否可评论toc: true #是否显示文章目录categories: “computer” #分类tags:   #标签    - Machine Learning​— 大数据集学习数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），而且误差">
+<meta property="og:description" content="大数据集学习数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），而且误差函数对各样本对待无差别（无论偏差大小，均以相同的学习率进行更新）。故我们可以考虑使用小样本进行梯度下降。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2020/09/18/img/17-1.png">
 <meta property="og:image" content="http://yoursite.com/2020/09/18/img/17-2.png">
 <meta property="og:image" content="http://yoursite.com/2020/09/18/img/17-3.png">
 <meta property="og:image" content="http://yoursite.com/2020/09/18/img/17-4.png">
-<meta property="article:published_time" content="2020-09-18T14:07:27.553Z">
-<meta property="article:modified_time" content="2020-09-21T05:22:27.129Z">
+<meta property="article:published_time" content="2020-09-18T02:37:24.000Z">
+<meta property="article:modified_time" content="2020-09-22T02:08:43.428Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2020/09/18/img/17-1.png">
   
@@ -175,33 +175,23 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NG_ML_CH17_梯度下降
+      吴恩达机器学习ch17学习笔记
     </h1>
   
 
         <!--显示阅读次数-->
         
-          <br/>
-          <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-          <span class="icon-sort"></span>
-          <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-                    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
         <!--显示阅读次数完毕-->
         
         <a href="/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" class="archive-article-date">
-  	<time datetime="2020-09-18T14:07:27.553Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+  	<time datetime="2020-09-18T02:37:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: 吴恩达机器学习ch17学习笔记<br>date: 2020-09-18 22:05:20<br>comments: false #是否可评论<br>toc: true #是否显示文章目录<br>categories: “computer” #分类<br>tags:   #标签<br>    - Machine Learning<br>​—</p>
-<h2 id="大数据集学习"><a href="#大数据集学习" class="headerlink" title="大数据集学习"></a>大数据集学习</h2><p>数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），<br>而且误差函数对各样本对待无差别（无论偏差大小，均以相同的学习率进行更新）。<br>故我们可以考虑使用小样本进行梯度下降。   </p>
+        <h2 id="大数据集学习"><a href="#大数据集学习" class="headerlink" title="大数据集学习"></a>大数据集学习</h2><p>数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），而且误差函数对各样本对待无差别（无论偏差大小，均以相同的学习率进行更新）。故我们可以考虑使用小样本进行梯度下降。   </p>
 <a id="more"></a>
 <p>假设算法的假设函数如下：<br>$$<br>h_\theta (x^{(i)}) = \sum_{j=0}^n\theta_jx_j^{(i)}<br>$$<br>其中，$x^{(i)}$为数据集中第i个样本，$x_j^{(i)}$为其第j个特征。  </p>
 <h3 id="批量梯度下降法"><a href="#批量梯度下降法" class="headerlink" title="批量梯度下降法"></a>批量梯度下降法</h3><p>批量梯度下降算法使用所有样本的误差进行参数更新，损失函数如下：<br>$$<br>J_{train}(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2<br>$$<br>所以各参数的更新公式为<br>$$<br>\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x^{(i)}_j<br>$$</p>
@@ -238,7 +228,7 @@
 <p>例如，批量梯度下降算法计算损失函数时，便可以分布进行计算。将数据集均分为4份，  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">O(Training Set)</span><br><span class="line">C(Combine results)</span><br><span class="line">O --&gt; A1 </span><br><span class="line">O --&gt; A2</span><br><span class="line">O --&gt; A3</span><br><span class="line">O --&gt; A4</span><br><span class="line">A1(Training Subset1) --&gt;  B1(Computer 1)</span><br><span class="line">A2(Training Subset2) --&gt;  B2(Computer 2)</span><br><span class="line">A3(Training Subset3) --&gt;  B3(Computer 3)</span><br><span class="line">A4(Training Subset4) --&gt;  B4(Computer 4)</span><br><span class="line">    B1 --&gt; C</span><br><span class="line">    B2 --&gt; C</span><br><span class="line">    B3 --&gt; C</span><br><span class="line">    B4 --&gt; C</span><br></pre></td></tr></table></figure>
 
-<p>其中$Computer_k(k=1,2,3,4)$对应的计算为<br>$$<br>temp_j^{(k)}=\sum_{i=100<em>(k-1)+1}^{100</em>k}(h_\theta(x^{(i)})-y^{i})x_j^{(i)}<br>$$<br>对于参数更新公式(3)，可改写为<br>$$<br>\theta_j:=\theta_j-\alpha\frac{1}{m}(temp_j^{(1)}+temp_j^{(2)}+temp_j^{(3)}+temp_j^{(4)})<br>$$<br>但Map-Reduce使用也是需要条件的，学习算法的损失函数需要可以表示为一系列的求和形式，或者表示成在训练集上对函数的求和。  </p>
+<p>其中$Computer_k(k=1,2,3,4)$对应的计算为<br>$$temp_j^{(k)}=\sum_{i=100<em>(k-1)+1}^{100</em>k}(h_\theta(x^{(i)})-y^{i})x_j^{(i)}$$<br>对于参数更新公式(3)，可改写为<br>$$\theta_j:=\theta_j-\alpha\frac{1}{m}(temp_j^{(1)}+temp_j^{(2)}+temp_j^{(3)}+temp_j^{(4)})$$<br>但Map-Reduce使用也是需要条件的，学习算法的损失函数需要可以表示为一系列的求和形式，或者表示成在训练集上对函数的求和。  </p>
 <p>当然我们不一定需要多台计算机才能做到Map-Reduce，现在的多和计算机器也可以做到这一步，图示如下：  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">O(Training Set)</span><br><span class="line">C(Combine results)</span><br><span class="line">O --&gt; A1 </span><br><span class="line">O --&gt; A2</span><br><span class="line">O --&gt; A3</span><br><span class="line">O --&gt; A4</span><br><span class="line">A1(Training Subset1) --&gt;  B1(Core 1)</span><br><span class="line">A2(Training Subset2) --&gt;  B2(Core 2)</span><br><span class="line">A3(Training Subset3) --&gt;  B3(Core 3)</span><br><span class="line">A4(Training Subset4) --&gt;  B4(Core 4)</span><br><span class="line">    B1 --&gt; C</span><br><span class="line">    B2 --&gt; C</span><br><span class="line">    B3 --&gt; C</span><br><span class="line">    B4 --&gt; C</span><br></pre></td></tr></table></figure>
 
@@ -271,7 +261,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -335,18 +347,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/18/NG_ML_CH18_OCR/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          NG-ML_CH15_异常检测
+          吴恩达机器学习ch18学习笔记
         
       </div>
     </a>
   
   
-    <a href="/2020/07/25/NG_ML_ch12/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch12学习笔记</div>
+    <a href="/2020/09/18/NG_ML_CH16_recommand_system/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习ch16学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -366,20 +378,23 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大数据集学习"><span class="toc-number">1.</span> <span class="toc-text">大数据集学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#批量梯度下降法"><span class="toc-number">1.1.</span> <span class="toc-text">批量梯度下降法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机梯度下降法"><span class="toc-number">1.2.</span> <span class="toc-text">随机梯度下降法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小批量随机梯度下降法"><span class="toc-number">1.3.</span> <span class="toc-text">小批量随机梯度下降法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法的收敛问题"><span class="toc-number">2.</span> <span class="toc-text">梯度下降算法的收敛问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查是否收敛"><span class="toc-number">2.1.</span> <span class="toc-text">检查是否收敛</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#学习曲线解析"><span class="toc-number">2.1.1.</span> <span class="toc-text">学习曲线解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择学习率"><span class="toc-number">2.2.</span> <span class="toc-text">选择学习率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在线学习"><span class="toc-number">3.</span> <span class="toc-text">在线学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Map-Reduce"><span class="toc-number">3.1.</span> <span class="toc-text">Map-Reduce</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>
