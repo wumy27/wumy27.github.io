@@ -170,7 +170,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/22/NG_ML_CH13_clustering/">吴恩达机器学习ch15学习笔记</a>
+      <a class="article-title" href="/2020/09/22/NG_ML_CH13_clustering/">吴恩达机器学习ch13学习笔记</a>
     </h1>
   
 
@@ -187,42 +187,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h1><p>机器学习中面对无标签的数据的一类数据挖掘的学习算法。  </p>
-<h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><p>是无监督学习的一种，将有相似特征的样本聚合为1类。  </p>
-<h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>数据输入：</p>
-<ul>
-<li>K：定下的分类的组数</li>
-<li>训练集${x^{(1)},…,x^{(m)}}$，训练集中有$m$个样本，其中每个样本有n个特征，即$x^{(i)}\in \mathbb{R}^{n}$</li>
-</ul>
-<p>算法流程：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">随机生成K个聚类中心  </span><br><span class="line">Repeat Until Converge&#123;  </span><br><span class="line">	每个样本均按照给定就近原则分配给K个聚类中心，成为K组点  </span><br><span class="line">	更新K个聚类中心的位置  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="优化目标"><a href="#优化目标" class="headerlink" title="优化目标"></a>优化目标</h3><p>记：  </p>
-<ul>
-<li>$c^{(i)}$为$x^{(i)}$分配到K个聚类中心的索引号    </li>
-<li>$\mu_k$为第k个聚类中心的位置  </li>
-<li>$\mu_{c^{(i)}}$为$x^{(i)}$被分配到聚类中心的位置  </li>
-</ul>
-<p>由K-means算法流程我们很容易得到目标函数为<br>$$<br>J(c^{(1)},…,c^{(m)},\mu_1,…,\mu_K)=\frac{1}{m}\sum_{i=1}^m||x^{(i)}-\mu_{c^{(i)}}||^2<br>$$<br>优化目标为<br>$$<br>\min_{c^{(1)},…,c^{(m)}\ \mu_1,…,\mu_K}J(c^{(1)},…,c^{(m)},\mu_1,…,\mu_K)<br>$$<br>J(·)又称为畸变函数。  </p>
-<h3 id="如何初始化"><a href="#如何初始化" class="headerlink" title="如何初始化"></a>如何初始化</h3><p>一般选择的聚类组数K要小于样本数m。但随机选择K个样本赋值作为K个初始聚类中心，有可能陷入局部最优解。如下图所示，左右两图均落入局部最优解。  </p>
-<p><img src="../img/13-1.png" alt="13-1"></p>
-<p>此时，较好的办法是使用多次初始化，即可得到较好的效果。  </p>
-<p><img src="../img/13-2.png" alt=""></p>
-<p>具体计算过程如下：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">For i &#x3D;1 to 100&#123;</span><br><span class="line">	Randomly initialize K-means.</span><br><span class="line">	Run K-means. Get c^&#123;(i)&#125;,...,c^&#123;(n)&#125;,\mu_1,...,\mu_K.</span><br><span class="line">	Compute cost function</span><br><span class="line">		J(c^&#123;(i)&#125;,...,c^&#123;(n)&#125;,\mu_1,...,\mu_K)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Pick clusteing that gave lowest cost J(c^&#123;(i)&#125;,...,c^&#123;(n)&#125;,\mu_1,...,\mu_K)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>当聚类数目过小时，会有较好的结果。  </p>
-<h3 id="如何选择K值"><a href="#如何选择K值" class="headerlink" title="如何选择K值"></a>如何选择K值</h3><ul>
-<li>通常情况  </li>
-</ul>
-<p>肘部法则：将K=1，…的损失函数图像画出来，选择其中在肘部位置的K值最好。此时计算量不大，迭代速度快，且误差不会太大。  </p>
-<p><img src="../img/13-3.png" alt="13-3"></p>
-<ul>
-<li>其他目的  </li>
-</ul>
-<p>例如需要衣服尺寸只有固定5类尺码，S,M,L,XL,XLL，只能选取固定的类别数。  </p>
-
+        
+          <a class="article-more-a" href="/2020/09/22/NG_ML_CH13_clustering/#more">more >></a>
+        
       
 
       
@@ -310,87 +277,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间/平面的点，降维分布到平面/线上，可以看成是一种映射关系。  </p>
-<img src="../img/14-1.png" alt="14-1" style="zoom:48%;" />
-
-<p>上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。  </p>
-<img src="../img/14-2.png" alt="14-2" style="zoom:75%;" />
-
-<p>上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&gt;z^{(i)}\in \mathbb{R}^2$。  </p>
-<p>数据压缩的好处：  </p>
-<ul>
-<li><p>减少计算机内存使用  </p>
-</li>
-<li><p>加速算法的学习速度  </p>
-</li>
-<li><p>数据可视化  </p>
-<blockquote>
-<p>选取特征进行数据降维后，通过可视化手段可以看出样本点的分布规律，进而对具有类似特点的样本点组成类。  </p>
-</blockquote>
-</li>
-</ul>
-<h2 id="主成分分析PCA"><a href="#主成分分析PCA" class="headerlink" title="主成分分析PCA"></a>主成分分析PCA</h2><p>目的：最小化数据集中所有样本点到投影面的距离和。  </p>
-<img src="../img/14-3.png" alt="14-3" style="zoom:75%;" />
-
-<blockquote>
-<p>所以选择橙色的投影面而非粉色。  </p>
-</blockquote>
-<p>流程：找到n个方向向量(主成分)，将数据从m维降到n维，以最小化投影误差。  </p>
-<h3 id="PCA与线性回归的区别"><a href="#PCA与线性回归的区别" class="headerlink" title="PCA与线性回归的区别"></a>PCA与线性回归的区别</h3><img src="../img/14-4.png" alt="14-4" style="zoom:60%;" />
-
-<p>PCA没有标签y，任何一个特征$x_i$均同等重要，需要在其基础上进行主成分(方向)的寻找。最小化投影误差，而非像线性回归的误差函数——预测值与标签之间的方差。  </p>
-<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><ol>
-<li><p>特征中心化  </p>
-<p>$\mu=\frac{1}{m}\sum_{i=1}^m x_j^{(i)} $ </p>
-<p>替换每个$x_j^{(i)}$为$x_j^{(i)}-\mu_j$  </p>
-</li>
-<li><p>（可选）若特征的数值不在同一数量级，则需要归一化  </p>
-<p>$x_j^{(i)}&lt;–\frac{x_j^{(i)}-\mu_j}{s_j} $ </p>
-</li>
-<li><p>计算协方差矩阵$\Sigma $ </p>
-<p>$\Sigma=\frac{1}{m}\sum_{i=1}^n(x^{(i)})(x^{(i)})^T $ </p>
-<blockquote>
-<p>总共有m个样本，每个样本均有一个协方差矩阵，$\Sigma$即为对这m个协方差矩阵求均值。  </p>
-</blockquote>
-</li>
-<li><p>选取$\Sigma$的k个特征向量为主成分  </p>
-<blockquote>
-<p>$[U,S,V]=svd(\Sigma)$,$eig(\Sigma)$均能返回特征向量  </p>
-<p>$U\in\mathbb{R}^{n\times n}–&gt;U——{reduce}\in\mathbb{R}^{n\times k} $ </p>
-</blockquote>
-</li>
-<li><p>得到降维结果  </p>
-<blockquote>
-<p>$U_{reduce}\in\mathbb{R}^{n\times k},X\in \mathbb{R}^n–&gt;Z=U_{reduce}^TX\in\mathbb{R}^{k} $ </p>
-</blockquote>
-</li>
-</ol>
-<h4 id="主成分选择"><a href="#主成分选择" class="headerlink" title="主成分选择"></a>主成分选择</h4><p>目的：原向量与投影的矢量差最小  </p>
-<ul>
-<li><p>平均平方投影误差：$\frac{1}{m}\sum_{i=1}^m||x^{(i)}-x_{approx}^{(i)}||^2$  </p>
-</li>
-<li><p>样本集的平均欧式范数：$\frac{1}{m}\sum_{i=1}^m||x^{(i)}||^2 $ </p>
-</li>
-</ul>
-<p>选定一个阈值$\epsilon$和超参数$k$，满足<br>$$<br>\frac{\frac{1}{m}\sum_{i=1}^m||x^{(i)}-x_{approx}^{(i)}||^2}{\frac{1}{m}\sum_{i=1}^m||x^{(i)}||^2 }\leq\epsilon<br>$$<br>就能保证$1-\epsilon$的样本的特征可以被保留，以达到降维的目的。  </p>
-<blockquote>
-<p><strong>实例分析</strong>：  </p>
-<p>对给定的超参数$k$，使用<code>[U，S，V]=svd(Sigma)</code>，得到<br>$$<br>S=diag([s_11,s_22,…,s_nn])<br>$$<br>则则需要选定最小的k，满足<br>$$<br>1-\frac{\sum_{i=1}^ks_{ii}}{\sum_{i=1}^ns_{ii}}\leq0.01<br>$$<br>故仅需保证<br>$$<br>\frac{\sum_{i=1}^ks_{ii}}{\sum_{i=1}^ns_{ii}}&gt;0.99<br>$$<br>即可得到99%的信息保留。    </p>
-</blockquote>
-<h3 id="原始数据的重构"><a href="#原始数据的重构" class="headerlink" title="原始数据的重构"></a>原始数据的重构</h3><p>重构是降维的逆过程，即从$z^{(i)}–&gt;x^{(i)}$，由于$Z=U_{reduce}^TX$，所以$X$的重构为$X_{approx}=U_{reduce}Z$，示意图如下：  </p>
-<p><img src="../img/14-5.png" alt="14-5"></p>
-<h3 id="使用PCA的注意事项"><a href="#使用PCA的注意事项" class="headerlink" title="使用PCA的注意事项"></a>使用PCA的注意事项</h3><ul>
-<li>先降维后训练  </li>
-</ul>
-<p>PCA只能先用训练集进行训练，由此定义了从x到z的映射后，再将映射应用到交叉验证集和测试集中。  </p>
-<ul>
-<li>PCA是防止过拟合的方法？  </li>
-</ul>
-<p>通过减少特征数量，而降低了过拟合的可能性。但最好使用正则化的方法，其效果更好。PCA因为不关心y值，所有会丢失一些有效信息。  </p>
-<ul>
-<li>不应该优先考虑PCA  </li>
-</ul>
-<p>在应用PCA前，应先使用原始的x进行训练，只有在效果不太好的时候，再考虑用PCA降维。  </p>
-
+        
+          <a class="article-more-a" href="/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/#more">more >></a>
+        
       
 
       
