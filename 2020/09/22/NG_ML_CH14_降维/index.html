@@ -6,25 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>NG_ML_CH14_降维 | BevanWu的修炼小栈</title>
+  <title>吴恩达机器学习ch14学习笔记 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="‘’‘ 吴恩达 机器学习 第14章 ’‘’ 降维降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间&#x2F;平面的点，降维分布到平面&#x2F;线上，可以看成是一种映射关系。   上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。   上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&amp;">
+  <meta name="description" content="降维降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间&#x2F;平面的点，降维分布到平面&#x2F;线上，可以看成是一种映射关系。     上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。     上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&gt;z^{(i)}\in \mat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NG_ML_CH14_降维">
-<meta property="og:url" content="http://yoursite.com/2020/09/18/NG_ML_CH14_%E9%99%8D%E7%BB%B4/index.html">
+<meta property="og:title" content="吴恩达机器学习ch14学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="‘’‘ 吴恩达 机器学习 第14章 ’‘’ 降维降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间&#x2F;平面的点，降维分布到平面&#x2F;线上，可以看成是一种映射关系。   上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。   上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&amp;">
+<meta property="og:description" content="降维降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间&#x2F;平面的点，降维分布到平面&#x2F;线上，可以看成是一种映射关系。     上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。     上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&gt;z^{(i)}\in \mat">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/09/18/img/14-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/18/img/14-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/18/img/14-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/18/img/14-4.png">
-<meta property="article:published_time" content="2020-09-18T14:07:39.277Z">
-<meta property="article:modified_time" content="2020-09-18T04:16:10.000Z">
+<meta property="og:image" content="http://yoursite.com/2020/09/22/img/14-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/22/img/14-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/22/img/14-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/22/img/14-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/22/img/14-5.png">
+<meta property="article:published_time" content="2020-09-22T06:35:24.000Z">
+<meta property="article:modified_time" content="2020-09-22T07:20:37.183Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/09/18/img/14-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/09/22/img/14-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -175,98 +176,103 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NG_ML_CH14_降维
+      吴恩达机器学习ch14学习笔记
     </h1>
   
 
         <!--显示阅读次数-->
         
-          <br/>
-          <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-          <span class="icon-sort"></span>
-          <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-                    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/18/NG_ML_CH14_%E9%99%8D%E7%BB%B4/" class="archive-article-date">
-  	<time datetime="2020-09-18T14:07:39.277Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+        <a href="/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/" class="archive-article-date">
+  	<time datetime="2020-09-22T06:35:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>‘’‘</p>
-<p>吴恩达 机器学习 第14章</p>
-<p>’‘’</p>
-<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间/平面的点，降维分布到平面/线上，可以看成是一种映射关系。</p>
+        <h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间/平面的点，降维分布到平面/线上，可以看成是一种映射关系。  </p>
 <img src="../img/14-1.png" alt="14-1" style="zoom:48%;" />
 
-<p>上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。</p>
+<p>上图即将数据从二维降到一维，即$x^{(i)}\in \mathbb{R}^2–&gt;z^{(i)}\in \mathbb{R}$。  </p>
 <img src="../img/14-2.png" alt="14-2" style="zoom:75%;" />
 
-<p>上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&gt;z^{(i)}\in \mathbb{R}^2$。</p>
-<p>数据压缩的好处：</p>
+<p>上图即将数据从三维降到二维，即$x^{(i)}\in \mathbb{R}^3–&gt;z^{(i)}\in \mathbb{R}^2$。  </p>
+<p>数据压缩的好处：  </p>
 <ul>
-<li><p>减少计算机内存使用</p>
+<li><p>减少计算机内存使用  </p>
 </li>
-<li><p>加速算法的学习速度</p>
+<li><p>加速算法的学习速度  </p>
 </li>
-<li><p>数据可视化</p>
+<li><p>数据可视化  </p>
 <blockquote>
-<p>选取特征进行数据降维后，通过可视化手段可以看出样本点的分布规律，进而对具有类似特点的样本点组成类。</p>
+<p>选取特征进行数据降维后，通过可视化手段可以看出样本点的分布规律，进而对具有类似特点的样本点组成类。  </p>
 </blockquote>
 </li>
 </ul>
-<h2 id="主成分分析PCA"><a href="#主成分分析PCA" class="headerlink" title="主成分分析PCA"></a>主成分分析PCA</h2><p>目的：最小化数据集中所有样本点到投影面的距离和。</p>
+<h2 id="主成分分析PCA"><a href="#主成分分析PCA" class="headerlink" title="主成分分析PCA"></a>主成分分析PCA</h2><p>目的：最小化数据集中所有样本点到投影面的距离和。  </p>
 <img src="../img/14-3.png" alt="14-3" style="zoom:75%;" />
 
 <blockquote>
-<p>所以选择橙色的投影面而非粉色。</p>
+<p>所以选择橙色的投影面而非粉色。  </p>
 </blockquote>
-<p>流程：找到n个方向向量(主成分)，将数据从m维降到n维，以最小化投影误差。</p>
+<p>流程：找到n个方向向量(主成分)，将数据从m维降到n维，以最小化投影误差。  </p>
 <h3 id="PCA与线性回归的区别"><a href="#PCA与线性回归的区别" class="headerlink" title="PCA与线性回归的区别"></a>PCA与线性回归的区别</h3><img src="../img/14-4.png" alt="14-4" style="zoom:60%;" />
 
-<p>PCA没有标签y，任何一个特征$x_i$均同等重要，需要在其基础上进行主成分(方向)的寻找。最小化投影误差，而非像线性回归的误差函数——预测值与标签之间的方差。</p>
+<p>PCA没有标签y，任何一个特征$x_i$均同等重要，需要在其基础上进行主成分(方向)的寻找。最小化投影误差，而非像线性回归的误差函数——预测值与标签之间的方差。  </p>
 <h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><ol>
-<li><p>特征中心化</p>
-<p>$\mu=\frac{1}{m}\sum_{i=1}^m x_j^{(i)}$</p>
-<p>替换每个$x_j^{(i)}$为$x_j^{(i)}-\mu_j$</p>
+<li><p>特征中心化  </p>
+<p>$\mu=\frac{1}{m}\sum_{i=1}^m x_j^{(i)} $ </p>
+<p>替换每个$x_j^{(i)}$为$x_j^{(i)}-\mu_j$  </p>
 </li>
-<li><p>（可选）若特征的数值不在同一数量级，则需要归一化</p>
-<p>$x_j^{(i)}&lt;–\frac{x_j^{(i)}-\mu_j}{s_j}$</p>
+<li><p>（可选）若特征的数值不在同一数量级，则需要归一化  </p>
+<p>$x_j^{(i)}&lt;–\frac{x_j^{(i)}-\mu_j}{s_j} $ </p>
 </li>
-<li><p>计算协方差矩阵$\Sigma$</p>
-<p>$\Sigma=\frac{1}{m}\sum_{i=1}^n(x^{(i)})(x^{(i)})^T$</p>
+<li><p>计算协方差矩阵$\Sigma $ </p>
+<p>$\Sigma=\frac{1}{m}\sum_{i=1}^n(x^{(i)})(x^{(i)})^T $ </p>
 <blockquote>
-<p>总共有m个样本，每个样本均有一个协方差矩阵，$\Sigma$即为对这m个协方差矩阵求均值。</p>
+<p>总共有m个样本，每个样本均有一个协方差矩阵，$\Sigma$即为对这m个协方差矩阵求均值。  </p>
 </blockquote>
 </li>
-<li><p>选取$\Sigma$的k个特征向量为主成分</p>
+<li><p>选取$\Sigma$的k个特征向量为主成分  </p>
 <blockquote>
-<p> $[U,S,V]=svd(\Sigma)$,$eig(\Sigma)$均能返回特征向量</p>
-<p>$U\in\mathbb{R}^{n\times n}–&gt;U’\in\mathbb{R}^{n\times k},X\in \mathbb{R}^n–&gt;Z=U^TX\in\mathbb{R}^{k}$</p>
+<p>$[U,S,V]=svd(\Sigma)$,$eig(\Sigma)$均能返回特征向量  </p>
+<p>$U\in\mathbb{R}^{n\times n}–&gt;U——{reduce}\in\mathbb{R}^{n\times k} $ </p>
 </blockquote>
 </li>
-<li><p>得到降维结果</p>
+<li><p>得到降维结果  </p>
+<blockquote>
+<p>$U_{reduce}\in\mathbb{R}^{n\times k},X\in \mathbb{R}^n–&gt;Z=U_{reduce}^TX\in\mathbb{R}^{k} $ </p>
+</blockquote>
 </li>
 </ol>
-<h4 id="主成分选择"><a href="#主成分选择" class="headerlink" title="主成分选择"></a>主成分选择</h4><p>目的：原向量与投影的矢量差最小</p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>先降维后训练</li>
-</ul>
-<p>PCA只能先用训练集进行训练，由此定义了从x到z的映射后，再将映射应用到交叉验证集和测试集中。</p>
+<h4 id="主成分选择"><a href="#主成分选择" class="headerlink" title="主成分选择"></a>主成分选择</h4><p>目的：原向量与投影的矢量差最小  </p>
 <ul>
-<li>PCA是防止过拟合的方法？</li>
+<li><p>平均平方投影误差：$\frac{1}{m}\sum_{i=1}^m||x^{(i)}-x_{approx}^{(i)}||^2$  </p>
+</li>
+<li><p>样本集的平均欧式范数：$\frac{1}{m}\sum_{i=1}^m||x^{(i)}||^2 $ </p>
+</li>
 </ul>
-<p>通过减少特征数量，而降低了过拟合的可能性。但最好使用正则化的方法，其效果更好。PCA因为不关心y值，所有会丢失一些有效信息。</p>
+<p>选定一个阈值$\epsilon$和超参数$k$，满足<br>$$<br>\frac{\frac{1}{m}\sum_{i=1}^m||x^{(i)}-x_{approx}^{(i)}||^2}{\frac{1}{m}\sum_{i=1}^m||x^{(i)}||^2 }\leq\epsilon<br>$$<br>就能保证$1-\epsilon$的样本的特征可以被保留，以达到降维的目的。  </p>
+<blockquote>
+<p><strong>实例分析</strong>：  </p>
+<p>对给定的超参数$k$，使用<code>[U，S，V]=svd(Sigma)</code>，得到<br>$$<br>S=diag([s_11,s_22,…,s_nn])<br>$$<br>则则需要选定最小的k，满足<br>$$<br>1-\frac{\sum_{i=1}^ks_{ii}}{\sum_{i=1}^ns_{ii}}\leq0.01<br>$$<br>故仅需保证<br>$$<br>\frac{\sum_{i=1}^ks_{ii}}{\sum_{i=1}^ns_{ii}}&gt;0.99<br>$$<br>即可得到99%的信息保留。    </p>
+</blockquote>
+<h3 id="原始数据的重构"><a href="#原始数据的重构" class="headerlink" title="原始数据的重构"></a>原始数据的重构</h3><p>重构是降维的逆过程，即从$z^{(i)}–&gt;x^{(i)}$，由于$Z=U_{reduce}^TX$，所以$X$的重构为$X_{approx}=U_{reduce}Z$，示意图如下：  </p>
+<p><img src="../img/14-5.png" alt="14-5"></p>
+<h3 id="使用PCA的注意事项"><a href="#使用PCA的注意事项" class="headerlink" title="使用PCA的注意事项"></a>使用PCA的注意事项</h3><ul>
+<li>先降维后训练  </li>
+</ul>
+<p>PCA只能先用训练集进行训练，由此定义了从x到z的映射后，再将映射应用到交叉验证集和测试集中。  </p>
 <ul>
-<li>不应该优先考虑PCA</li>
+<li>PCA是防止过拟合的方法？  </li>
 </ul>
-<p>在应用PCA前，应先使用原始的x进行训练，只有在效果不太好的时候，再考虑用PCA降维。</p>
+<p>通过减少特征数量，而降低了过拟合的可能性。但最好使用正则化的方法，其效果更好。PCA因为不关心y值，所有会丢失一些有效信息。  </p>
+<ul>
+<li>不应该优先考虑PCA  </li>
+</ul>
+<p>在应用PCA前，应先使用原始的x进行训练，只有在效果不太好的时候，再考虑用PCA降维。  </p>
 
       
 
@@ -296,7 +302,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -346,7 +374,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/18/NG_ML_CH14_%E9%99%8D%E7%BB%B4/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -359,6 +387,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/09/22/NG_ML_CH13_clustering/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          吴恩达机器学习ch15学习笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2020/09/18/NG_ML_CH18_OCR/" id="article-nav-older" class="article-nav-link-wrap">
@@ -382,20 +419,23 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#降维"><span class="toc-number">1.</span> <span class="toc-text">降维</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主成分分析PCA"><span class="toc-number">1.1.</span> <span class="toc-text">主成分分析PCA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PCA与线性回归的区别"><span class="toc-number">1.1.1.</span> <span class="toc-text">PCA与线性回归的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法流程"><span class="toc-number">1.1.2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主成分选择"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">主成分选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原始数据的重构"><span class="toc-number">1.1.3.</span> <span class="toc-text">原始数据的重构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用PCA的注意事项"><span class="toc-number">1.1.4.</span> <span class="toc-text">使用PCA的注意事项</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>

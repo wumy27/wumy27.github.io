@@ -6,26 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>吴恩达机器学习ch12学习笔记 | BevanWu的修炼小栈</title>
+  <title>Category: computer | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Support Vector Machine优化目标因为SVM也是解决分类问题的机器学习算法，所以我们可以从logistic函数出发，推导SVM的假设函数形式。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习ch12学习笔记">
-<meta property="og:url" content="http://yoursite.com/2020/07/25/NG_ML_ch12/index.html">
+  <meta name="description" content="学习笔记&#x2F;技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BevanWu的修炼小栈">
+<meta property="og:url" content="http://yoursite.com/categories/computer/page/3/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="Support Vector Machine优化目标因为SVM也是解决分类问题的机器学习算法，所以我们可以从logistic函数出发，推导SVM的假设函数形式。">
+<meta property="og:description" content="学习笔记&#x2F;技术博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/07/25/img/12-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/25/img/12-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/25/img/12-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/25/img/12-4.png">
-<meta property="og:image" content="http://www.ai-start.com/ml2014/images/3d8959d0d12fe9914dc827d5a074b564.jpg">
-<meta property="article:published_time" content="2020-07-25T02:36:24.000Z">
-<meta property="article:modified_time" content="2020-09-22T07:19:42.315Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/25/img/12-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -169,133 +161,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-NG_ML_ch12" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      吴恩达机器学习ch12学习笔记
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/03/03/NG_ML_ch2/" class="archive-article-date">
+  	<time datetime="2020-03-03T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/03/03/NG_ML_ch2/">吴恩达机器学习ch2学习笔记</a>
     </h1>
   
 
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2020/07/25/NG_ML_ch12/" class="archive-article-date">
-  	<time datetime="2020-07-25T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h1><h2 id="优化目标"><a href="#优化目标" class="headerlink" title="优化目标"></a>优化目标</h2><p>因为SVM也是解决分类问题的机器学习算法，所以我们可以从logistic函数出发，推导SVM的假设函数形式。  </p>
-<a id="more"></a>
-
-<p>Logistic函数的单个样本损失:<br>$$<br>-(y \ log \ h_\theta(x)+(1-y)\ log(1-h_\theta(x)))<br>$$<br>其中$h_\theta(x)=\frac{1}{1+e^(-\theta^Tx)}$，注意其中$h_\theta(x)&lt;1$，故-log为正。  </p>
-<p>分别画出当y=1/0时的(1)式图像，可以进行函数替换。下图中红色虚线为logistic损失函数图像，蓝色实线时hinge loss函数图像。  </p>
-<img src="../img/12-1.png" style="zoom:80%;" />
-
-<img src="../img/12-2.png" style="zoom:80%;" />
-
-
-
-<p>因此可以考虑将$h_\theta(x)$的解析式进行转化，简化(1)式：<br>$$<br>y \ cost_1(-\theta x)+(1-y) \ cost_0(\theta x)<br>$$<br>故我们的优化目标从<br>$$<br>\min_\theta \frac{1}{m} \ \sum_{i=1}^m[ y^{(i)}(1-log \ h_\theta(x^{(i)}))+ (1-y^{(i)})\ log(1-h_\theta(x)) ]+ \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2<br>$$<br>变为<br>$$<br>\min_\theta \frac{1}{m} \ \sum_{i=1}^m[ y^{(i)}cost_1(-\theta x)+ (1-y^{(i)})\ cost_0(\theta x) ]+ \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2<br>$$<br>(4)式的形式为$A+\lambda B$，可以简化为$CA+B$，其中$C=1/\lambda$。  </p>
-<p>所以4)式又可以简化为<br>$$<br>\min_\theta C \ \sum_{i=1}^m[ y^{(i)}cost_1(-\theta x)+ (1-y^{(i)})\ cost_0(\theta x) ]+ \frac{1}{2}\sum_{j=1}^n\theta_j^2<br>$$</p>
-<h2 id="直观上对最大间隔的理解"><a href="#直观上对最大间隔的理解" class="headerlink" title="直观上对最大间隔的理解"></a>直观上对最大间隔的理解</h2><h3 id="1-更严格的分类标准"><a href="#1-更严格的分类标准" class="headerlink" title="1. 更严格的分类标准"></a>1. 更严格的分类标准</h3><p>logistic回归对分类样本只需要假设函数$h_\theta(x)$中的$\theta x$&gt;=0或&lt;0即可，但SVM有更强的分类标准，由其损失函数hinge loss的图像可知：  </p>
-<ul>
-<li>当y=1时，我们想要$\theta x\geq 1$  </li>
-<li>当y=0时，我们想要$\theta x\leq -1$  </li>
-</ul>
-<h3 id="2-鲁棒or精细"><a href="#2-鲁棒or精细" class="headerlink" title="2.鲁棒or精细"></a>2.鲁棒or精细</h3><p>从(5)式可以看出，当C超级大时，SVM分类器关注于<strong>尽可能不分错</strong>以使损失函数最小化，而当决策边界离正负样本同样远时，损失函数才会有最小值。但也可以看到，当样本中出现个别噪声点时，此时SVM不鲁棒。  </p>
-<h2 id="大间隔分类器的数学原理"><a href="#大间隔分类器的数学原理" class="headerlink" title="大间隔分类器的数学原理"></a>大间隔分类器的数学原理</h2><p>当C超级大时，优化目标(5)式的前半部分必须无限趋于0，此时故我们只需要优化后半部分。<br>$$<br>\min_\theta \frac{1}{2}\sum_{j=1}^n \theta_j^2<br>\<br>s.t.\theta^Tx^{(i)}\geq1  \quad if\ y^{(i)}=1\<br> \quad \quad  \theta^Tx^{(i)}\leq-1  \quad if\ y^{(i)}=0<br>$$</p>
-<p>定义假设函数中的参数$\theta$的分量$\theta_0=0$，此时问题得到简化，决策边界过原点。由于决策边界的方程为$\theta x=0$，所以$\theta$一定与决策边界垂直。此时(6)式可化为<br>$$<br>\min_\theta \frac{1}{2}\sum_{j=1}^n \theta_j^2<br>\<br>s.t.p^{(i)}||\theta||\geq1  \quad if\ y^{(i)}=1\<br> \quad \quad  p^{(i)}||\theta||\leq-1  \quad if\ y^{(i)}=0<br>$$<br>式中，$p^{(i)}$是$x^{(i)}$在向量$\theta$上的投影。  </p>
-<p>当$\theta_0!=0$时，认可通过决策边界和样本点的欧式变换(即平移、旋转)，完成决策边界的平移。  </p>
-<h2 id="Kernel"><a href="#Kernel" class="headerlink" title="Kernel"></a>Kernel</h2><h3 id="非线性假设"><a href="#非线性假设" class="headerlink" title="非线性假设"></a>非线性假设</h3><p>若是非线性的决策边界，则假设函数需要变得更复杂，即需要更复杂的组合特征。  </p>
-<p><img src="../img/12-3.png" alt="12-3"></p>
-<p>为了获得上图所示的判定边界，我们的模型可能是$\theta_0+\theta_1x_1+\theta_2x_1x_3+…$的形式。如何得到这些组合特征呢？一种方法是利用已知数据来预测未知数据，即给定一个测试样本$x_{test}$，通过其与地标样本点$f_1,f_2,…$的相似度来计算$x_{test}$的预测值，相似度的度量我们使用相似度函数（Kernel）进行计算。  </p>
-<p>首先我们知道两个样本点的特征距离越近，则相似度越大，越远则相似度越小。故我们可以通过计算两个样本点之间特征距离和来计算相似度。取相似度函数为<br>$$<br>f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})<br>$$<br>从上式可以看出：  </p>
-<ul>
-<li>若$x≈l^{(1)}$，则$f_1≈1 $   </li>
-<li>若$x \ far \ away \ from \ l^{(1)}$，则$f_1≈0$  </li>
-</ul>
-<p>例如，取$l^{(1)}=[3,5]^T$，选取不同的$\sigma^2$值，f1的图像如下所示。  </p>
-<img src="../img/12-4.png" alt="12-4" style="zoom:75%;" />
-
-
-
-<p><strong>例子</strong>：这里我们取3个地标样本点，在给定$\theta_0,…,\theta_3,l_1,…,l_3$后，当样本处于洋红色的点位置处，因为其离$l^{(1)}$更近，但是离$l^{(2)}$和$l^{(3)}$较远，因此接$f_1$近1，而$f_2$,$f_3$接近0。因此$h_\theta(x)=\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3&gt;0$，预测$y=1$。同理可以求出，对于离较近的绿色点，也预测$y=1$，但是对于蓝绿色的点，因为其离三个地标都较远，预测$y=0$。  </p>
-<p><img src="http://www.ai-start.com/ml2014/images/3d8959d0d12fe9914dc827d5a074b564.jpg" alt=""></p>
-<p>引入了Kernel的SVM，目标函数变为<br>$$<br>\min_\theta C \ \sum_{i=1}^m[ y^{(i)}cost_1(-\theta^T f^{(i)})+ (1-y^{(i)})\ cost_0(\theta^T f^{(i)}) ]+ \frac{1}{2}\sum_{j=1}^{n=m}\theta_j^2<br>$$<br>此时对最后一项正则项进行微调整，即$\sum_{j=1}^{n=m}\theta_j^2=\theta^T\theta\approx\theta^TM\theta$，其中M为根据选择的和函数不同而不同的一个矩阵，可以简化计算。  </p>
-<p>理论上讲，我们也可以在逻辑回归中使用核函数，但是上面使用 来简化计算的方法不适用与逻辑回归，因此计算将非常耗费时间。  </p>
-<h3 id="如何选择-l-i"><a href="#如何选择-l-i" class="headerlink" title="如何选择$l_i$"></a>如何选择$l_i$</h3><p>如果训练集给定样本${(x^{(1)},y^{(1)}),…,(x^{(m)},y^{(m)})}$，则将$l^{(i)}=x^{(i)},i=1,…m$，对后面给定的测试样本，计算<br>$$<br>f_1=similarity(x,l^{(1)})\<br>f_2=similarity(x,l^{(2)})\<br>\vdots<br>$$<br>对训练集中每个样本${(x^{(i)},y^{(i)})}$，有$f_i^{(i)}=1$。  </p>
-<h3 id="如何选择-C"><a href="#如何选择-C" class="headerlink" title="如何选择$C$"></a>如何选择$C$</h3><p>$C=1/\lambda $ </p>
-<ul>
-<li><p>大的C，$\lambda$小，可能会过拟合，低偏差，高方差  </p>
-</li>
-<li><p>小的C，$\lambda$大，可能会欠拟合，高偏差，低方差  </p>
-</li>
-</ul>
-<h3 id="如何选择-sigma-2"><a href="#如何选择-sigma-2" class="headerlink" title="如何选择$\sigma^2$"></a>如何选择$\sigma^2$</h3><ul>
-<li>$\sigma^2$过大，特征$f_i$分布越广，高偏差，低方差  </li>
-<li>$\sigma^2$过小，特征$f_i$分布越密，低偏差，高方差  </li>
-</ul>
-<h2 id="使用SVM"><a href="#使用SVM" class="headerlink" title="使用SVM"></a>使用SVM</h2><p>软件库：liblinear,libsvm  </p>
-<p>SVM求解所需：  </p>
-<ul>
-<li>C  </li>
-<li>Kernel：选择的Kernel函数需要满足Mercer’s Theorem，优化函数才能正常运行而不会发散  <ul>
-<li>Linear Kernel  </li>
-<li>Gaussian Kernel：选择$sigma^2,l_i $ </li>
-<li>Polynomial Kernel  </li>
-<li>String Kernel  </li>
-<li>chi-square Kernel  </li>
-<li>histogram Kernel  </li>
-<li>intersection Kernel  </li>
-</ul>
-</li>
-</ul>
-<h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p>对分成K类的样本，训练K个SVM，一个SVM将一类样本与其他K-1类样本区分开，得到参数$\theta^{(i)},…,\theta^{(K)}$，选择最大的$(\theta^{(i)})^Tx$为测试样本$x$的类（i）。  </p>
-<h2 id="Logistic-Regression-vs-SVM"><a href="#Logistic-Regression-vs-SVM" class="headerlink" title="Logistic Regression vs. SVM"></a>Logistic Regression vs. SVM</h2><p>n：特征数量  </p>
-<p>m：训练集样本数理  </p>
-<ul>
-<li>当n相对m过大，使用LR，或者SVM with Linear Kernel  </li>
-<li>当n小，m中等，使用SVM with Gauss Kernel  </li>
-<li>当n小，m大，加入更多的特征后，使用LR，或SVM without Kernel  </li>
-<li>神经网络在大多数情况能够效果很好，但是训练费力。  </li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -307,7 +202,7 @@
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -320,116 +215,70 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/25/NG_ML_ch12/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          吴恩达机器学习ch15学习笔记
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/06/02/20200602%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%96%B0%E7%9F%A5/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">20200602深度学习新知</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/" class="archive-article-date">
+  	<time datetime="2020-02-28T11:36:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
         </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Support-Vector-Machine"><span class="toc-number">1.</span> <span class="toc-text">Support Vector Machine</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#优化目标"><span class="toc-number">1.1.</span> <span class="toc-text">优化目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#直观上对最大间隔的理解"><span class="toc-number">1.2.</span> <span class="toc-text">直观上对最大间隔的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-更严格的分类标准"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 更严格的分类标准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-鲁棒or精细"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.鲁棒or精细</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大间隔分类器的数学原理"><span class="toc-number">1.3.</span> <span class="toc-text">大间隔分类器的数学原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel"><span class="toc-number">1.4.</span> <span class="toc-text">Kernel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#非线性假设"><span class="toc-number">1.4.1.</span> <span class="toc-text">非线性假设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何选择-l-i"><span class="toc-number">1.4.2.</span> <span class="toc-text">如何选择$l_i$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何选择-C"><span class="toc-number">1.4.3.</span> <span class="toc-text">如何选择$C$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何选择-sigma-2"><span class="toc-number">1.4.4.</span> <span class="toc-text">如何选择$\sigma^2$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用SVM"><span class="toc-number">1.5.</span> <span class="toc-text">使用SVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多分类问题"><span class="toc-number">1.6.</span> <span class="toc-text">多分类问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression-vs-SVM"><span class="toc-number">1.7.</span> <span class="toc-text">Logistic Regression vs. SVM</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/28/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97/">深度学习计算</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
         </div>
-        
-    </div>
-</aside>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
 
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/categories/computer/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/categories/computer/">1</a><a class="page-number" href="/categories/computer/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
+  
 
 
           </div>
@@ -452,10 +301,10 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
