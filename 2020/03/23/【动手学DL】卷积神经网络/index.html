@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>计算机视觉 | BevanWu的修炼小栈</title>
+  <title>卷积神经网络 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="图像增广对训练图像做一系列随即改变，产生相似却不同的训练样本，增大训练数据集的规模。也可降低模型对某些属性的依赖，从而提高模型的泛化能力。   show_images函数进行图片缩放，figsize相应改变，而新图片的每个像素都相应的改变。   图像数据集读取后规格为[image,label]。">
+  <meta name="description" content="NiN串联多个NiN块构成小网络来构成深层网络。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机视觉">
-<meta property="og:url" content="http://yoursite.com/2020/03/23/computer%20version/index.html">
+<meta property="og:title" content="卷积神经网络">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/%E3%80%90%E5%8A%A8%E6%89%8B%E5%AD%A6DL%E3%80%91%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="图像增广对训练图像做一系列随即改变，产生相似却不同的训练样本，增大训练数据集的规模。也可降低模型对某些属性的依赖，从而提高模型的泛化能力。   show_images函数进行图片缩放，figsize相应改变，而新图片的每个像素都相应的改变。   图像数据集读取后规格为[image,label]。">
+<meta property="og:description" content="NiN串联多个NiN块构成小网络来构成深层网络。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-23T03:05:13.000Z">
-<meta property="article:modified_time" content="2020-04-29T00:44:12.752Z">
+<meta property="article:published_time" content="2020-03-23T03:14:00.000Z">
+<meta property="article:modified_time" content="2020-03-23T03:14:48.075Z">
 <meta property="article:author" content="BevanWu">
 <meta property="article:tag" content="Deep Learning">
-<meta property="article:tag" content="Computer Version">
 <meta name="twitter:card" content="summary">
   
   
@@ -164,14 +163,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-computer version" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【动手学DL】卷积神经网络" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      计算机视觉
+      卷积神经网络
     </h1>
   
 
@@ -179,147 +178,46 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/03/23/computer%20version/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+        <a href="/2020/03/23/%E3%80%90%E5%8A%A8%E6%89%8B%E5%AD%A6DL%E3%80%91%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
+  	<time datetime="2020-03-23T03:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="图像增广"><a href="#图像增广" class="headerlink" title="图像增广"></a>图像增广</h1><p>对训练图像做一系列随即改变，产生相似却不同的训练样本，增大训练数据集的规模。也可降低模型对某些属性的依赖，从而提高模型的泛化能力。  </p>
-<p>show_images函数进行图片缩放，figsize相应改变，而新图片的每个像素都相应的改变。  </p>
-<p>图像数据集读取后规格为[image,label]。   </p>
+        <h1 id="NiN"><a href="#NiN" class="headerlink" title="NiN"></a>NiN</h1><p>串联多个NiN块构成小网络来构成深层网络。  </p>
 <a id="more"></a>
 
-<h2 id="翻转"><a href="#翻转" class="headerlink" title="翻转"></a>翻转</h2><p>图像增广指运用在训练样本中，左右翻转不改变物体类别，比上下翻转更适合训练。    </p>
-<h2 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h2><p>池化层能降低卷积层对目标位置的敏感度，也可通过图片随机裁剪使物体出现在图像不同的位置，降低模型对目标位置的敏感性。  </p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>可改变要素有<strong>亮度</strong>、<strong>对比度</strong>、<strong>饱和度</strong>、<strong>色调</strong>。</p>
-<h2 id="叠加"><a href="#叠加" class="headerlink" title="叠加"></a>叠加</h2><p>用Compose实例将上面定义的图像增广方法叠加。</p>
-<p><strong>为了在预测时得到确定的结果，通常只将图像增广应用在训练样本上，而不在预测时使用含随机操作的图像增广。</strong>    </p>
-<hr>
-<h1 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h1><p>训练新的模型，方法1：手机更多数据；方法2：迁移学习。<br>由于训练集样本有限，在原有大数据集训练得到的模型进行迁移学习，得到新的模型。  </p>
-<p>迁移学习：将从源数据集学到的知识迁移到目标数据集上。    </p>
-<p>其中一种常用技术：微调（fine tuning）。目标模型复制了源模型上除了输出层外所有模型设计及其参数，并基于目标数据集微调这些参数，而输出层从头训练。  </p>
-<p>微调参数使用较低学习率，而输出层可用较大学习率。    </p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
-<li>在源数据集训练一个源模型     </li>
-<li>创建目标模型，复制（pretrained=True）源模型除输出层外所有设计和参数    </li>
-<li>设计输出大小为目标数据集类别个数的输出层，随机初始化该层模型参数    </li>
-<li>在目标数据集上训练目标模型   </li>
-</ol>
-<p>当目标数据集远小于源数据集时，微调有助于体会僧模型泛化能力。    </p>
-<p>训练时，图像随机剪裁，然后缩放为224像素的输入；测试时，将图像缩放为256像素，然后采集裁剪中心的224像素。彩色图像三通道的数值各自标准化。    </p>
-<p>使用预训练模型时注意看对应模型的源码，查看输出层的定义形式，进行相应的更改。    </p>
-<blockquote>
-<p>map函数<br>map(function, iterable, …)会根据提供的函数对指定序列做映射。<br>第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。    </p>
-</blockquote>
-<p>训练时对源模型部分进行微调，输出层需要加大学习率进行调整。（优化函数，weight_decay为权重衰减参数（L2惩罚项））  </p>
-<hr>
-<h1 id="目标检测和边界框"><a href="#目标检测和边界框" class="headerlink" title="目标检测和边界框"></a>目标检测和边界框</h1><p>目标检测：不仅知道图像类别，而且找到图像中的位置。  </p>
-<h2 id="边界框"><a href="#边界框" class="headerlink" title="边界框"></a>边界框</h2><p><strong>左上角与右下角的xy坐标</strong>唯一确定边界框的位置。图像坐标原点位于左上角，原点往右和往下分别为xy轴的正方向。    </p>
-<blockquote>
-<p>boundingbox格式（x1,y1,x2,y2）<br>matplotlib格式（x1,x2,w,h）</p>
-</blockquote>
-<hr>
-<h1 id="锚框"><a href="#锚框" class="headerlink" title="锚框"></a>锚框</h1><p>目标检测算法通常在输入图像中大量采样，判断区域中好似否有感兴趣的目标，调整区域边缘，找到真实边界框。    </p>
-<p>以每个像素为中心生成多个大小和宽高比不同的边界框，进行匹配，这些边界框成为锚框。    </p>
-<p>大小(size)为$s \in (0,1]$，宽高比(ratio)为r&gt;0，锚框的宽为ws*sqrt(r)锚框的高为$hs/\sqrt{r}$。size指代的是相对(图像的宽、高)比例。   </p>
-<p>每一个(s_i,r_j)均对应着w*h个中心点形成的锚框，故由w*h*n*m个锚框。此时计算复杂度过高，只取包含s_1和r_1的组合。此时每一个像素对应锚框数量为n+m-1，共有w*h*(n+m-1)个锚框。   </p>
-<p>生成锚框的函数的输出为(1,num_anchors,4)，由于batch里每个都一样,所以第一维为1，4代表着锚框的四个坐标点。    </p>
-<h1 id="交并比"><a href="#交并比" class="headerlink" title="交并比"></a>交并比</h1><p>Jaccard系数：衡量两个集合的相似度=两者交集大小/两者并集大小。   </p>
-<p>交并比，IoU，两个边界框橡胶面积与相并面积之比。   </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_intersection</span><span class="params">(set_1, set_2)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    计算anchor之间的交集</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        set_1: a tensor of dimensions (n1, 4), anchor表示成(xmin, ymin, xmax, ymax)</span></span><br><span class="line"><span class="string">        set_2: a tensor of dimensions (n2, 4), anchor表示成(xmin, ymin, xmax, ymax)</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        intersection of each of the boxes in set 1 with respect to each of the boxes in set 2, shape: (n1, n2)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># PyTorch auto-broadcasts singleton dimensions</span></span><br><span class="line">    lower_bounds = torch.max(set_1[:, :<span class="number">2</span>].unsqueeze(<span class="number">1</span>), set_2[:, :<span class="number">2</span>].unsqueeze(<span class="number">0</span>))  <span class="comment"># (n1, n2, 2)</span></span><br><span class="line">    upper_bounds = torch.min(set_1[:, <span class="number">2</span>:].unsqueeze(<span class="number">1</span>), set_2[:, <span class="number">2</span>:].unsqueeze(<span class="number">0</span>))  <span class="comment"># (n1, n2, 2)</span></span><br><span class="line">    intersection_dims = torch.clamp(upper_bounds - lower_bounds, min=<span class="number">0</span>)  <span class="comment"># (n1, n2, 2)</span></span><br><span class="line">    <span class="keyword">return</span> intersection_dims[:, :, <span class="number">0</span>] * intersection_dims[:, :, <span class="number">1</span>]  <span class="comment"># (n1, n2)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_jaccard</span><span class="params">(set_1, set_2)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    计算anchor之间的Jaccard系数(IoU)</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        set_1: a tensor of dimensions (n1, 4), anchor表示成(xmin, ymin, xmax, ymax)</span></span><br><span class="line"><span class="string">        set_2: a tensor of dimensions (n2, 4), anchor表示成(xmin, ymin, xmax, ymax)</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        Jaccard Overlap of each of the boxes in set 1 with respect to each of the boxes in set 2, shape: (n1, n2)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># Find intersections</span></span><br><span class="line">    intersection = compute_intersection(set_1, set_2)  <span class="comment"># (n1, n2)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find areas of each box in both sets</span></span><br><span class="line">    areas_set_1 = (set_1[:, <span class="number">2</span>] - set_1[:, <span class="number">0</span>]) * (set_1[:, <span class="number">3</span>] - set_1[:, <span class="number">1</span>])  <span class="comment"># (n1)</span></span><br><span class="line">    areas_set_2 = (set_2[:, <span class="number">2</span>] - set_2[:, <span class="number">0</span>]) * (set_2[:, <span class="number">3</span>] - set_2[:, <span class="number">1</span>])  <span class="comment"># (n2)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Find the union</span></span><br><span class="line">    <span class="comment"># PyTorch auto-broadcasts singleton dimensions</span></span><br><span class="line">    union = areas_set_1.unsqueeze(<span class="number">1</span>) + areas_set_2.unsqueeze(<span class="number">0</span>) - intersection  <span class="comment"># (n1, n2)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> intersection / union  <span class="comment"># (n1, n2)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="标注训练集的锚框"><a href="#标注训练集的锚框" class="headerlink" title="标注训练集的锚框"></a>标注训练集的锚框</h2><p>在训练集中，为每个锚框标注两类标签：一是锚框所含目标的类别；二是真实边界框相对锚框的偏移量。    </p>
-<p>在目标检测时，首先生成多个锚框，然后为每个锚框<strong>预测类别</strong>以及<strong>偏移量</strong>，接着根据预测的偏移量调整锚框位置从而得到预测边界框，最后筛选需要输出的预测边界框。</p>
-<p>定义矩阵，元素为锚框与真实边界框的交并比，找出其中最大元素，删去同行同列其他元素；再寻找最大元素，仿照上继续，最后一步，在剩余的一列中找除去已找到元素行外其余锚框；用阈值判断法分配真实的边界框。  </p>
-<p>若锚框A被分配了真实边界框B，则将A的类别设置为B的类别，偏移量的标注用f(两框的中心坐标相对位置，两框的相对大小)。为了让偏移量分布更均匀以拟合，需要进行特殊变换。 </p>
-<blockquote>
-<p>负类锚框：类别为背景的锚框<br>正类锚框：其余的锚框</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下函数已保存在d2lzh_pytorch包中方便以后使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">assign_anchor</span><span class="params">(bb, anchor, jaccard_threshold=<span class="number">0.5</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    # 为每个anchor分配真实的bb, anchor表示成归一化(xmin, ymin, xmax, ymax).</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        bb: 真实边界框(bounding box), shape:（nb, 4）</span></span><br><span class="line"><span class="string">        anchor: 待分配的anchor, shape:（na, 4）</span></span><br><span class="line"><span class="string">        jaccard_threshold: 预先设定的阈值</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        assigned_idx: shape: (na, ), 每个anchor分配的真实bb对应的索引, 若未分配任何bb则为-1</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    na = anchor.shape[<span class="number">0</span>]</span><br><span class="line">    nb = bb.shape[<span class="number">0</span>]</span><br><span class="line">    jaccard = compute_jaccard(anchor, bb).detach().cpu().numpy() <span class="comment"># shape: (na, nb)</span></span><br><span class="line">    assigned_idx = np.ones(na) * <span class="number">-1</span>  <span class="comment"># 初始全为-1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 先为每个真实bb分配一个anchor(不要求满足jaccard_threshold(阈值))</span></span><br><span class="line">    jaccard_cp = jaccard.copy() <span class="comment">#复制</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(nb):<span class="comment">#循环完成真实bb的分配</span></span><br><span class="line">        i = np.argmax(jaccard_cp[:, j]) <span class="comment">#j列最大</span></span><br><span class="line">        assigned_idx[i] = j   <span class="comment">#为某个真实bb分配anchor</span></span><br><span class="line">        <span class="comment">#真实bb i已被分配</span></span><br><span class="line">        jaccard_cp[i, :] = float(<span class="string">"-inf"</span>) <span class="comment"># 赋值为负无穷, 相当于去掉这一行</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 处理还未被分配的anchor, 要求满足jaccard_threshold</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(na):</span><br><span class="line">        <span class="keyword">if</span> assigned_idx[i] == <span class="number">-1</span>:</span><br><span class="line">            j = np.argmax(jaccard[i, :])</span><br><span class="line">            <span class="keyword">if</span> jaccard[i, j] &gt;= jaccard_threshold:</span><br><span class="line">                assigned_idx[i] = j     <span class="comment">#为剩余的未检测满足阈值的anchor分配类别</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> torch.tensor(assigned_idx, dtype=torch.long) </span><br><span class="line">    <span class="comment">#每个anchor都分配真实bb对应的索引，有些因为阈值原因被置为-1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xy_to_cxcy</span><span class="params">(xy)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    将(x_min, y_min, x_max, y_max)形式的anchor转换成(center_x, center_y, w, h)形式的.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        xy: bounding boxes in boundary coordinates, a tensor of size (n_boxes, 4)</span></span><br><span class="line"><span class="string">    Returns: </span></span><br><span class="line"><span class="string">        bounding boxes in center-size coordinates, a tensor of size (n_boxes, 4)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> torch.cat([(xy[:, <span class="number">2</span>:] + xy[:, :<span class="number">2</span>]) / <span class="number">2</span>,  <span class="comment"># c_x, c_y</span></span><br><span class="line">                      xy[:, <span class="number">2</span>:] - xy[:, :<span class="number">2</span>]], <span class="number">1</span>)  <span class="comment"># w, h, axis=1 行合并</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MultiBoxTarget</span><span class="params">(anchor, label)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    # anchor表示成归一化(xmin, ymin, xmax, ymax).</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        anchor: torch tensor, 输入的锚框, 一般是通过MultiBoxPrior生成, shape:（1，锚框总数，4）</span></span><br><span class="line"><span class="string">        label: 真实标签, shape为(bn, 每张图片最多的真实锚框数, 5)</span></span><br><span class="line"><span class="string">               第二维中，如果给定图片没有这么多锚框, 可以先用-1填充空白, 最后一维中的元素为[类别标签, 四个坐标值]</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        列表, [bbox_offset, bbox_mask, cls_labels]</span></span><br><span class="line"><span class="string">        bbox_offset: 每个锚框的标注偏移量，形状为(bn，锚框总数*4)</span></span><br><span class="line"><span class="string">        bbox_mask: 形状同bbox_offset, 每个锚框的掩码, 一一对应上面的偏移量, 负类锚框(背景)对应的掩码均为0, 正类锚框的掩码均为1</span></span><br><span class="line"><span class="string">        cls_labels: 每个锚框的标注类别, 其中0表示为背景, 形状为(bn，锚框总数)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">assert</span> len(anchor.shape) == <span class="number">3</span> <span class="keyword">and</span> len(label.shape) == <span class="number">3</span></span><br><span class="line">    bn = label.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">MultiBoxTarget_one</span><span class="params">(anc, lab, eps=<span class="number">1e-6</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        MultiBoxTarget函数的辅助函数, 处理batch中的一个</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            anc: shape of (锚框总数, 4)</span></span><br><span class="line"><span class="string">            lab: shape of (真实锚框数, 5), 5代表[类别标签, 四个坐标值]</span></span><br><span class="line"><span class="string">            eps: 一个极小值, 防止log0</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            offset: (锚框总数*4, )</span></span><br><span class="line"><span class="string">            bbox_mask: (锚框总数*4, ), 0代表背景, 1代表非背景</span></span><br><span class="line"><span class="string">            cls_labels: (锚框总数, 4), 0代表背景</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        an = anc.shape[<span class="number">0</span>]</span><br><span class="line">        assigned_idx = assign_anchor(lab[:, <span class="number">1</span>:], anc) <span class="comment"># (锚框总数, )</span></span><br><span class="line">        bbox_mask = ((assigned_idx &gt;= <span class="number">0</span>).float().unsqueeze(<span class="number">-1</span>)).repeat(<span class="number">1</span>, <span class="number">4</span>) <span class="comment"># (锚框总数, 4)</span></span><br><span class="line"></span><br><span class="line">        cls_labels = torch.zeros(an, dtype=torch.long) <span class="comment"># 0表示背景</span></span><br><span class="line">        assigned_bb = torch.zeros((an, <span class="number">4</span>), dtype=torch.float32) <span class="comment"># 所有anchor对应的bb坐标</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(an):</span><br><span class="line">            bb_idx = assigned_idx[i]</span><br><span class="line">            <span class="keyword">if</span> bb_idx &gt;= <span class="number">0</span>: <span class="comment"># 即非背景</span></span><br><span class="line">                cls_labels[i] = lab[bb_idx, <span class="number">0</span>].long().item() + <span class="number">1</span> <span class="comment"># 注意要加一</span></span><br><span class="line">                assigned_bb[i, :] = lab[bb_idx, <span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">        center_anc = xy_to_cxcy(anc) <span class="comment"># (center_x, center_y, w, h)</span></span><br><span class="line">        center_assigned_bb = xy_to_cxcy(assigned_bb)</span><br><span class="line"></span><br><span class="line">        offset_xy = <span class="number">10.0</span> * (center_assigned_bb[:, :<span class="number">2</span>] - center_anc[:, :<span class="number">2</span>]) / center_anc[:, <span class="number">2</span>:]</span><br><span class="line">        offset_wh = <span class="number">5.0</span> * torch.log(eps + center_assigned_bb[:, <span class="number">2</span>:] / center_anc[:, <span class="number">2</span>:])</span><br><span class="line">        offset = torch.cat([offset_xy, offset_wh], dim = <span class="number">1</span>) * bbox_mask <span class="comment"># (锚框总数, 4)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> offset.view(<span class="number">-1</span>), bbox_mask.view(<span class="number">-1</span>), cls_labels</span><br><span class="line"></span><br><span class="line">    batch_offset = []</span><br><span class="line">    batch_mask = []</span><br><span class="line">    batch_cls_labels = []</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> range(bn):</span><br><span class="line">        offset, bbox_mask, cls_labels = MultiBoxTarget_one(anchor[<span class="number">0</span>, :, :], label[b, :, :])</span><br><span class="line"></span><br><span class="line">        batch_offset.append(offset)</span><br><span class="line">        batch_mask.append(bbox_mask)</span><br><span class="line">        batch_cls_labels.append(cls_labels)</span><br><span class="line"></span><br><span class="line">    bbox_offset = torch.stack(batch_offset)</span><br><span class="line">    bbox_mask = torch.stack(batch_mask)</span><br><span class="line">    cls_labels = torch.stack(batch_cls_labels)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [bbox_offset, bbox_mask, cls_labels]</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>返回的第一项是为每个锚框标注的四个偏移量，其中负类锚框的偏移量标注为0。<br>返回值的第二项为掩码（mask）变量，形状为(批量大小, 锚框个数的四倍)。掩码变量中的元素与每个锚框的4个偏移量一一对应。 有关负类的偏移量不应影响目标函数，通过按元素乘法，掩码变量中的0可以在计算目标函数之前过滤掉负类的偏移量。<br>第三项表示为锚框标注的类别。0:background,1:dog,2:cat.  </p>
-</blockquote>
-<h2 id="输出预测边界框"><a href="#输出预测边界框" class="headerlink" title="输出预测边界框"></a>输出预测边界框</h2><p>模型预测：生成多个锚框，一一预测类别和偏移量，随后通过锚框和预测偏移量得到预测边界框。移除相似的预测边界框–&gt;非极大值抑制（non-maximum suppression,NMS）    </p>
-<p>非极大值抑制:<br>对于预测边界框B，计算各个类别的预测概率，其中最大的p即为其类别和置信度。<br>同一图像的预测类别为非背景的预测边界框置信度降序排列，得到列表L；最高B1，将与其IoU超过一个阈值参数的的边界框删去；次高B2，重复前一步，直到所有边界框均作为基准。此时L中全为预测边界框。   </p>
-<blockquote>
-<p>全程类似冒泡排序？？？  </p>
-</blockquote>
-<p>将置信度较低的预测边界框移除，从而减小非极大值抑制的计算量，还可以筛选非极大值抑制的输出，从而令结果简洁。    </p>
-<hr>
-<h1 id="多尺度目标检测"><a href="#多尺度目标检测" class="headerlink" title="多尺度目标检测"></a>多尺度目标检测</h1><p>针对锚框数量过多问题：均匀采样一小部分像素，进行生成锚框。  </p>
-<blockquote>
-<p>较小目标比较大目标在图像上出现位置的可能性更多。锚框大，则采样少；锚框小，则采样多。     </p>
-</blockquote>
-<p>卷积神经网络的二维数组输出称为特征图。特征图的形状能确定任一图像上均匀采样的锚框中心。  </p>
-<blockquote>
-<p>函数中fmap_w,fmap_h分别代表检测框中心的分布，fmap_h行fmap_w列个。 </p>
-</blockquote>
-<p>在多个尺度下生成不同数量和不同大小的锚框，从而在多个尺度下检测不同大小的目标。  </p>
-<p>基于卷积神经网络的方法？？？：  </p>
-<p>依据c_i张形状为h×w的特征图生成h×w组不同中心的锚框，且每组的锚框个数为a。依据真实边界框的类别和位置，每个锚框将被标注类别和偏移量。    </p>
-<p>在当前的尺度下，目标检测模型需要根据输入图像预测h×w组不同中心的锚框的类别和偏移量。  </p>
-<p>当不同层的特征图在输入图像上分别拥有不同大小的感受野时，它们将分别用来检测不同大小的目标。    </p>
-<hr>
-<h1 id="图像检测数据集"><a href="#图像检测数据集" class="headerlink" title="图像检测数据集"></a>图像检测数据集</h1><blockquote>
-<p>permute(dims)<br>将tensor的维度换位。参数是一系列的整数，代表原来张量的维度。<br>a=rand(2,3,4);  %这是一个三维数组，各维的长度分别为：2，3，4<br>permute(A,[2,1,3])  %变成3<em>2</em>4的矩阵,按次序调转        </p>
-</blockquote>
-<hr>
-<h1 id="区域卷积神经网络"><a href="#区域卷积神经网络" class="headerlink" title="区域卷积神经网络"></a>区域卷积神经网络</h1><p>region based CNN/R-CNN,将深度模型应用于目标检测。   </p>
-<h2 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h2><p>对图像进行选择提议区域，标注类别和边界框，用卷积神经网络做前向计算抽取特征。然后用提议区域的特征预测类别和边界框。    </p>
-<p>步骤：  </p>
-<ol>
-<li>对输入图像使用选择性搜索（selective search）来选取多个高质量的提议区域 。多个尺度选取，提议区域将被标注类别和真实边界框。</li>
-<li>选取一个预训练的卷积神经网络，并将其在输出层之前截断。将每个提议区域变形为网络需要的输入尺寸，并通过前向计算输出抽取的提议区域特征。</li>
-<li>将每个提议区域的特征连同其标注的类别作为一个样本，训练多个<strong>支持向量机</strong>对目标分类。每个支持向量机用来判断样本是否属于某一个类别。</li>
-<li>将每个提议区域的特征连同其标注的边界框作为一个样本，训练线性回归模型来预测真实边界框。    </li>
-</ol>
-<p>有效抽取了图像特征，性能瓶颈在于需要对每个提议区域独立抽取特征，速度慢。    </p>
-<h2 id="快速的R-CNN（Fast-R-CNN）"><a href="#快速的R-CNN（Fast-R-CNN）" class="headerlink" title="快速的R-CNN（Fast R-CNN）"></a>快速的R-CNN（Fast R-CNN）</h2><p>独立的特征抽取会导致大量的重复计算。Fast R-CNN改进在于只对整个图像做卷积神经网络的前向计算。    </p>
-<p>步骤：  </p>
-<ol>
-<li>提取特征的卷积神经网络的输入是整个图像，卷积神经网络的输出的形状1xcx h_1 x w_1.   </li>
-<li>提议区域在卷积神经网络的输出上分别标出形状各异的兴趣区域,兴趣区域需要抽取出形状相同的特征,Fast R-CNN引入兴趣区域池化（Region of Interest Pooling，RoI池化）层，将卷积神经网络的输出和提议区域作为输入，输出连结后的各个提议区域抽取的特征.     </li>
-<li>全连接层将输出形状变换为n x d.</li>
-<li>预测类别时，将全连接层的输出的形状再变换为n×q并使用softmax回归（q为类别个数）。预测边界框时，将全连接层的输出的形状变换为n×4。     </li>
-</ol>
-<p>普通池化层需要通过设置池化窗口、填充和步幅来控制输出形状，而兴趣区域池化层对输出形状可以指定。    </p>
-<blockquote>
-<p>对于[0,1,2;4,5,6;8,9,10]，用2x2的兴趣区域池化层。0、1、4、5（5最大），2、6（6最大），8、9（9最大），10。</p>
-</blockquote>
-<h2 id="更快的R-CNN（Faster-R-CNN）"><a href="#更快的R-CNN（Faster-R-CNN）" class="headerlink" title="更快的R-CNN（Faster R-CNN）"></a>更快的R-CNN（Faster R-CNN）</h2><p>Fast R-CNN通常需要在选择性搜索中生成较多的提议区域，以获得较精确的目标检测结果。Faster R-CNN提出将<strong>选择性搜索</strong>替换成<strong>区域提议网络</strong>（region proposal network），从而<strong>减少提议区域的生成数量</strong>，并保证目标检测的精度。   </p>
-<p>区域提议网络的计算步骤如下：    </p>
-<ol>
-<li>使用填充为1的3×3卷积层变换卷积神经网络的输出，并将输出通道数记为c。这样，卷积神经网络为图像抽取的特征图中的每个单元均得到一个长度为c的新特征。</li>
-<li>以特征图每个单元为中心，生成多个不同大小和宽高比的锚框并标注它们。</li>
-<li>用锚框中心单元长度为c的特征分别预测该锚框的二元类别（含目标还是背景）和边界框。</li>
-<li>使用非极大值抑制，从预测类别为目标的预测边界框中移除相似的结果。最终输出的预测边界框即兴趣区域池化层所需要的提议区域。  </li>
-</ol>
-<p>Faster R-CNN的目标函数既包括目标检测中的类别和边界框预测，又包括区域提议网络中锚框的二元类别和边界框预测。  </p>
-<h2 id="掩码R-CNN（Mask-R-CNN）"><a href="#掩码R-CNN（Mask-R-CNN）" class="headerlink" title="掩码R-CNN（Mask R-CNN）"></a>掩码R-CNN（Mask R-CNN）</h2><p>如果训练数据还标注了每个目标在图像上的像素级位置，那么Mask R-CNN能有效利用这些详尽的标注信息进一步提升目标检测的精度。 </p>
-<p>Mask R-CNN在Faster R-CNN的基础上做了修改。Mask R-CNN将兴趣区域池化层替换成了兴趣区域对齐层，即通过双线性插值（bilinear interpolation）来保留特征图上的空间信息，从而更适于像素级预测。兴趣区域对齐层的输出包含了所有兴趣区域的形状相同的特征图。它们既用来预测兴趣区域的类别和边界框，又通过额外的全卷积网络预测目标的像素级位置。    </p>
-<hr>
-<h1 id="语义分割和数据集"><a href="#语义分割和数据集" class="headerlink" title="语义分割和数据集"></a>语义分割和数据集</h1><p>普通的目标检测：方形边界框来标注和预测图像中的目标。    </p>
-<p>语义分割semantic segmentation：将图像分割成属于不同语义类别的区域，标注和预测都是像素级的。    </p>
-<p>图像分割image segmentation：利用图像中像素之间的相关性。在训练时不需要有关图像像素的标签信息，在预测时也无法保证分割出的区域具有希望得到的语义。    </p>
-<p>实例分割instance segmentation：同时检测并分割（simultaneous detection and segmentation）。研究如何识别图像中各个目标实例的像素级区域。与语义分割有所不同，实例分割不仅需要区分语义，还要区分不同的目标实例。  </p>
-<p>图像要缩放以符合模型的输入形状，语义分割因为需要再原图做精准定位，所以使用裁剪方法：使用图像增广里的随机裁剪，并对输入图像和标签裁剪相同区域。  </p>
-<p>语义分割的一个重要数据集叫作Pascal VOC2012。    </p>
-<hr>
-<h1 id="样式迁移"><a href="#样式迁移" class="headerlink" title="样式迁移"></a>样式迁移</h1><p>一个滤镜通常只能改变照片的某个方面。如果要照片达到理想中的样式，经常需要尝试大量不同的组合。    </p>
-<p>样式迁移：将某图片的样式应用到另一图片上。  </p>
-<blockquote>
-<p>内容图像<br>样式图像  </p>
-</blockquote>
-<p>损失函数：样式迁移的损失函数即内容损失、样式损失和总变差损失的加权和。<br>内容损失：在内容特征上接近<br>样式损失：在样式特征上接近<br>总变差损失：减少合成图像的噪点-&gt;总变差降噪<br>假设$x_{i,j}$表示坐标为(i,j)的像素值，降低总变差损失能够尽可能使邻近的像素值相似。    </p>
-<p>$$min \sum_{i,j} |x_{i,j}-x_{i+1,j}|+|x_{i,j}-x_{i,j+1}|$$</p>
-<p>预处理图像：更改输入图像尺寸，将图像更改为可输入格式，RGB通道标准化<br>后处理图像：将输出图像反标准化  </p>
-<p>一般来说，模型中间层，越靠近输入层的输出越容易抽取图像的细节信息，反之则越容易抽取图像的全局信息。    </p>
-<p>可以通过预训练的卷积神经网络来抽取图像的内容和样式特征，在选取的样式层和内容层之间进行迁移学习。    </p>
-<p>格拉姆矩阵表达样式层输出的样式。</p>
+<h2 id="NiN块"><a href="#NiN块" class="headerlink" title="NiN块"></a>NiN块</h2><p>NiN块是NiN的基础块。是由一个卷积层和两个充当全连接层的1x1卷积层串联形成。  </p>
+<h2 id="NiN模型"><a href="#NiN模型" class="headerlink" title="NiN模型"></a>NiN模型</h2><p>使用卷积窗口形状分别为11×11、5×5和3×3的卷积层，每个NiN块后接一个步幅为2、窗口形状为3×3的最大池化层。  </p>
+<p>？疑点在d2l.FlattenLayer()函数的使用  </p>
+<h1 id="GoogleNet"><a href="#GoogleNet" class="headerlink" title="GoogleNet"></a>GoogleNet</h1><p>吸收了NiN的网络串联思想。</p>
+<h2 id="Inception块"><a href="#Inception块" class="headerlink" title="Inception块"></a>Inception块</h2><p>块中有四条并行的线路，相当于一个子网络。<br>通过不同窗口形状的卷积层何最大池化层来并行抽取信息，并用1x1卷积层减少通道数从而降低模型复杂度。  </p>
+<h2 id="GoogleNet模型"><a href="#GoogleNet模型" class="headerlink" title="GoogleNet模型"></a>GoogleNet模型</h2><p>主体卷积部分使用五个模块block，每个模块间使用步幅为2的3x3最大池化层来减小输出高宽。<br>1th block=64通道的7x7卷积层<br>2th block=64通道的1x1卷积层+3x3卷积层～=Inception块中的第二条线路<br>3th block=2 Inception block<br>4th block=5 Inception block<br>5th block=2 Inception block  </p>
+<p>将多个设计的Inception块和其他层串联。  </p>
+<h1 id="批量归一化"><a href="#批量归一化" class="headerlink" title="批量归一化"></a>批量归一化</h1><p>让较深的神经网络的训练更容易。输入数据比i奥准话，均值为0，标准差为1，标准化处理是输入数据各个特征的分布相近，更有效训练。  </p>
+<p>训练中模型参数的更新较容易造成深层神经网络输出层输出的剧烈变化，难以训练有效的深度模型。  </p>
+<p>批量归一化，利用小批量上的均值和标准差，不断调整神经网络在各层的中间输出，从而使神经网络的中间输出数值更稳定。  </p>
+<p>对全连接层和卷积层做批量归一化方法不同。  </p>
+<h2 id="对全连接层的批量归一化"><a href="#对全连接层的批量归一化" class="headerlink" title="对全连接层的批量归一化"></a>对全连接层的批量归一化</h2><p>批量归一化层放置在全连接层的仿射变换和激活函数之间。  </p>
+<p>？？？  </p>
+<h2 id="对卷积层做批量归一化"><a href="#对卷积层做批量归一化" class="headerlink" title="对卷积层做批量归一化"></a>对卷积层做批量归一化</h2><p>批量归一化层放置在卷积计算后，激活函数前。若卷积运算输出多个同发骚，则分别做批量归一化，各通道独立。  </p>
+<h2 id="预测时的批量归一化"><a href="#预测时的批量归一化" class="headerlink" title="预测时的批量归一化"></a>预测时的批量归一化</h2><p>训练时批量设置大一点，能够使得批量的均值和方差计算准确；测试时平均移动整个训练数据集的均值和方差？？？<br>批量归一化层和对丢弃层一样，训练预测结果不同。  </p>
+<h1 id="残差网络"><a href="#残差网络" class="headerlink" title="残差网络"></a>残差网络</h1><p>神经网络模型添加新的层，充分训练后的模型更可能有效降低训练误差，但在过一定数量后往往不降反升。残差网络出现。<br>通过跨层数据通道从而训练有效的神经网络。  </p>
+<h2 id="残差块"><a href="#残差块" class="headerlink" title="残差块"></a>残差块</h2><p>线路1:两个3x3卷积层，各后接一个批量归一化层和ReLU激活函数。<br>线路2:无模块<br>线路1和线路2合并，若需要改变通道数，则额外需引入一个1x1的卷积层，将输出连接到最后的ReLU激活函数。   </p>
+<h2 id="ResNet模型"><a href="#ResNet模型" class="headerlink" title="ResNet模型"></a>ResNet模型</h2><p>卷积层+批量归一化层+激活函数+池化层    </p>
+<p>（batch——size，channel，height，width）<br>变换？卷积、池化、1x1卷积、全连接层 对输出的影响？   </p>
+<p>ResNet由4个残差块组成，每个残差块使用若干（2）个同样输出通道数的残差块，最终加上全局平均池化层、全连接层输出。  </p>
+<p>增长率？？  </p>
+<h1 id="稠密连接网络"><a href="#稠密连接网络" class="headerlink" title="稠密连接网络"></a>稠密连接网络</h1><p>ResNet跨层连接设计，后续——稠密连接网络。  </p>
+<p>非跨层输出相加，而是在通道维连结。  </p>
+<p>DenseNet主要构建模块是稠密块和过渡层。前者定义输入和输出如何连结，后者控制通道数不过大。  </p>
+<h2 id="稠密层"><a href="#稠密层" class="headerlink" title="稠密层"></a>稠密层</h2><p>conv_block=批量归一化层+激活函数+卷积层；稠密块由多个conv_block组成，每个conv_block使用相同的输出通道数，输入通道数层层累加（in_channels:out_channels:in_channels+(num_convs-1)*out_channels）。稠密块的输出最大。  </p>
+<p>前向计算（forward）时，将各block的输入和输出在通道维上连结。</p>
+<h2 id="过渡层"><a href="#过渡层" class="headerlink" title="过渡层"></a>过渡层</h2><p>稠密层=》通道数增加<br>过渡层=》控制模型复杂度；1x1卷积层减小通道数，平均池化层减半高和宽。  </p>
+<h2 id="DenseNet模型"><a href="#DenseNet模型" class="headerlink" title="DenseNet模型"></a>DenseNet模型</h2><p>Part1:单卷积层+（批量归一化+激活函数）+单池化层<br>Part2:4个稠密块；稠密块间加入过渡层  </p>
+<p>Part3:（批量归一化+激活函数）+全局池化层+全连接层  </p>
 
       
 
@@ -355,10 +253,6 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Version</a>
         		</li>
       		
 		</ul>
@@ -425,7 +319,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/computer%20version/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E3%80%90%E5%8A%A8%E6%89%8B%E5%AD%A6DL%E3%80%91%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -439,18 +333,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/23/%E3%80%90%E5%8A%A8%E6%89%8B%E5%AD%A6DL%E3%80%91%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          卷积神经网络
+          循环神经网络
         
       </div>
     </a>
   
   
-    <a href="/2020/03/03/NG_ML_ch2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">吴恩达机器学习ch2学习笔记</div>
+    <a href="/2020/03/23/%E3%80%90%E5%8A%A8%E6%89%8B%E5%AD%A6DL%E3%80%91%E8%AE%A1%E7%AE%97%E6%80%A7%E8%83%BD/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">计算性能</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -477,7 +371,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#图像增广"><span class="toc-number">1.</span> <span class="toc-text">图像增广</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#翻转"><span class="toc-number">1.1.</span> <span class="toc-text">翻转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#裁剪"><span class="toc-number">1.2.</span> <span class="toc-text">裁剪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性"><span class="toc-number">1.3.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#叠加"><span class="toc-number">1.4.</span> <span class="toc-text">叠加</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#微调"><span class="toc-number">2.</span> <span class="toc-text">微调</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">2.1.</span> <span class="toc-text">步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目标检测和边界框"><span class="toc-number">3.</span> <span class="toc-text">目标检测和边界框</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#边界框"><span class="toc-number">3.1.</span> <span class="toc-text">边界框</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#锚框"><span class="toc-number">4.</span> <span class="toc-text">锚框</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#交并比"><span class="toc-number">5.</span> <span class="toc-text">交并比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#标注训练集的锚框"><span class="toc-number">5.1.</span> <span class="toc-text">标注训练集的锚框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输出预测边界框"><span class="toc-number">5.2.</span> <span class="toc-text">输出预测边界框</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多尺度目标检测"><span class="toc-number">6.</span> <span class="toc-text">多尺度目标检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#图像检测数据集"><span class="toc-number">7.</span> <span class="toc-text">图像检测数据集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#区域卷积神经网络"><span class="toc-number">8.</span> <span class="toc-text">区域卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#R-CNN"><span class="toc-number">8.1.</span> <span class="toc-text">R-CNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速的R-CNN（Fast-R-CNN）"><span class="toc-number">8.2.</span> <span class="toc-text">快速的R-CNN（Fast R-CNN）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更快的R-CNN（Faster-R-CNN）"><span class="toc-number">8.3.</span> <span class="toc-text">更快的R-CNN（Faster R-CNN）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#掩码R-CNN（Mask-R-CNN）"><span class="toc-number">8.4.</span> <span class="toc-text">掩码R-CNN（Mask R-CNN）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#语义分割和数据集"><span class="toc-number">9.</span> <span class="toc-text">语义分割和数据集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#样式迁移"><span class="toc-number">10.</span> <span class="toc-text">样式迁移</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NiN"><span class="toc-number">1.</span> <span class="toc-text">NiN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NiN块"><span class="toc-number">1.1.</span> <span class="toc-text">NiN块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NiN模型"><span class="toc-number">1.2.</span> <span class="toc-text">NiN模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GoogleNet"><span class="toc-number">2.</span> <span class="toc-text">GoogleNet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Inception块"><span class="toc-number">2.1.</span> <span class="toc-text">Inception块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GoogleNet模型"><span class="toc-number">2.2.</span> <span class="toc-text">GoogleNet模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#批量归一化"><span class="toc-number">3.</span> <span class="toc-text">批量归一化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对全连接层的批量归一化"><span class="toc-number">3.1.</span> <span class="toc-text">对全连接层的批量归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对卷积层做批量归一化"><span class="toc-number">3.2.</span> <span class="toc-text">对卷积层做批量归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预测时的批量归一化"><span class="toc-number">3.3.</span> <span class="toc-text">预测时的批量归一化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#残差网络"><span class="toc-number">4.</span> <span class="toc-text">残差网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#残差块"><span class="toc-number">4.1.</span> <span class="toc-text">残差块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ResNet模型"><span class="toc-number">4.2.</span> <span class="toc-text">ResNet模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#稠密连接网络"><span class="toc-number">5.</span> <span class="toc-text">稠密连接网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#稠密层"><span class="toc-number">5.1.</span> <span class="toc-text">稠密层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过渡层"><span class="toc-number">5.2.</span> <span class="toc-text">过渡层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DenseNet模型"><span class="toc-number">5.3.</span> <span class="toc-text">DenseNet模型</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

@@ -6,19 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>循环神经网络 | BevanWu的修炼小栈</title>
+  <title>Archives | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="语言模型自然语言处理的重要技术。自然语言文本是一段离散的时间序列，长度为T的文本各词w_t的出现可认为在时间步t的输出。语言模型会计算词序列的概率，判断哪种组合出现概率最大，作为最终输出。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="循环神经网络">
-<meta property="og:url" content="http://yoursite.com/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
+  <meta name="description" content="学习笔记&#x2F;技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BevanWu的修炼小栈">
+<meta property="og:url" content="http://yoursite.com/archives/page/4/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="语言模型自然语言处理的重要技术。自然语言文本是一段离散的时间序列，长度为T的文本各词w_t的出现可认为在时间步t的输出。语言模型会计算词序列的概率，判断哪种组合出现概率最大，作为最终输出。">
+<meta property="og:description" content="学习笔记&#x2F;技术博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-23T03:18:00.000Z">
-<meta property="article:modified_time" content="2020-03-24T02:33:22.473Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
 <meta name="twitter:card" content="summary">
   
   
@@ -163,288 +161,226 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-循环神经网络" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      循环神经网络
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/28/my-first-blog/" class="archive-article-date">
+  	<time datetime="2020-02-28T05:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/28/my-first-blog/">my first blog</a>
     </h1>
   
 
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="archive-article-date">
-  	<time datetime="2020-03-23T03:18:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="语言模型"><a href="#语言模型" class="headerlink" title="语言模型"></a>语言模型</h1><p>自然语言处理的重要技术。自然语言文本是一段离散的时间序列，长度为T的文本各词w_t的出现可认为在时间步t的输出。语言模型会计算词序列的概率，判断哪种组合出现概率最大，作为最终输出。    </p>
-<a id="more"></a>
-
-<p>通过全概率公式计算一个文本序列出现的概率。此时需要计算词的概率，以及各词在给定前词情况下的条件概率。  </p>
-<ul>
-<li>词的概率=该词在训练数据集中的相对词频</li>
-<li>各词在给定前词情况下的条件概率=训练数据集中的相对词频<ul>
-<li>P(w2|w1)=w1w2两词相邻的频率除以w1的词频</li>
-</ul>
-</li>
-</ul>
-<h2 id="n元语法"><a href="#n元语法" class="headerlink" title="n元语法"></a>n元语法</h2><p>当文本序列长度增加时，计算和存储多个词的概率的复杂度会指数增加。<br>马尔科夫假设是指一个词的出现只与前面n个词相关，即马尔科夫链。<br>n元语法基于n-1阶马尔科夫链，其中n衡量了计算复杂度和模型准确性。 </p>
-<p>当$n$分别为1、2和3时，我们将其分别称作一元语法（unigram）、二元语法（bigram）和三元语法（trigram）。例如，长度为4的序列$w_1, w_2, w_3,w_4$在一元语法、二元语法和三元语法中的概率分别为</p>
-<p>$$<br>\begin{aligned}<br>P(w_1, w_2, w_3, w_4) &amp;=  P(w_1) P(w_2) P(w_3) P(w_4) ,\<br>P(w_1, w_2, w_3, w_4) &amp;=  P(w_1) P(w_2 \mid w_1) P(w_3 \mid w_2) P(w_4 \mid w_3) ,\<br>P(w_1, w_2, w_3, w_4) &amp;=  P(w_1) P(w_2 \mid w_1) P(w_3 \mid w_1, w_2) P(w_4 \mid w_2, w_3) .<br>\end{aligned}<br>$$</p>
-<p>当n较小时，n元语法往往不准确，但n较大时，存储量大。</p>
-<hr>
-<h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><p>n元语法只考虑前n-1个词，考虑t-(n-1)前的词，模型参数变大。循环神经网络通过隐藏状态来存储之前时间步的信息。  </p>
-<p>多层感知机添加隐藏状态变成循环神经网络。    </p>
-<h2 id="不含隐藏状态的神经网络"><a href="#不含隐藏状态的神经网络" class="headerlink" title="不含隐藏状态的神经网络"></a>不含隐藏状态的神经网络</h2><p>$O=HW_{hq}+b_q=\Phi(XW_{xh}+b_h)W_{hq}+b_q$<br>若是分类问题使用softmax($O$)计算输出类别的概率分布。</p>
-<h2 id="含隐含状态的循环神经网络"><a href="#含隐含状态的循环神经网络" class="headerlink" title="含隐含状态的循环神经网络"></a>含隐含状态的循环神经网络</h2><p>$O_t=H_tW_{hq}+b_q=\Phi(X_tW_{xh}+H_{t-1}W_{hh}+b_h)W_{hq}+b_q$<br>想比与不含隐含状态的多层感知机，RNN多了$H_{t-1}W_{hh}$这一项，可以存储前一时间步$t-1$的历史信息，RNN的模型参数固定，不随时间增长。    </p>
-<p>隐含状态中的$X_tW_{xh}+H_{t-1}W_{hh}$等价于$X_t$与$H_{t-1}$在列维度连接的矩阵乘以$W_{xh}$与$W_{hh}$在行维度连接的矩阵。       </p>
-<hr>
-<h1 id="语言模型数据集"><a href="#语言模型数据集" class="headerlink" title="语言模型数据集"></a>语言模型数据集</h1><p>语出里数据集，并转化为字符级RNN所需要的输入格式。   </p>
-<ol>
-<li>将换行符换位空格</li>
-<li>建立字符索引：不同词不同索引–&gt;词典。</li>
-<li>数据采样：批量样本数+时间步<ul>
-<li>随机采样：采样的两个随机小批量在原始序列上位置不一定相邻</li>
-<li>相邻采样：采样的两个随机小批量在原始序列上位置相邻</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h1 id="循环神经网路从0实现"><a href="#循环神经网路从0实现" class="headerlink" title="循环神经网路从0实现"></a>循环神经网路从0实现</h1><p>one-hot变量：一维向量，在某维度为1，其余为0。   </p>
-<p>输入为（批量大小，时间步数），输出为（批量大小，词典大小，时间步数）。   </p>
-<p>scatter_(dim, index, src) → Tensor  </p>
-<p>Writes all values from the tensor src into self at the indices specified in the index tensor. For each value in src, its output index is specified by its index in src for dimension != dim and by the corresponding value in index for dimension = dim.    </p>
-<p>For a 3-D tensor, self is updated as:   </p>
-<p>self[index[i][j][k]][j][k] = src[i][j][k]  # if dim == 0<br>self[i][index[i][j][k]][k] = src[i][j][k]  # if dim == 1<br>self[i][j][index[i][j][k]] = src[i][j][k]  # if dim == 2    </p>
-<h2 id="裁剪梯度"><a href="#裁剪梯度" class="headerlink" title="裁剪梯度"></a>裁剪梯度</h2><p>应对梯度爆炸，将所有模型参数梯度的元素拼接成向量g，并设定裁剪阈值为$\theta$。g取min{$\theta$,g}裁剪后的梯度的$L_2$范数不超过$\theta$。 </p>
-<h2 id="困惑度"><a href="#困惑度" class="headerlink" title="困惑度"></a>困惑度</h2><p>困惑度评价语言模型的好坏，对交叉熵损失函数做指数运算。<br>$$<br>2^{-\sum_x{p(x)log_2(p(x))}}        </p>
-<p>其中p(x)=p(w_{i+1}|w_{i-k},…,w_i)<br>$$</p>
-<p>困惑度的值(1,+inf)。    </p>
-<h2 id="定义模型训练函数"><a href="#定义模型训练函数" class="headerlink" title="定义模型训练函数"></a>定义模型训练函数</h2><ul>
-<li>困惑度评价    </li>
-<li>迭代参数前裁剪梯度    </li>
-<li>采样方法的不同导致隐藏状态初始化的不同    </li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本函数已保存在d2lzh_pytorch包中方便以后使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_and_predict_rnn</span><span class="params">(rnn, get_params, init_rnn_state, num_hiddens,</span></span></span><br><span class="line"><span class="function"><span class="params">                          vocab_size, device, corpus_indices, idx_to_char,</span></span></span><br><span class="line"><span class="function"><span class="params">                          char_to_idx, is_random_iter, num_epochs, num_steps,</span></span></span><br><span class="line"><span class="function"><span class="params">                          lr, clipping_theta, batch_size, pred_period,</span></span></span><br><span class="line"><span class="function"><span class="params">                          pred_len, prefixes)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> is_random_iter:  <span class="comment">#随机采样</span></span><br><span class="line">        data_iter_fn = d2l.data_iter_random</span><br><span class="line">    <span class="keyword">else</span>:               <span class="comment">#相邻采样</span></span><br><span class="line">        data_iter_fn = d2l.data_iter_consecutive</span><br><span class="line">    params = get_params()   <span class="comment">#初始化参数函数</span></span><br><span class="line">    loss = nn.CrossEntropyLoss()    <span class="comment">#损失函数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epochs):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> is_random_iter:  <span class="comment"># 如使用相邻采样，在epoch开始时初始化隐藏状态</span></span><br><span class="line">            state = init_rnn_state(batch_size, num_hiddens, device)</span><br><span class="line">        l_sum, n, start = <span class="number">0.0</span>, <span class="number">0</span>, time.time()</span><br><span class="line">        data_iter = data_iter_fn(corpus_indices, batch_size, num_steps, device)</span><br><span class="line">        <span class="keyword">for</span> X, Y <span class="keyword">in</span> data_iter:</span><br><span class="line">            <span class="keyword">if</span> is_random_iter:  <span class="comment"># 如使用随机采样，在每个小批量更新前初始化隐藏状态</span></span><br><span class="line">                state = init_rnn_state(batch_size, num_hiddens, device)</span><br><span class="line">            <span class="keyword">else</span>:  </span><br><span class="line">            <span class="comment"># 否则需要使用detach函数从计算图分离隐藏状态, 这是为了</span></span><br><span class="line">            <span class="comment"># 使模型参数的梯度计算只依赖一次迭代读取的小批量序列(防止梯度计算开销太大)</span></span><br><span class="line">                <span class="keyword">for</span> s <span class="keyword">in</span> state:</span><br><span class="line">                    s.detach_()</span><br><span class="line"></span><br><span class="line">            inputs = to_onehot(X, vocab_size)</span><br><span class="line">            <span class="comment"># outputs有num_steps个形状为(batch_size, vocab_size)的矩阵</span></span><br><span class="line">            (outputs, state) = rnn(inputs, state, params)</span><br><span class="line">            <span class="comment"># 拼接之后形状为(num_steps * batch_size, vocab_size)</span></span><br><span class="line">            outputs = torch.cat(outputs, dim=<span class="number">0</span>)</span><br><span class="line">            <span class="comment"># Y的形状是(batch_size, num_steps)，转置后再变成长度为</span></span><br><span class="line">            <span class="comment"># batch * num_steps 的向量，这样跟输出的行一一对应</span></span><br><span class="line">            y = torch.transpose(Y, <span class="number">0</span>, <span class="number">1</span>).contiguous().view(<span class="number">-1</span>)</span><br><span class="line">            <span class="comment"># 使用交叉熵损失计算平均分类误差</span></span><br><span class="line">            l = loss(outputs, y.long())</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 梯度清0</span></span><br><span class="line">            <span class="keyword">if</span> params[<span class="number">0</span>].grad <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">                    param.grad.data.zero_()</span><br><span class="line">            l.backward()</span><br><span class="line">            grad_clipping(params, clipping_theta, device)  <span class="comment"># 裁剪梯度</span></span><br><span class="line">            d2l.sgd(params, lr, <span class="number">1</span>)  <span class="comment"># 因为误差已经取过均值，梯度不用再做平均</span></span><br><span class="line">            l_sum += l.item() * y.shape[<span class="number">0</span>]</span><br><span class="line">            n += y.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (epoch + <span class="number">1</span>) % pred_period == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'epoch %d, perplexity %f, time %.2f sec'</span> % (</span><br><span class="line">                epoch + <span class="number">1</span>, math.exp(l_sum / n), time.time() - start))</span><br><span class="line">            <span class="keyword">for</span> prefix <span class="keyword">in</span> prefixes:</span><br><span class="line">                print(<span class="string">' -'</span>, predict_rnn(prefix, pred_len, rnn, params, init_rnn_state,</span><br><span class="line">                    num_hiddens, vocab_size, device, idx_to_char, char_to_idx))</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<h1 id="循环神经网络简易实现"><a href="#循环神经网络简易实现" class="headerlink" title="循环神经网络简易实现"></a>循环神经网络简易实现</h1><ol>
-<li>定义rnn层    </li>
-<li>输入数据one-hot表示      </li>
-<li>rnn层进行处理    </li>
-<li>全连接层输出     </li>
-</ol>
-<h2 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本类已保存在d2lzh_pytorch包中方便以后使用</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNNModel</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, rnn_layer, vocab_size)</span>:</span></span><br><span class="line">        super(RNNModel, self).__init__()</span><br><span class="line">        self.rnn = rnn_layer</span><br><span class="line">        self.hidden_size = rnn_layer.hidden_size * (<span class="number">2</span> <span class="keyword">if</span> rnn_layer.bidirectional <span class="keyword">else</span> <span class="number">1</span>) </span><br><span class="line">        <span class="comment">#bidirectional是模型参数，代表是否是双向网络</span></span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.dense = nn.Linear(self.hidden_size, vocab_size)</span><br><span class="line">        self.state = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, inputs, state)</span>:</span> <span class="comment"># inputs: (batch, seq_len)</span></span><br><span class="line">        <span class="comment"># 获取one-hot向量表示</span></span><br><span class="line">        X = d2l.to_onehot(inputs, self.vocab_size) <span class="comment"># X是个list</span></span><br><span class="line">        Y, self.state = self.rnn(torch.stack(X), state)</span><br><span class="line">        <span class="comment"># 全连接层会首先将Y的形状变成(num_steps * batch_size, num_hiddens)</span></span><br><span class="line">        <span class="comment"># 输出形状为(num_steps * batch_size, vocab_size)</span></span><br><span class="line">        output = self.dense(Y.view(<span class="number">-1</span>, Y.shape[<span class="number">-1</span>]))</span><br><span class="line">        <span class="keyword">return</span> output, self.state</span><br></pre></td></tr></table></figure>
-<h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><hr>
-<h1 id="通过时间反向传播"><a href="#通过时间反向传播" class="headerlink" title="通过时间反向传播"></a>通过时间反向传播</h1><p>正向传播在rnn比较直观，通过时间反向传播是反向传播在rnn中的具体应用。   </p>
-<p>时间步t的损失为$l(o_t,y_t)$`<br>时间步数为T的损失函数为<br>$$<br>L=\frac{1}{T}\sum_{t=1}^Tl(o_t,y_t)<br>$$</p>
-<p>误差项通过反向链式求导，得到与时间相关。        </p>
-<p>梯度爆炸，可直接从NaN得知，通过设阈值解决。<br>梯度衰减，有三种方法：  </p>
-<ul>
-<li>合理初始化权重值，躲开梯度消失区域。      </li>
-<li>使用ReLu代替sigmoid和tanh作为激活函数。   </li>
-<li>使用其他结构的rnn，例如lstm和gru。    </li>
-</ul>
-<hr>
-<h1 id="门控循环单元-gru"><a href="#门控循环单元-gru" class="headerlink" title="门控循环单元 gru"></a>门控循环单元 gru</h1><p>能够很好的捕捉时间序列中时间步距离较大的依赖关系，较早时刻的隐藏状态通过时间保存并传递到当前时间步t，抑制梯度衰减问题。    </p>
-<h2 id="重置门"><a href="#重置门" class="headerlink" title="重置门"></a>重置门</h2><p>$R_t=\sigma(X_tW_{xr}+H_{t-1}W_{hr}+b_r)$    </p>
-<h2 id="候选隐藏状态"><a href="#候选隐藏状态" class="headerlink" title="候选隐藏状态"></a>候选隐藏状态</h2><p>$\bar{H_t}=tanh(X_tW_{xh}+R_t·H_{t-1}W_{hh}+b_h)$<br>重置门丢弃与预测无关的历史信息。    </p>
-<h2 id="更新门"><a href="#更新门" class="headerlink" title="更新门"></a>更新门</h2><p>$Z_t=\sigma(X_tW_{xz}+H_{t-1}W_{hz}+b_z)$       </p>
-<h2 id="隐藏状态"><a href="#隐藏状态" class="headerlink" title="隐藏状态"></a>隐藏状态</h2><p>$H_t=Z_t·H_{t-1}+(1-Z_t)·\bar{H_t}$<br>更新们可以控制隐藏状态如何被包含当前时间步信息的候选隐藏状态所更新。  </p>
-<ul>
-<li>重置门：捕捉时间序列里短期的依赖关系。    </li>
-<li>更新们：捕捉时间序列里长期的依赖关系。    </li>
-</ul>
-<hr>
-<h1 id="长短期记忆-LSTM"><a href="#长短期记忆-LSTM" class="headerlink" title="长短期记忆 LSTM"></a>长短期记忆 LSTM</h1><p>隐藏层输出包括隐藏状态和记忆细胞，仅<strong>隐藏状态</strong>会传到输出层。  </p>
-<h2 id="输入门、遗忘门、输出门"><a href="#输入门、遗忘门、输出门" class="headerlink" title="输入门、遗忘门、输出门"></a>输入门、遗忘门、输出门</h2><p>控制信息的流动。与gru的重置门和更新门一样的输出公式，激活函数为sigmoid。   </p>
-<p>$$<br>I_t=\sigma(X_tW_{xi}+H_{t-1}W_{hi}+b_i)<br>F_t=\sigma(X_tW_{xf}+H_{t-1}W_{hf}+b_f)<br>O_t=\sigma(X_tW_{xo}+H_{t-1}W_{ho}+b_o)<br>$$    </p>
-<h2 id="候选记忆细胞"><a href="#候选记忆细胞" class="headerlink" title="候选记忆细胞"></a>候选记忆细胞</h2><p>输出公式与上类似，激活函数为tanh。  </p>
-<p>$$<br>\bar{C_t}=tanh(X_tW_{xc}+H_{t-1}W_{hc}+b_c)<br>$$          </p>
-<h2 id="记忆细胞"><a href="#记忆细胞" class="headerlink" title="记忆细胞"></a>记忆细胞</h2><p>当前时间步记忆细胞组合上一时间步记忆细胞和当前时间步候选细胞的信息，通过遗忘门和输入门来控制信息流动。  </p>
-<p>$$<br>C_t=F_t·C_{T-1}+I_t·\bar{C_t}<br>$$    </p>
-<p>若过去的记忆细胞一直通过时间保存病传递到当前时间步，则可以应对梯度衰减问题，更好地捕捉时间序列中时间步距离较大的依赖关系。  </p>
-<h2 id="隐藏状态-1"><a href="#隐藏状态-1" class="headerlink" title="隐藏状态"></a>隐藏状态</h2><p>输出门控制记忆细胞到隐藏状态。  </p>
-<p>$$<br>H_t=O_t·tanh(C_t)<br>$$</p>
-<hr>
-<h1 id="深度循环神经网络"><a href="#深度循环神经网络" class="headerlink" title="深度循环神经网络"></a>深度循环神经网络</h1><p>含多个隐含层的rnn。每个隐含状态不断传递到当前层的下一时间步和当前时间步的下一层。  </p>
-<hr>
-<h1 id="双向循环神经网络"><a href="#双向循环神经网络" class="headerlink" title="双向循环神经网络"></a>双向循环神经网络</h1><p>当前时间步由较早时间步的序列决定的，信息丛前往后传递。    </p>
-<p>信息从后往前传递的隐藏层–&gt;双向循环神经网络。   </p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的指教和转发就是对我最大的鼓励<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Deep Learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Nothing</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        			<a href="/categories/tags//" class="article-tag-list-link color5">tags</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2020/03/23/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          目标检测评价指标
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/03/23/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">卷积神经网络</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/28/hexo%E7%9B%B8%E5%85%B3/" class="archive-article-date">
+  	<time datetime="2020-02-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
         </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#语言模型"><span class="toc-number">1.</span> <span class="toc-text">语言模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#n元语法"><span class="toc-number">1.1.</span> <span class="toc-text">n元语法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环神经网络"><span class="toc-number">2.</span> <span class="toc-text">循环神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#不含隐藏状态的神经网络"><span class="toc-number">2.1.</span> <span class="toc-text">不含隐藏状态的神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#含隐含状态的循环神经网络"><span class="toc-number">2.2.</span> <span class="toc-text">含隐含状态的循环神经网络</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#语言模型数据集"><span class="toc-number">3.</span> <span class="toc-text">语言模型数据集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环神经网路从0实现"><span class="toc-number">4.</span> <span class="toc-text">循环神经网路从0实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#裁剪梯度"><span class="toc-number">4.1.</span> <span class="toc-text">裁剪梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#困惑度"><span class="toc-number">4.2.</span> <span class="toc-text">困惑度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义模型训练函数"><span class="toc-number">4.3.</span> <span class="toc-text">定义模型训练函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环神经网络简易实现"><span class="toc-number">5.</span> <span class="toc-text">循环神经网络简易实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模型定义"><span class="toc-number">5.1.</span> <span class="toc-text">模型定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型训练"><span class="toc-number">5.2.</span> <span class="toc-text">模型训练</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#通过时间反向传播"><span class="toc-number">6.</span> <span class="toc-text">通过时间反向传播</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#门控循环单元-gru"><span class="toc-number">7.</span> <span class="toc-text">门控循环单元 gru</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重置门"><span class="toc-number">7.1.</span> <span class="toc-text">重置门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#候选隐藏状态"><span class="toc-number">7.2.</span> <span class="toc-text">候选隐藏状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新门"><span class="toc-number">7.3.</span> <span class="toc-text">更新门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#隐藏状态"><span class="toc-number">7.4.</span> <span class="toc-text">隐藏状态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#长短期记忆-LSTM"><span class="toc-number">8.</span> <span class="toc-text">长短期记忆 LSTM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#输入门、遗忘门、输出门"><span class="toc-number">8.1.</span> <span class="toc-text">输入门、遗忘门、输出门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#候选记忆细胞"><span class="toc-number">8.2.</span> <span class="toc-text">候选记忆细胞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#记忆细胞"><span class="toc-number">8.3.</span> <span class="toc-text">记忆细胞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#隐藏状态-1"><span class="toc-number">8.4.</span> <span class="toc-text">隐藏状态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深度循环神经网络"><span class="toc-number">9.</span> <span class="toc-text">深度循环神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双向循环神经网络"><span class="toc-number">10.</span> <span class="toc-text">双向循环神经网络</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/28/hexo%E7%9B%B8%E5%85%B3/">Hello World</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">HelloWorld</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tags//" class="article-tag-list-link color5">tags</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
         </div>
-        
-    </div>
-</aside>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/28/%E3%80%90TE%E3%80%91Traffic%20Flow%20Theory%20-%20ch4/" class="archive-article-date">
+  	<time datetime="2020-02-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/28/%E3%80%90TE%E3%80%91Traffic%20Flow%20Theory%20-%20ch4/">交通流理论-第四章 跟驰理论与加速度干扰</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Traffic</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/traffic//" class="article-tag-list-link color3">traffic</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
 
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/28/%E3%80%90TE%E3%80%91%E4%BA%A4%E9%80%9A%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-02-27T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-28</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/28/%E3%80%90TE%E3%80%91%E4%BA%A4%E9%80%9A%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">交通流理论-绪论</a>
+    </h1>
+  
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Traffic</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/traffic//" class="article-tag-list-link color3">traffic</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
+
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
+  
 
 
           </div>
@@ -467,8 +403,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
