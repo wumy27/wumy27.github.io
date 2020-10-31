@@ -6,25 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>RL__Ch7_Reward_Issue | BevanWu的修炼小栈</title>
+  <title>RL-Ch1-概括与基础 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RL-Ch7-Reward Issue因为采样的不充分性和种种原因(环境v很少给reward)，我们得到环境的回馈信息是很少的，这就是奖励稀疏(sparse reward)的问题。  Reward Shaping所以第一种方法是我们可以人为构造&#x2F;修正奖励。 某些情形如果让环境直接给出奖励，难以让好的行为得到学习。例如小学生在出去玩和学习这一当前时间步的选择，很难考虑到未来的月考成绩好坏这一远景的奖">
+  <meta name="description" content="RL-Ch1-概括与基础强化学习基本概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL__Ch7_Reward_Issue">
-<meta property="og:url" content="http://yoursite.com/2020/10/31/RL__Ch7_Reward_Issue/index.html">
+<meta property="og:title" content="RL-Ch1-概括与基础">
+<meta property="og:url" content="http://yoursite.com/2020/10/21/RL_Ch1_intro_fumdamental/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="RL-Ch7-Reward Issue因为采样的不充分性和种种原因(环境v很少给reward)，我们得到环境的回馈信息是很少的，这就是奖励稀疏(sparse reward)的问题。  Reward Shaping所以第一种方法是我们可以人为构造&#x2F;修正奖励。 某些情形如果让环境直接给出奖励，难以让好的行为得到学习。例如小学生在出去玩和学习这一当前时间步的选择，很难考虑到未来的月考成绩好坏这一远景的奖">
+<meta property="og:description" content="RL-Ch1-概括与基础强化学习基本概念">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch7-0.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch7-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch7-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch7-3.png">
-<meta property="article:published_time" content="2020-10-31T06:16:49.115Z">
-<meta property="article:modified_time" content="2020-10-31T06:51:24.667Z">
+<meta property="og:image" content="http://yoursite.com/2020/10/21/img/rln-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/21/img/rln-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/21/img/rln-3.png">
+<meta property="article:published_time" content="2020-10-21T02:36:24.000Z">
+<meta property="article:modified_time" content="2020-10-31T07:30:05.482Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Reinforcement Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/10/31/img/rln-ch7-0.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/21/img/rln-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -168,70 +167,114 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-RL__Ch7_Reward_Issue" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RL_Ch1_intro_fumdamental" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      RL__Ch7_Reward_Issue
+      RL-Ch1-概括与基础
     </h1>
   
 
         <!--显示阅读次数-->
         
-          <br/>
-          <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-          <span class="icon-sort"></span>
-          <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-                    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/31/RL__Ch7_Reward_Issue/" class="archive-article-date">
-  	<time datetime="2020-10-31T06:16:49.115Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
+        <a href="/2020/10/21/RL_Ch1_intro_fumdamental/" class="archive-article-date">
+  	<time datetime="2020-10-21T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="RL-Ch7-Reward-Issue"><a href="#RL-Ch7-Reward-Issue" class="headerlink" title="RL-Ch7-Reward Issue"></a>RL-Ch7-Reward Issue</h1><p>因为采样的不充分性和种种原因(环境v很少给reward)，我们得到环境的回馈信息是很少的，这就是奖励稀疏(sparse reward)的问题。 </p>
-<h2 id="Reward-Shaping"><a href="#Reward-Shaping" class="headerlink" title="Reward Shaping"></a>Reward Shaping</h2><p>所以第一种方法是我们可以人为构造/修正奖励。</p>
-<p>某些情形如果让环境直接给出奖励，难以让好的行为得到学习。例如小学生在出去玩和学习这一当前时间步的选择，很难考虑到未来的月考成绩好坏这一远景的奖励。所以需要人为的重新构造一下奖励，例如加个棒棒糖鼓励学习等。  </p>
-<p>某些情形环境极少给出奖励。例如在枪战游戏中，对agent的跑动、开枪、血量等进行一个奖励的人工构造，能让agent变得越来越好。  </p>
-<h2 id="Curiosity"><a href="#Curiosity" class="headerlink" title="Curiosity"></a>Curiosity</h2><p>好奇心是一个agent很重要的特质，在马尔可夫奖励过程中加入Intinsic curiosity model(ICM)，能够激发agent的好奇心，即探索欲望。  </p>
-<img src="../img/rln-ch7-0.png" style="zoom:30%;" />
-
-<p>ICM的构造图如下：</p>
-<img src="../img/rln-ch7-1.png" style="zoom:30%;" />
+        <h1 id="RL-Ch1-概括与基础"><a href="#RL-Ch1-概括与基础" class="headerlink" title="RL-Ch1-概括与基础"></a>RL-Ch1-概括与基础</h1><h2 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><a id="more"></a>
+<p>强化学习的基本结构如下图1：  </p>
+<p><img src="../img/rln-1.png" alt=""></p>
+<div align="center">图1 强化学习系统结构图 </div>
 
 
 
-<p>ICM鼓励对新的状态进行探索，且$r_t^i$在$s_{t+1}$极难出现时会有极大的奖励。但有些状态难出现但可能不是特别重要，例如在生存游戏中场景出现树叶飘动，针对这类问题，要告知agent场景中的哪些东西是重要的，于是产生了下图的ICM改进方案。</p>
-<img src="../img/rln-ch7-2.png" style="zoom:30%;" />
-
-<p>现在的ICM引入了一个场景过滤的函数$\phi$，而由两个过滤后的状态$\phi(s_t)$和$\phi(s_{t+1})$，能够对动作$a_t$的选择进行指导。  </p>
-<h2 id="Curriculum-Learning"><a href="#Curriculum-Learning" class="headerlink" title="Curriculum Learning"></a>Curriculum Learning</h2><p>学习要循序渐进，从易到难，agent的学习过程也是一样。我们要对它学的课程进行一个难易顺序的设计。  </p>
-<h3 id="Reverse-Curriculum-Generation"><a href="#Reverse-Curriculum-Generation" class="headerlink" title="Reverse Curriculum Generation"></a>Reverse Curriculum Generation</h3><img src="../img/rln-ch7-3.png" style="zoom:30%;" />
-
-<p>也叫反推演学习。算法流程如下：  </p>
+<blockquote>
+<p>annotated：a.标注的  </p>
+</blockquote>
+<h3 id="强化学习与监督学习的区别"><a href="#强化学习与监督学习的区别" class="headerlink" title="强化学习与监督学习的区别"></a>强化学习与监督学习的区别</h3><p>监督学习：  </p>
 <ol>
-<li>给定一个目标状态$s_g$ </li>
-<li>在$s_g$附近取样一组$s_1$</li>
-<li>尝试走出各个从$s_1$到$s_g$的轨迹(episode)</li>
-<li>删除episode中reward太大(已经学会了)或太小(难以现在学会)的</li>
-<li>再在余下的$s_1$的附近中取样$s_2$</li>
+<li>输入数据是i.i.d(独立同分布)，数据间无关联。  </li>
+<li>已知结果。  </li>
 </ol>
-<h2 id="Hierarchical-Reinforcement-Learning"><a href="#Hierarchical-Reinforcement-Learning" class="headerlink" title="Hierarchical Reinforcement Learning"></a>Hierarchical Reinforcement Learning</h2><p> 分层强化学习，将最顶端的愿景分解为给下方的agent去完成的子目标。</p>
-<p>注意：</p>
-<ul>
-<li>下方的agent如果不可以完成目标，则上方的agent会得到惩罚。  </li>
-<li>下方的agent如果完成错误的目标，则说明顶端的愿景是错误的。  </li>
+<p>强化学习：</p>
+<ol>
+<li>输入数据是时序性的。  </li>
+<li>未立刻得到反馈，(奖励延时)，需要自己尝试。  </li>
+<li>Trail and error exploration<ul>
+<li>exploration 做新的尝试，使得Agent未来能做出更好的决策（尝试新餐馆）  </li>
+<li>exploitation 在以往经验中选择当下最好的决策（选择最喜欢的餐馆）</li>
 </ul>
+</li>
+<li>之前的决策会影响环境。</li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>围棋(go)  </li>
+<li>长颈鹿行走(出生30min内学会跑步)  </li>
+<li>股票交易(max reword)  </li>
+<li>玩游戏   </li>
+</ul>
+<h3 id="deep-reinforcement-learning-DRL"><a href="#deep-reinforcement-learning-DRL" class="headerlink" title="deep reinforcement learning(DRL)"></a>deep reinforcement learning(DRL)</h3><p><img src="../img/rln-2.png" alt=""></p>
+<div align="center">图2 深度强化学习 </div>
+
+<blockquote>
+<p>rollout：分布式训练  </p>
+</blockquote>
+<h3 id="决策序列"><a href="#决策序列" class="headerlink" title="决策序列"></a>决策序列</h3><p>在agent与env的交互中产生了决策序列(a series of actions)：  </p>
+<ul>
+<li>目标：max总奖励  </li>
+<li>action可能会有长期的影响  </li>
+<li>reward可能会有延迟  </li>
+<li>近期与远期reward的权衡(trade-off)   </li>
+</ul>
+<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><p>决策序列补充上env的部分，即称为历史(History)：<br>$$<br>H_t=O_1,R_1,A_1,…,A_{T-1},O_t,R_t<br>$$<br>其中，H(history)，O(observation)，A(action)，R(reward).</p>
+<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p>状态是历史的函数，即<br>$$<br>S_t=f(H_t)<br>$$<br>环境的状态<br>$$<br>S_t^e=f^e(H_t)<br>$$</p>
+<p>智能体的状态<br>$$<br>S_t^a=f^a(H_t)<br>$$</p>
+<p>当$O_t=S_t^a=S_t^e$时，称系统完全可观测(Fully Observability)，反之称为不完全可观测(Partial observability)，不完全观测的系统产生的不完全可观测的马尔科夫决策过程(partially observable Markov decision process)。   </p>
+<h3 id="Agent的组成要素"><a href="#Agent的组成要素" class="headerlink" title="Agent的组成要素"></a>Agent的组成要素</h3><p>Policy：智能体的行为模型，f:O/S-&gt;A  </p>
+<p>随机型：$\pi(a|s)=P[A_t=a|S_t=s]$  </p>
+<p>确定型：$a^*=arg\max_a \pi(a|s)$  </p>
+<p>Value function：折扣后的未来奖励的加和  </p>
+<blockquote>
+<p>折扣因子(discount factor)：$\gamma$  </p>
+</blockquote>
+<p>$$<br>V_\pi(s)=\mathbb{E}<em>\pi(G_t|S_t=s)=\mathbb{E}_\pi(\sum</em>{k=0}^{\inf}\gamma^kR_{t+k+1}|S_t=s), for,all,s\in S<br>$$</p>
+<p>$$<br>q_\pi(s)=\mathbb{E}<em>\pi(G_t|S_t=s,A_t=a)=\mathbb{E}_\pi(\sum</em>{k=0}^{\inf}\gamma^kR_{t+k+1}|S_t=s,A_t=a), for,all,s\in S<br>$$</p>
+<p>式(6)为Q-function(比V-func多一个变量a)。</p>
+<p>Model：环境的模型  </p>
+<p>预测下个状态<br>$$<br>P_{ss’}^a=P[S_{t+1}=s’|S_t=s,A_t=a]<br>$$<br>预测下个奖励<br>$$<br>P_{s}^a=\mathbb{E}[R_{t+1}|S_t=s,A_t=a]<br>$$</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
+<li><p>基于Agent的学习  </p>
+<ul>
+<li><p>Value-Based Agent：显式学习价值函数，隐式学习策略函数  </p>
+</li>
+<li><p>Policy-Based Agent：显式学习策略函数，不学习价值函数</p>
+</li>
+<li><p>Actor-Critic Agent：显式学习价值函数和策略函数的组合    </p>
+</li>
+</ul>
+</li>
+<li><p>基于是否有model  </p>
+<ul>
+<li><p>Model-Based：显式学习状态转移模型，可能会学习策略/价值函数   </p>
+</li>
+<li><p>Model-Free：不学习状态转移模型，直接学习策略/价值函数   </p>
+</li>
+</ul>
+</li>
+</ol>
+<p>可总结为如下图：  </p>
+<p><img src="../img/rln-3.png" alt=""></p>
+<div align="center">图3 强化学习分类 </div>
+
 
       
 
@@ -261,7 +304,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -311,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/31/RL__Ch7_Reward_Issue/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/21/RL_Ch1_intro_fumdamental/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -325,9 +390,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/10/22/RL_Ch2_MDP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          RL-Ch2-马尔可夫决策过程
+        
+      </div>
+    </a>
   
-    <a href="/2020/10/31/RL_Ch6_Actor_Critic/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">RL_Ch6_Actor_Critic</div>
+  
+    <a href="/2020/10/08/%E3%80%90Linux%E3%80%91Unix%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unix远程操作</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -347,20 +421,23 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RL-Ch1-概括与基础"><span class="toc-number">1.</span> <span class="toc-text">RL-Ch1-概括与基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#强化学习"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">1.1.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强化学习与监督学习的区别"><span class="toc-number">1.1.2.</span> <span class="toc-text">强化学习与监督学习的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用"><span class="toc-number">1.1.3.</span> <span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deep-reinforcement-learning-DRL"><span class="toc-number">1.1.4.</span> <span class="toc-text">deep reinforcement learning(DRL)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策序列"><span class="toc-number">1.1.5.</span> <span class="toc-text">决策序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#历史"><span class="toc-number">1.1.6.</span> <span class="toc-text">历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态"><span class="toc-number">1.1.7.</span> <span class="toc-text">状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Agent的组成要素"><span class="toc-number">1.1.8.</span> <span class="toc-text">Agent的组成要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类"><span class="toc-number">1.1.9.</span> <span class="toc-text">分类</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>

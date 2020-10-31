@@ -6,27 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>RL_Ch4_Policy_Gradient | BevanWu的修炼小栈</title>
+  <title>RL-Ch2-马尔可夫决策过程 | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RL-Ch4-Policy Gradient策略梯度(Policy Gradient)强化学习的例子   Scene Agent Env Reward Function    Video 游戏手柄 主机 杀1怪得20分   Go AlphaGo 李世石 the Rule of Go   在上述例子中，策略(policy)$\pi$的具体表现形式可认为是神经网络从输入层到输出层之间的参数矩阵$\th">
+  <meta name="description" content="RL-Ch2-马尔可夫决策过程前情回顾RL Agent的核心元素为model，value，policy。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL_Ch4_Policy_Gradient">
-<meta property="og:url" content="http://yoursite.com/2020/10/28/RL_Ch4_Policy_Gradient/index.html">
+<meta property="og:title" content="RL-Ch2-马尔可夫决策过程">
+<meta property="og:url" content="http://yoursite.com/2020/10/22/RL_Ch2_MDP/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="RL-Ch4-Policy Gradient策略梯度(Policy Gradient)强化学习的例子   Scene Agent Env Reward Function    Video 游戏手柄 主机 杀1怪得20分   Go AlphaGo 李世石 the Rule of Go   在上述例子中，策略(policy)$\pi$的具体表现形式可认为是神经网络从输入层到输出层之间的参数矩阵$\th">
+<meta property="og:description" content="RL-Ch2-马尔可夫决策过程前情回顾RL Agent的核心元素为model，value，policy。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-5.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-6.png">
-<meta property="article:published_time" content="2020-10-28T03:09:39.386Z">
-<meta property="article:modified_time" content="2020-10-29T13:02:48.898Z">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/img/rln-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/img/rln-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/img/rln-6.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/img/rln-7.png">
+<meta property="article:published_time" content="2020-10-22T02:36:24.000Z">
+<meta property="article:modified_time" content="2020-10-31T07:29:54.121Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Reinforcement Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/10/28/img/rln-ch4-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/22/img/rln-4.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -170,169 +168,233 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-RL_Ch4_Policy_Gradient" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RL_Ch2_MDP" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      RL_Ch4_Policy_Gradient
+      RL-Ch2-马尔可夫决策过程
     </h1>
   
 
         <!--显示阅读次数-->
         
-          <br/>
-          <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-          <span class="icon-sort"></span>
-          <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-                    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/28/RL_Ch4_Policy_Gradient/" class="archive-article-date">
-  	<time datetime="2020-10-28T03:09:39.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-28</time>
+        <a href="/2020/10/22/RL_Ch2_MDP/" class="archive-article-date">
+  	<time datetime="2020-10-22T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="RL-Ch4-Policy-Gradient"><a href="#RL-Ch4-Policy-Gradient" class="headerlink" title="RL-Ch4-Policy Gradient"></a>RL-Ch4-Policy Gradient</h1><h2 id="策略梯度-Policy-Gradient"><a href="#策略梯度-Policy-Gradient" class="headerlink" title="策略梯度(Policy Gradient)"></a>策略梯度(Policy Gradient)</h2><h3 id="强化学习的例子"><a href="#强化学习的例子" class="headerlink" title="强化学习的例子"></a>强化学习的例子</h3><table>
+        <h1 id="RL-Ch2-马尔可夫决策过程"><a href="#RL-Ch2-马尔可夫决策过程" class="headerlink" title="RL-Ch2-马尔可夫决策过程"></a>RL-Ch2-马尔可夫决策过程</h1><h2 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h2><p>RL Agent的核心元素为model，value，policy。</p>
+<a id="more"></a>
+
+
+<h2 id="课程大纲"><a href="#课程大纲" class="headerlink" title="课程大纲"></a>课程大纲</h2><ul>
+<li>Markov Chain–&gt;Markov Reward Process–&gt;Markov Decision Process  </li>
+<li>Policy evaluation in MDP  </li>
+<li>Policy iteration and value iteration  </li>
+</ul>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>上章图1的RL过程可转化为MDP，但是MDP下的环境是完全可观测的，很多时候环境不完全可观测时也可通过一些方法转化为MDP。  </p>
+<h3 id="Markov性质"><a href="#Markov性质" class="headerlink" title="Markov性质"></a>Markov性质</h3><p>Markov Property指的是<strong>未来的状态只取决于当下的状态，而独立于过去的状态</strong>。  </p>
+<p>令历史状态序列为$h_t={S_1,S_2,…,S_t}$，若$S_t$满足Markov Property，则有如下式子成立<br>$$<br>P(S_{t+1}|S_t)=P(S_{t+1}|h_t)<br>$$</p>
+<p>$$<br>P(S_{t+1}|S_t,a_t)=P(S_{t+1}|h_t,a_t)<br>$$</p>
+<h2 id="Markov-Chain-S-P"><a href="#Markov-Chain-S-P" class="headerlink" title="Markov Chain (S,P)"></a>Markov Chain (S,P)</h2><p>图1为状态转换图，图中包含有状态(State)和转移矩阵(Probability)。</p>
+<img src="../img/rln-4.png" style="zoom:48%;" />
+
+<div align="center">图1 二维的Markov Chain </div>
+
+
+
+<p>状态转移矩阵可写为<br>$$<br>P=[p(s_{t+1})=s|s_t=s]=\left[<br>\begin{matrix}<br>p(s_1|s_1)&amp;…&amp;p(s_N|s_1)\<br>p(s_1|s_2)&amp;…&amp;p(s_N|s_2)\<br>\vdots&amp;\ddots&amp;\vdots\<br>p(s_1|s_N)&amp;…&amp;p(s_N|s_N)<br>\end{matrix}<br>\right]<br>$$</p>
+<p>状态转换图中的一个链条即为Markov Chain。</p>
+<h2 id="Markov-Reward-Process-MRP-S-P-R-gamma"><a href="#Markov-Reward-Process-MRP-S-P-R-gamma" class="headerlink" title="Markov Reward Process(MRP)  (S,P,R,$\gamma$)"></a>Markov Reward Process(MRP)  (S,P,R,$\gamma$)</h2><p>MRP=Markov Chain+Reward</p>
+<blockquote>
+<p> Markov Chain包含State和transition Probability matrix，而Reward包含Reward function $R[s_t=s]=\mathbb{E}(r_t|s_t=s)$和折扣因子$\gamma$。  </p>
+</blockquote>
+<h3 id="Horizon"><a href="#Horizon" class="headerlink" title="Horizon"></a>Horizon</h3><p>Markov (Reward) Process分为有限步和无限步，其中记有限步中的序列的最大时间步数为Horizon。  </p>
+<h3 id="Return"><a href="#Return" class="headerlink" title="Return"></a>Return</h3><p>记从当前时间步t-&gt;Horizon的收益加权和为Reward，计算公式如下<br>$$<br>G_t=R_{t+1}+\gamma R_{t+2}+…+\gamma^{T-t-1}R_T<br>$$</p>
+<h3 id="状态价值-V-t-s"><a href="#状态价值-V-t-s" class="headerlink" title="状态价值$V_t(s)$"></a>状态价值$V_t(s)$</h3><p>记对未来可能获得价值的当前表现，即状态s时当前时间步t的期望收益为状态价值$V_t(s)$。<br>$$<br>V_t(s)=\mathbb{E}(G_t|s_t=s)=\mathbb{E}(R_{t+1}+\gamma R_{t+2}+…+\gamma^{T-t-1}R_T|s_t=s)<br>$$<br>上式的矩阵形式为<br>$$<br>\left[<br>\begin{matrix}<br>V(s_1)\<br>V(s_2)\<br>\vdots\<br>V(s_N)<br>\end{matrix}<br>\right]<br>=\left[<br>\begin{matrix}<br>V(s_1)\<br>V(s_2)\<br>\vdots\<br>V(s_N)<br>\end{matrix}<br>\right]<br>+\gamma\left[<br>\begin{matrix}<br>p(s_1|s_1)&amp;…&amp;p(s_N|s_1)\<br>p(s_1|s_2)&amp;…&amp;p(s_N|s_2)\<br>\vdots&amp;\ddots&amp;\vdots\<br>p(s_1|s_N)&amp;…&amp;p(s_N|s_N)<br>\end{matrix}<br>\right]\left[<br>\begin{matrix}<br>V(s_1)\<br>V(s_2)\<br>\vdots\<br>V(s_N)<br>\end{matrix}<br>\right]<br>$$</p>
+<p>即$V=R+\gamma PV$。</p>
+<h3 id="折扣因子-gamma-的意义"><a href="#折扣因子-gamma-的意义" class="headerlink" title="折扣因子$\gamma$的意义"></a>折扣因子$\gamma$的意义</h3><ol>
+<li>避免环形MC产生无穷的奖励  </li>
+<li>体现不确定性：关注当前奖励而非未来  </li>
+<li>奖励若有实质价值，倾向于更快得到奖励  </li>
+<li>动物/人趋向于即时奖励  </li>
+<li>$\gamma=0$，即时奖励；$\gamma=1$，未来与当下奖励等同看待。(超参数)</li>
+</ol>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>取下图做例子，记$s_1$的奖励为+5，$s_4$的奖励为+10，则R=[5,0,0,10]。取$\gamma=0.5$。</p>
+<img src="../img/rln-5.png" style="zoom:48%;" />
+
+<div align="center">图2 一维的Markov Chain </div>
+
+
+
+<p>则其中可能的两条Markov Chain的return的计算过程如下：  </p>
+<p>$s_1,s_2,s_3,s_4: return=5+0.5<em>0+0.25</em>0+0.125*10=6.25$</p>
+<p>$s_1,s_2,s_2,s_1: return=5+0.5<em>0+0.25</em>0+0.125*0=5$</p>
+<h3 id="如何计算-V-s-1-？"><a href="#如何计算-V-s-1-？" class="headerlink" title="如何计算$V(s_1)$？"></a>如何计算$V(s_1)$？</h3><p><code>Method1</code>：穷举所有$s_1$为起点的马氏链，取平均。  </p>
+<p><code>Method2</code>：Bellman Equation：定义了状态之间的迭代关系<br>$$<br>V(s)=R(s)+\gamma\sum_{s’\in S}P(s’|s)V(s’)<br>$$</p>
+<p>式(7)等号右边第一项为即时奖励，第二项为折减的下一时刻奖励。式(7)求解方法有如下两类：  </p>
+<p><code>Method2.1</code>：分析法求解：$V=(I-\gamma P)^{-1}R$  </p>
+<blockquote>
+<p>涉及到矩阵求逆，计算复杂度为$O(N^3)$，所以仅适用于小问题规模MRP的求解  </p>
+</blockquote>
+<p><code>Method2.2</code>：迭代法求解：适用于大问题规模MRP求解：</p>
+<pre><code>* 动态规划：不断迭代Bellman Equation产生最优解（Bootstripping）
+* 蒙特卡洛法（Mento-Carlo）:不断选取多段轨迹，求轨迹的return和，然后取平均。（与Method1有区分）
+* 时序差分学习（Temporal-Difference Learning）</code></pre><h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>从$V(s)=\mathbb{E}[R_{t+1}+\gamma\mathbb(R_{t+2}+\gamma^2R_{t+3}+…)|s_t=s]$推导式(6)。</p>
+<p>待解答。</p>
+<h2 id="Markov-Decision-Process-MDP-S-A-P-R-gamma"><a href="#Markov-Decision-Process-MDP-S-A-P-R-gamma" class="headerlink" title="Markov Decision Process(MDP)  (S,A,P,R,$\gamma$)"></a>Markov Decision Process(MDP)  (S,A,P,R,$\gamma$)</h2><blockquote>
+<p>相较于MRP多了个决策空间$A$，状态转移矩阵从$P=[p(s_{t+1})=s|s_t=s]$转变为$P=[p(s_{t+1})=s|s_t=s,a_t=a]$，reward function从$R[s_t=s]=\mathbb{E}(r_t|s_t=s)$转变为$R[s_t=s]=\mathbb{E}(r_t|s_t=s,a_t=a)$</p>
+</blockquote>
+<h3 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h3><p>每个状态s应采取什么样的a。分类可分为以下两类：  </p>
+<ul>
+<li><p>概率型：$\pi(a|s)=P(a_t=a|s_t=s)$</p>
+</li>
+<li><p>决定型：s直接决定a</p>
+</li>
+</ul>
+<p>假设：Policy是静态的，s决定a的分布，即$A_t \sim \pi(a|s)\quad for,any,t&gt;0$</p>
+<p>给定马尔可夫决策过程$(S,A,P,R,\gamma)$和策略$\pi$，其中的$S_1,S_2,\dots$为马尔科夫链$(S,P^{\pi})$，$S_1,R_1,S_2,R_2,\dots$则为马尔科夫奖励过程$(S,P^{\pi},R^\pi,\gamma)$。则有如下式子成立：</p>
+<p>$$<br>P^\pi(s’|s)=\sum_{a\in A}\pi(a|s)P(s’|s,a)<br>$$</p>
+<p>$$<br>R^\pi(s)=\sum_{a\in A}\pi(a|s)R(s,a)<br>$$<br>式(8)代表所有从状态s-&gt;s’的动作a的求和。  </p>
+<p>式(9)代表状态s所有可产生行为a的后果奖励求和。  </p>
+<h3 id="MP-MRP-vs-MDP"><a href="#MP-MRP-vs-MDP" class="headerlink" title="MP/MRP vs. MDP"></a>MP/MRP vs. MDP</h3><p>通过树状图区分MP/MRP与MDP。  </p>
+<img src="../img/rln-6.png" style="zoom:48%;" />
+
+<div align="center">图3 Markov (Reward/Decision) Process树状图 </div>
+
+<blockquote>
+<p>MP与MDP相比，就相当于自由滑行的船与有人工控制的船。  </p>
+</blockquote>
+<h3 id="价值函数-value-function"><a href="#价值函数-value-function" class="headerlink" title="价值函数(value function)"></a>价值函数(value function)</h3><p>在policy $\pi$下的状态s的期望收益，即<br>$$<br>V^\pi(s)=\mathbb{E}_\pi[G_t|s_t=s]<br>$$</p>
+<h3 id="行为价值函数-Action-value-function"><a href="#行为价值函数-Action-value-function" class="headerlink" title="行为价值函数(Action-value function)"></a>行为价值函数(Action-value function)</h3><p>在policy $\pi$下的状态s采取a的期望收益，即<br>$$<br>q^\pi(s,a)=\mathbb{E}_\pi[G_t|s_t=s,a_t=a]<br>$$</p>
+<h3 id="v-func和q-func之间的关系"><a href="#v-func和q-func之间的关系" class="headerlink" title="v-func和q-func之间的关系"></a>v-func和q-func之间的关系</h3><p>$$<br>V^\pi(s)=\sum_{a\in A}\pi(a|s)q^\pi(s,a)<br>$$<br>相当于把a节点隐藏。过程中需要完成叶节点的合并。  </p>
+<h3 id="Bellman-Expectation-Equation"><a href="#Bellman-Expectation-Equation" class="headerlink" title="Bellman Expectation Equation"></a>Bellman Expectation Equation</h3><p>$$<br>V^\pi(s)=\mathbb{E}[R_{t+1}+\gamma V^{\pi}(s_{t+1})|s_t=s]<br>$$</p>
+<p>$$<br>q^\pi(s,a)=\mathbb{E}[R_{t+1}+\gamma q^{\pi}(s_{t+1},a_{t+1})|s_t=s,a_t=a]<br>$$</p>
+<p>由图3可知，<br>$$<br>V^\pi(s)=\sum_{a\in A}\pi(a|s)q^\pi(s,a)<br>$$</p>
+<p>$$<br>q^\pi(s,a)=R_{s}^a+\gamma \sum_{s’\in S}P(s’|s,a)V^\pi(s’)<br>$$</p>
+<p>联立式(15)、(16)，可得</p>
+<p>$$<br>V^\pi(s)=\sum_{a\in A}\pi(a|s)(R(s,a)+\gamma \sum_{s’\in S}P(s’|s,a)V^\pi(s’))<br>$$</p>
+<p>$$<br>q^\pi(s,a)=R(s,a)+\gamma \sum_{s’\in S}P(s’|s,a)\sum_{a’\in A}\pi(a’|s’)q^\pi(s’,a’)<br>$$<br>式(17)、(18)中两个求和符号分别代表着两层树从叶节点到根节点的求和。其中式(17)的根节点为状态s，式(18)的根节点为动作a。  </p>
+<h3 id="Policy-Evaluation"><a href="#Policy-Evaluation" class="headerlink" title="Policy Evaluation"></a>Policy Evaluation</h3><p>估计当前策略$\pi$的价值$V^\pi(s)$。  </p>
+<p>选择好policy $\pi(s)$和折扣因子$\gamma$，则policy evaluation的值可由<br>$$<br>V_t^\pi(s)=R(s,\pi(s))+\gamma\sum_{s’\in S}P(s’|s,\pi(s))V_{t-1}^\pi(s’)<br>$$<br>通过迭代（t–&gt;\inf）求出$V^\pi(s)$。</p>
+<h3 id="Decision-in-MDP"><a href="#Decision-in-MDP" class="headerlink" title="Decision in MDP"></a>Decision in MDP</h3><ol>
+<li><p>Prediction（评估策略）  </p>
+<ul>
+<li><p>Input：MDP$(S,A,P,R,\gamma)$和策略$\pi$</p>
+</li>
+<li><p>Output：Value Function $V^\pi$</p>
+</li>
+</ul>
+</li>
+<li><p>Control（查找最佳策略）  </p>
+<ul>
+<li><p>Input：MDP$(S,A,P,R,\gamma)$</p>
+</li>
+<li><p>Output：最优$V^*$和最优$\pi$</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>通过动态规划求解Prediction &amp; Control  </p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>可以解决的问题：</p>
+<ol>
+<li>问题可分解为最佳子结构  </li>
+<li>子结构求解后能递推得到最优解  </li>
+</ol>
+<p>MDP满足以上性质：</p>
+<ul>
+<li>Bellman Equation可递归分解  </li>
+<li>价值函数可存储和再利用解   </li>
+</ul>
+<h3 id="Policy-Evaluation-in-MDP"><a href="#Policy-Evaluation-in-MDP" class="headerlink" title="Policy Evaluation in MDP"></a>Policy Evaluation in MDP</h3><p>算法：Synchronous backup  </p>
+<p>在第t轮迭代过程，式(19)不断收敛，$V_1^\pi–&gt;V_2^\pi–&gt;…–&gt;V^\pi$  </p>
+<p>Bellman Expectation backup<br>$$<br>V_{t+1}(s)=\sum_{a\in A}\pi(a|s)(R(s,a)+\gamma\sum_{s’\in S}P(s’|s,a)V_t(s’))<br>$$</p>
+<p>MRP形式(去掉a)，得到<br>$$<br>V_{t+1}(s)=R^\pi(s)+\gamma P^\pi(s’|s)V_t(s’)<br>$$</p>
+<h3 id="最优价值函数"><a href="#最优价值函数" class="headerlink" title="最优价值函数"></a>最优价值函数</h3><p>满足$V^*(s)=\max_{\pi} V^\pi(s)$</p>
+<p>，最优策略由最优价值函数反推，即$\pi^*(s)=arg\max_{\pi}V^\pi(s)$</p>
+<p>我们称MDP被求解当且仅当最优价值函数被求出来，而必伴随最少一个最优策略。  </p>
+<blockquote>
+<p>一个最优价值函数可能伴随对各最优策略。   </p>
+</blockquote>
+<h3 id="最优策略"><a href="#最优策略" class="headerlink" title="最优策略"></a>最优策略</h3><p>特性：  确定性、静态性（不依赖时间）、不唯一性。  </p>
+<p>如何寻找最优策略？  </p>
+<p>这是一个control问题，可通过最大化q函数来求取。<br>$$<br>\pi^<em>(a|s)={ \begin{align}1,&amp;\quad if,a=argmax_{a\in A}q^</em>(s,a)\<br>0,&amp; \quad otherwise\end{align}<br>$$</p>
+<ol>
+<li><p>穷举：总可能策略有$|A|^{|S|}$  </p>
+</li>
+<li><p>policy iteration  </p>
+</li>
+<li><p>value iteration  </p>
+</li>
+</ol>
+<h3 id="Policy-iteration"><a href="#Policy-iteration" class="headerlink" title="Policy iteration"></a>Policy iteration</h3><ul>
+<li>通过给定\pi计算v  </li>
+<li>通过Q函数greedy考虑V^\pi去改进\pi  <ul>
+<li>通过给定\pi去计算q值：$q^{\pi_i}(s,a)=R(s,a)+\gamma\sum_{s’\in S}P(s’|s,a)V^{\pi_i}(s’)$  </li>
+<li>计算新策略：$\pi_{i+1}(s)=arg\max_{a}q^{\pi_i}(s,a)$</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>新策略取Q-table中在当前State轴的Action最大值集合为更好的$\pi$。  </p>
+</blockquote>
+<p>示意图如下：</p>
+<img src="../img/rln-7.png" style="zoom:48%;" />
+
+
+
+<p>如何证明以上所得的策略能得到最佳价值函数？</p>
+<p>证明过程如下：   </p>
+<p>考虑确定性策略$a=\pi(s)$，策略改进后$\pi’(s)=arg \max_{a} q^\pi(s,a)$，</p>
+<p>所以<br>$$<br>V^\pi(s)=q^\pi(s,a)\leq \max_{a\in A}q^\pi(s,a)=q^\pi(s,\pi’(s))<br>$$<br>同时考虑到<br>$$<br>q^\pi(s_t,a_t)=E_\pi[R_{t+1}+\gamma q^\pi(s_{t+1},a_{t+1})]<br>$$</p>
+<p>因此<br>$$<br>\begin{align}<br>V^\pi(s)&amp;\leq q^\pi(s,\pi’(s))=E_{\pi’}[R_{t+1}+\gamma V^\pi(s_{t+1})|s_t=s]\<br>&amp;\leq E_{\pi’}[R_{t+1}+\gamma q^\pi(s_{t+1},\pi’(s_{t+1}))|s_t=s]\<br>&amp;=E_{\pi’}[R_{t+1}+\gamma (R_{t+2}+\gamma q^\pi(s_{t+2},\pi’(s_{t+2})))|s_t=s]\<br>&amp;= E_{\pi’}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+… |s_t=s]\<br>&amp;=V^{\pi’}(s)<br>\end{align}<br>$$</p>
+<p>如果improvement结束，则<br>$$<br>q^\pi(s,\pi’(s))=\max_{a\in A}q^\pi(s,a)=q^\pi(s,\pi(s))=V^\pi(s)<br>$$<br>因此，Bellman最优方程的解得出<br>$$<br>V^\pi(s)=\max_{a\in A}q^\pi(s,a)\quad for,all,s\in S<br>$$</p>
+<p>所以$\pi$为最优策略。  </p>
+<h3 id="Value-iteration"><a href="#Value-iteration" class="headerlink" title="Value iteration"></a>Value iteration</h3><p>知道子问题的最优解($V^*(s’)$)，通过Bellman Optimal backup规则，不断迭代以至收敛：  </p>
+<p>$$<br>V(s)&lt;–max_{a\in A}(R(s,a)+\gamma\sum_{s’\in S}P(s’|s,a)V(s’))<br>$$</p>
+<h3 id="Policy-iteration-vs-Value-iteration"><a href="#Policy-iteration-vs-Value-iteration" class="headerlink" title="Policy iteration vs. Value iteration"></a>Policy iteration vs. Value iteration</h3><ol>
+<li><p>代码学习可参考<a href="https://github.com/cuhkrlcourse/RLexample/tree/master/MDP" target="_blank" rel="noopener">港中大强化学习MDP代码</a></p>
+</li>
+<li><p>对比：</p>
+<ul>
+<li>Policy iter：policy evaluation与policy improvement交替进行，直至收敛。  </li>
+<li>Value iter：寻找最佳的Value function（过程可认为是policy eval与policy impro的组合，在policy evaluation还没做完的时候就直接进行了policy improvement），从中提取出最佳policy。  </li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Prediction与Control在MDP中的解决</p>
+<table>
 <thead>
 <tr>
-<th>Scene</th>
-<th>Agent</th>
-<th>Env</th>
-<th>Reward Function</th>
+<th>Problem</th>
+<th>Bellman Equation</th>
+<th>Algorithm</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Video</td>
-<td>游戏手柄</td>
-<td>主机</td>
-<td>杀1怪得20分</td>
+<td>Prediction</td>
+<td>Bellman Expectation Equation</td>
+<td>Iterative Policy Evaluation</td>
 </tr>
 <tr>
-<td>Go</td>
-<td>AlphaGo</td>
-<td>李世石</td>
-<td>the Rule of Go</td>
+<td>Control</td>
+<td>Bellman Expectation Equation</td>
+<td>Policy iteration</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>Bellman Optimal Equation</td>
+<td>Value iteration</td>
 </tr>
 </tbody></table>
-<p>在上述例子中，策略(policy)$\pi$的具体表现形式可认为是神经网络从输入层到输出层之间的参数矩阵$\theta$。</p>
-<p>下图为一个加入了action的马尔可夫链，</p>
-<img src="../img/rln-ch4-1.png" style="zoom:20%;" />
-
-
-
-<p>记Trajectory $\tau={s_1,a_1,…,s_T,a_T}$，则</p>
-<p>$$<br>p_\theta(\tau)=p(s_1)p_\theta(a_1|s_1)p(s_2|s_1,a_1)p_\theta(a_2|s_2)p(s_3|s_2,a_2)…\<br>=p(s_1)\prod_{t=1}^Tp_\theta(a_t|s_t)p(s_{t+1}|s_t,a_t)<br>$$</p>
-<p>同时决策需要考虑到收益，我们在上图中加入reward。<br>$$<br>R(\tau)=\sum_{t=1}^Tr_t<br>$$</p>
-<img src="../img/rln-ch4-2.png" style="zoom:20%;" />
-
-
-
-<p>则期望收益为<br>$$<br>\bar{R_\theta}=\sum_\tau R(\tau)p_\theta(\tau)=\mathbb{E}<em>{\tau\sim p_\theta(\tau)}[R(\tau)]<br>$$<br>求期望收益的梯度有<br>$$<br>\nabla \bar{R_\theta}=\sum_\tau R(\tau)\nabla p_\theta(\tau)=\sum_\tau R(\tau)p_\theta(\tau)\frac{\nabla p_\theta(\tau)}{p_\theta(\tau)}\<br>=\sum_\tau R(\tau)p_\theta(\tau)\nabla \log p_\theta(\tau)\<br>=\mathbb{E}</em>{\tau\sim p_\theta(\tau)}[R(\tau)\nabla \log p_\theta(\tau)]<br>$$</p>
-<h3 id="策略梯度的计算"><a href="#策略梯度的计算" class="headerlink" title="策略梯度的计算"></a>策略梯度的计算</h3><p>有两种计算方法：</p>
-<ol>
-<li>蒙特卡洛采样，式(4)可以改写为如下式(5)</li>
-</ol>
-<p>$$<br>\nabla \bar{R_\theta}\approx \frac{1}{N}\sum_{n=1}^N R(\tau^n)\nabla\log p_\theta(\tau^n)\overset{\text{式(1)}}{=}\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}R(\tau^n)\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
-<ol start="2">
-<li>时序差分更新，式(4)可以改写为如下式(6)</li>
-</ol>
-<p>$$<br>\nabla \bar{R_\theta}\approx \frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}Q^n(s_t^n,a_t^n)\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
-<blockquote>
-<p>两者区别是策略的更新频率：MC为一回合更新一次，TD为一步更新一次。</p>
-</blockquote>
-<h2 id="Policy-Gradient算法"><a href="#Policy-Gradient算法" class="headerlink" title="Policy Gradient算法"></a>Policy Gradient算法</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Policy Gradient算法的目的就是对$\theta$进行更新：<br>$$<br>\theta&lt;–\theta+\eta\nabla\bar{R_\theta}<br>$$<br>不断采样，交替完成<strong>数据收集</strong>和<strong>模型参数更新</strong>两个过程。</p>
-<img src="../img/rln-ch4-3.png" style="zoom:30%;" />
-
-<p>如何理解式(5)呢？</p>
-<p>我们记$-\sum_iY’_i·logY_i$的形式为$(Y’_i,Y_i)$两个向量之间的<strong>交叉熵</strong>，以<strong>图像分类</strong>与<strong>强化学习</strong>的损失函数为例子</p>
-<p>图像分类问题：从损失函数到梯度计算<br>$$<br>\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}\log p_\theta(a_t^n|s_t^n)–&gt;\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
-<p>强化学习问题：从损失函数到梯度计算<br>$$<br>\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}R(\tau^n)\log p_\theta(a_t^n|s_t^n)–&gt;\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}R(\tau^n)\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
-<p>对比两式可以看出</p>
-<blockquote>
-<p>图像分类的问题中使用的是独立同分布的样本，每个样本等同看待；</p>
-<p>而Policy Gradient问题中每个样本有单独的权重$R(\tau^n)$：若相对较重要，则$R(\tau^n)\uparrow$，反之$R(\tau^n)\downarrow$。</p>
-</blockquote>
-<h3 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h3><p><strong>Tip1：加一个baseline（在使用时当成bias更为恰当）</strong></p>
-<p>若$\nabla \bar{R_\theta}$总为正数，则$R_\theta$总是在增加，因为采样的随机性往往导致不均匀的采样，没有被采样的action最终被采取的可能性相较其他action低。示意图如下：</p>
-<img src="../img/rln-ch4-4.png" style="zoom:41%;" />
-
-
-
-<p>所以不要让weight总为正数，即更改weight为$(\nabla \bar{R_\theta}-b)$，其中可以取$b=\mathbb{E}(R(\tau))$。</p>
-<p><strong>Tip2：正确地对不同的(state,action)的reward赋权</strong></p>
-<p>若是因为一个好的动作被后续坏的动作连累，或坏的动作被好的动作提携，这种现象是需要考虑道德，所以一种想法是当前的(状态,动作)对应的参数应由之后的(状态,动作)序列的收益和进行更新。</p>
-<img src="../img/rln-ch4-5.png" style="zoom:30%;" />
-$$
-\nabla \bar{R_\theta}\approx \frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}[(·)-b]\nabla\log p_\theta(a_t^n|s_t^n)
-$$
-
-<blockquote>
-<p>b可以取独立于状态的值，(·)可以取$\sum_{t’=t}^{T_n}r_{t’}^n$，若是考虑未来奖励的衰减（discount $\gamma$），则(·)可以取$\sum_{t’=t}^{T_n}\gamma^{t’-t} r_{t’}^n$。</p>
-</blockquote>
-<p>若记式(9)中<code>[~]</code>的式子为Advantage Function，即<br>$$<br>A^{\theta}(s_t,a_t)=\sum_{t’=t}^{T_n}\gamma^{t’-t}r_{t’}^n-b<br>$$<br>Advantage Function表现的是在$s_t$时采用$a_t$比其他action有多好。</p>
-<h2 id="重要性采样"><a href="#重要性采样" class="headerlink" title="重要性采样"></a>重要性采样</h2><h3 id="on-policy与off-policy回顾"><a href="#on-policy与off-policy回顾" class="headerlink" title="on-policy与off-policy回顾"></a>on-policy与off-policy回顾</h3><p>on-policy vs. off-policy</p>
-<ul>
-<li>on-policy：环境互动的agent与要学习的agent是同一个（自己玩自己学）</li>
-<li>off-policy：环境互动的agent与要学习的agent是不同的（看别人玩自己学）</li>
-</ul>
-<p>policy gradient是on-policy的更新算法，但on-policy的缺点就是每次模型更新后都要采集新的训练数据，而off-policy就可以做到数据的重复使用。而on-policy转化为off-policy的重要方法就是：<strong>重要性采样</strong>。  </p>
-<p>我们从一个式子出发：<br>$$<br>\mathbb{E}<em>{x\sim p}[f(x)]\approx\frac{1}{N}\sum</em>{i=1}^Nf(x_i)\<br>=\int f(x)p(x)dx=\int f(x)\frac{p(x)}{q(x)}q(x)dx=\mathbb{E}_{x\sim q}[f(x)\frac{p(x)}{q(x)}]<br>$$</p>
-<blockquote>
-<p>$x_i$是从p(x)中取样得到的样本。  </p>
-<p>这是一个统计学技巧，可以变换样本的分布。  </p>
-</blockquote>
-<p>左右两个均值只有在取样足够多的情况下才相同，若是取样不够多，则两者数值相差很大。</p>
-<blockquote>
-<p>由于$Var[x]=E[x^2]-(E[x])^2$，</p>
-<p>而<br>$$<br>Var_{x\sim p}[f(x)]=E_{x\sim p}[f(x)^2]-(E_{x\sim p}[f(x)])^2<br>$$</p>
-<p>$$<br>\begin{align}<br>Var_{x\sim q}[f(x)\frac{p(x)}{q(x)}]&amp;=E_{x\sim q}[(f(x)\frac{p(x)}{q(x)})^2]-(E_{x\sim q}[f(x)\frac{p(x)}{q(x)}])^2\<br>&amp;=\int f^2(x)\frac{p(x)}{q(x)}p(x)dx-(E_{x\sim q}[f(x)\frac{p(x)}{q(x)}])^2\<br>&amp;=E_{x\sim p}[f(x)^2\frac{p(x)}{q(x)}]-(E_{x\sim p}[f(x)])^2\</p>
-<p>\end{align}<br>$$</p>
-<p>对比式(12)与式(15)，可以看出有差距。具体sample实例可以看李宏毅老师的强化学习课程讲解。</p>
-</blockquote>
-<p>使用<strong>重要性采样</strong>的方法，则由式(4)和式(12)可以将policy gradient的参数梯度计算公式进行修改：<br>$$<br>\nabla \bar{R_\theta}=\mathbb{E}<em>{\tau\sim p_\theta(\tau)}[R(\tau)\nabla \log p_\theta(\tau)]–&gt;\mathbb{E}</em>{\tau\sim p_{\theta’}(\tau)}[\frac{p_\theta(\tau)}{p_{\theta’}(\tau)}R(\tau)\nabla \log p_\theta(\tau)]<br>$$</p>
-<blockquote>
-<p>用$\theta’$进行取样，因为参数更新的是$\theta$的策略，所以通过$\theta’$取样的样本能够重复使用。  </p>
-</blockquote>
-<p>由于<br>$$<br>\nabla \bar{R_\theta}=\mathbb{E}<em>{(s_t,a_t)\sim \pi</em>{\theta}}[A^\theta(s_t,a_t)\nabla\log p_\theta(a_t^n|s_t^n)]\<br>=\mathbb{E}<em>{(s_t,a_t)\sim \pi</em>{\theta’}}[\frac{p_{\theta}(s_t,a_t)}{p_{\theta’}(s_t,a_t)}A^\theta(s_t,a_t)\nabla\log p_\theta(a_t^n|s_t^n)]\<br>=\mathbb{E}<em>{(s_t,a_t)\sim \pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}\frac{p_{\theta}(s_t)}{p_{\theta’}(s_t)}A^{\theta’}(s_t,a_t)\nabla\log p_\theta(a_t^n|s_t^n)]<br>$$</p>
-<p>上式求原函数得到<br>$$<br>J_t^{\theta’}(\theta)=\mathbb{E}<em>{(s_t,a_t)\sim\pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}A^{\theta’}(s_t,a_t)]<br>$$</p>
-<blockquote>
-<p>state出现的概率无法学习，直接认定各状态出现的概率相同，所以对于$\frac{p_{\theta}(s_t)}{p_{\theta’}(s_t)}$认定为常数1.</p>
-</blockquote>
-<p>由以上我们可以看到，要避免$p_\theta$和$p_\theta’$差太多，而这里面先后出现了两种思路来达到这个目的，分别是<strong>TRPO</strong>和<strong>PPO</strong>。</p>
-<h3 id="Trust-Region-Policy-Optimization-TRPO"><a href="#Trust-Region-Policy-Optimization-TRPO" class="headerlink" title="Trust Region Policy Optimization(TRPO)"></a>Trust Region Policy Optimization(TRPO)</h3><p>$$<br>J_{TRPO}^{\theta’}(\theta)=\mathbb{E}<em>{(s_t,a_t)\sim\pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}A^{\theta’}(s_t,a_t)]\<br>s.t. \quad KL(\theta,\theta’)&lt;\delta<br>$$</p>
-<p>通过一个距离度量函数$KL(·)$来度量行为上的距离，而不是参数上的距离。  </p>
-<h3 id="Proximal-Policy-Optimization-PPO"><a href="#Proximal-Policy-Optimization-PPO" class="headerlink" title="Proximal Policy Optimization(PPO)"></a>Proximal Policy Optimization(PPO)</h3><p>$$<br>J_{PPO}^{\theta’}(\theta)=\mathbb{E}<em>{(s_t,a_t)\sim\pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}A^{\theta’}(s_t,a_t)]-\beta KL(\theta,\theta’)<br>$$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">初始化策略参数\theta^0</span><br><span class="line">在每次迭代中，</span><br><span class="line">	\theta^k去取样(s_t,a_t)以此计算A^&#123;(\theta^k)&#125;(s_t,a_t)</span><br><span class="line">	最优化J_&#123;PPO&#125;(\theta):式(22)&#x2F;(23)</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>PPO</li>
-</ul>
-<p>$$<br>J_{PPO}^{\theta^k}(\theta)=\sum_{(s_t,a_t)}\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)}A^{\theta^k}(s_t,a_t)-\beta KL(\theta,\theta^k)<br>$$</p>
-<blockquote>
-<p>这里的超参数$\beta$可以使用到Adaptive KL Penalty的技巧进行选取：</p>
-<ul>
-<li>KL&gt;KL_max，$\beta\uparrow$</li>
-<li>KL&lt;KL_min，$\beta\downarrow$</li>
-</ul>
-</blockquote>
-<ul>
-<li>PPO2</li>
-</ul>
-<p>$$<br>J_{PPO2}^{\theta^k}(\theta)=\sum_{(s_t,a_t)}\min(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)}A^{\theta^k}(s_t,a_t),clip(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)},1-\epsilon,1+\epsilon)\times A^{\theta^k}(s_t,a_t))<br>$$<br>其中clip(x,a,b)函数图像如下：</p>
-<img src="../img/rln-ch4-6.png" style="zoom:48%;" />
-
-
 
       
 
@@ -362,7 +424,29 @@ $$
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -412,7 +496,7 @@ $$
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/28/RL_Ch4_Policy_Gradient/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/22/RL_Ch2_MDP/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -426,18 +510,18 @@ $$
   
 <nav id="article-nav">
   
-    <a href="/2020/10/30/RL_Ch5_QLearning/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/10/23/RL_Code_Sarsa/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          RL_Ch5_QLearning
+          RL表格型方法求解——Sarsa
         
       </div>
     </a>
   
   
-    <a href="/2020/10/28/RL_Ch8_Imitation_Learning/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">RL-Ch8-Imitation Learning</div>
+    <a href="/2020/10/21/RL_Ch1_intro_fumdamental/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RL-Ch1-概括与基础</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -457,20 +541,23 @@ $$
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RL-Ch2-马尔可夫决策过程"><span class="toc-number">1.</span> <span class="toc-text">RL-Ch2-马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前情回顾"><span class="toc-number">1.1.</span> <span class="toc-text">前情回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#课程大纲"><span class="toc-number">1.2.</span> <span class="toc-text">课程大纲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引入"><span class="toc-number">1.3.</span> <span class="toc-text">引入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov性质"><span class="toc-number">1.3.1.</span> <span class="toc-text">Markov性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-Chain-S-P"><span class="toc-number">1.4.</span> <span class="toc-text">Markov Chain (S,P)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-Reward-Process-MRP-S-P-R-gamma"><span class="toc-number">1.5.</span> <span class="toc-text">Markov Reward Process(MRP)  (S,P,R,$\gamma$)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Horizon"><span class="toc-number">1.5.1.</span> <span class="toc-text">Horizon</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Return"><span class="toc-number">1.5.2.</span> <span class="toc-text">Return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态价值-V-t-s"><span class="toc-number">1.5.3.</span> <span class="toc-text">状态价值$V_t(s)$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#折扣因子-gamma-的意义"><span class="toc-number">1.5.4.</span> <span class="toc-text">折扣因子$\gamma$的意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子"><span class="toc-number">1.5.5.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何计算-V-s-1-？"><span class="toc-number">1.5.6.</span> <span class="toc-text">如何计算$V(s_1)$？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习"><span class="toc-number">1.5.7.</span> <span class="toc-text">练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markov-Decision-Process-MDP-S-A-P-R-gamma"><span class="toc-number">1.6.</span> <span class="toc-text">Markov Decision Process(MDP)  (S,A,P,R,$\gamma$)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy"><span class="toc-number">1.6.1.</span> <span class="toc-text">Policy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MP-MRP-vs-MDP"><span class="toc-number">1.6.2.</span> <span class="toc-text">MP&#x2F;MRP vs. MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#价值函数-value-function"><span class="toc-number">1.6.3.</span> <span class="toc-text">价值函数(value function)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行为价值函数-Action-value-function"><span class="toc-number">1.6.4.</span> <span class="toc-text">行为价值函数(Action-value function)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-func和q-func之间的关系"><span class="toc-number">1.6.5.</span> <span class="toc-text">v-func和q-func之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Expectation-Equation"><span class="toc-number">1.6.6.</span> <span class="toc-text">Bellman Expectation Equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-Evaluation"><span class="toc-number">1.6.7.</span> <span class="toc-text">Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decision-in-MDP"><span class="toc-number">1.6.8.</span> <span class="toc-text">Decision in MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态规划"><span class="toc-number">1.6.9.</span> <span class="toc-text">动态规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-Evaluation-in-MDP"><span class="toc-number">1.6.10.</span> <span class="toc-text">Policy Evaluation in MDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最优价值函数"><span class="toc-number">1.6.11.</span> <span class="toc-text">最优价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最优策略"><span class="toc-number">1.6.12.</span> <span class="toc-text">最优策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-iteration"><span class="toc-number">1.6.13.</span> <span class="toc-text">Policy iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-iteration"><span class="toc-number">1.6.14.</span> <span class="toc-text">Value iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-iteration-vs-Value-iteration"><span class="toc-number">1.6.15.</span> <span class="toc-text">Policy iteration vs. Value iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">1.6.16.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>

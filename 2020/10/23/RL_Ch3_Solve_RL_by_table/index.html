@@ -6,33 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>RL_Ch5_QLearning | BevanWu的修炼小栈</title>
+  <title>RL-Ch3-基于表格方法求解RL | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RL-Ch5-Q-Learning本文提到的actor等效于前几章笔记中的agent+policy。 Critic  $V^\pi(s)$ 不直接采取行动   对actor进行评判(即对agent采取的policy进行评判)   $V^\pi(s)$：在状态s时使用策略$\pi$后的累计收益    如何估计$V^\pi(s)$？Mento-Carlo(回合更新)示意图如下：   实际上是一个回归问">
+  <meta name="description" content="RL-Ch3-基于表格方法求解RL  本文不太完善，待寻到时间再细细修改。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL_Ch5_QLearning">
-<meta property="og:url" content="http://yoursite.com/2020/10/30/RL_Ch5_QLearning/index.html">
+<meta property="og:title" content="RL-Ch3-基于表格方法求解RL">
+<meta property="og:url" content="http://yoursite.com/2020/10/23/RL_Ch3_Solve_RL_by_table/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="RL-Ch5-Q-Learning本文提到的actor等效于前几章笔记中的agent+policy。 Critic  $V^\pi(s)$ 不直接采取行动   对actor进行评判(即对agent采取的policy进行评判)   $V^\pi(s)$：在状态s时使用策略$\pi$后的累计收益    如何估计$V^\pi(s)$？Mento-Carlo(回合更新)示意图如下：   实际上是一个回归问">
+<meta property="og:description" content="RL-Ch3-基于表格方法求解RL  本文不太完善，待寻到时间再细细修改。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-5.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-6.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-7.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-8.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-10.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-11.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-12.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-13.png">
-<meta property="article:published_time" content="2020-10-30T10:28:10.577Z">
-<meta property="article:modified_time" content="2020-10-31T02:47:36.012Z">
+<meta property="og:image" content="http://yoursite.com/2020/10/23/img/rln-ch3-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/23/img/rln-ch3-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/23/img/rln-ch3-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/23/img/rln-ch3-4.png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWM0LnpoaW1nLmNvbS84MC92Mi0xZDU4YzYwZGFmN2E4NWU0MDY0Yzc2Mzg0ZjBhYzM5N18xNDQwdy5qcGc?x-oss-process=image/format,png#pic_center">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMxLnpoaW1nLmNvbS84MC92Mi0zOTE5ZDVjZTAxN2YxMzRhMDczYzhmY2Y5NTY1MDNhOF8xNDQwdy5qcGc?x-oss-process=image/format,png#pic_center">
+<meta property="article:published_time" content="2020-10-23T02:36:24.000Z">
+<meta property="article:modified_time" content="2020-10-31T07:29:40.969Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Reinforcement Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/10/30/img/rln-ch5-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/23/img/rln-ch3-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -176,152 +170,82 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-RL_Ch5_QLearning" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RL_Ch3_Solve_RL_by_table" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      RL_Ch5_QLearning
+      RL-Ch3-基于表格方法求解RL
     </h1>
   
 
         <!--显示阅读次数-->
         
-          <br/>
-          <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-          <span class="icon-sort"></span>
-          <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-                    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/30/RL_Ch5_QLearning/" class="archive-article-date">
-  	<time datetime="2020-10-30T10:28:10.577Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-30</time>
+        <a href="/2020/10/23/RL_Ch3_Solve_RL_by_table/" class="archive-article-date">
+  	<time datetime="2020-10-23T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="RL-Ch5-Q-Learning"><a href="#RL-Ch5-Q-Learning" class="headerlink" title="RL-Ch5-Q-Learning"></a>RL-Ch5-Q-Learning</h1><p>本文提到的<code>actor</code>等效于前几章笔记中的<code>agent</code>+<code>policy</code>。</p>
-<h2 id="Critic-V-pi-s"><a href="#Critic-V-pi-s" class="headerlink" title="Critic  $V^\pi(s)$"></a>Critic  $V^\pi(s)$</h2><ul>
-<li>不直接采取行动  </li>
-<li>对actor进行评判(即对agent采取的policy进行评判)  </li>
-<li>$V^\pi(s)$：在状态s时使用策略$\pi$后的累计收益  </li>
-</ul>
-<h3 id="如何估计-V-pi-s-？"><a href="#如何估计-V-pi-s-？" class="headerlink" title="如何估计$V^\pi(s)$？"></a>如何估计$V^\pi(s)$？</h3><h4 id="Mento-Carlo-回合更新"><a href="#Mento-Carlo-回合更新" class="headerlink" title="Mento-Carlo(回合更新)"></a>Mento-Carlo(回合更新)</h4><p>示意图如下：</p>
-<img src="../img/rln-ch5-1.png" style="zoom:48%;" />
+        <h1 id="RL-Ch3-基于表格方法求解RL"><a href="#RL-Ch3-基于表格方法求解RL" class="headerlink" title="RL-Ch3-基于表格方法求解RL"></a>RL-Ch3-基于表格方法求解RL</h1><blockquote>
+<p> 本文不太完善，待寻到时间再细细修改。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h2><p>MDP为(S,A,P,R,$\gamma$)五元组，在上一状态$s_t$采取动作$a_t$，会以一定的概率分布p进入下一状态$s_{t+1}$，同时产生一定的收益$r_t$。   </p>
+<img src="../img/rln-ch3-1.png" style="zoom:48%;" />
 
-<p>实际上是一个回归问题。</p>
-<h4 id="Tenmporal-Difference-单步更新"><a href="#Tenmporal-Difference-单步更新" class="headerlink" title="Tenmporal-Difference(单步更新)"></a>Tenmporal-Difference(单步更新)</h4><p>取一个episode的中间几个值，即${s_t,a_t,r_t,s_{t+1}}$，计算图如下：</p>
-<img src="../img/rln-ch5-2.png" style="zoom:30%;" />
+<div align="center">图1 MDP树状图 </div>
 
-<h4 id="MC-vs-TD"><a href="#MC-vs-TD" class="headerlink" title="MC vs. TD"></a>MC vs. TD</h4><p>MC的方差较大，而TD有小方差，但更新往往不够准确。</p>
-<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>取一个游戏的八个回合，</p>
+<p>与环境交互过程会学习到P(transimision Probability matrix)函数$p(s_{t+1},r_t|s_t,a_t)$和R(Reward)函数$r(s_t,a_t)$，以此作为环境的描述。若事先通过虚拟环境获知了P和R函数，再应用于现实进行决策，则称这个系统是Model-Based的，反之则称该系统是Model-Free的。  </p>
 <blockquote>
-<p>$s_a,r=0,s_b,r=0,END$  </p>
-<p>$s_b,r=1,END\quad \times \quad7$   </p>
-<p>$s_b,r=0,END$  </p>
-</blockquote>
-<p>可以计算得到$V^\pi(s_b)=\frac{3}{4}$，而MC/TD得到的$V^\pi(s_a)$得到的值是不一样的。  </p>
 <ul>
-<li><p>MC：考虑到$s_a$在采样时只出现一次，所以$V^\pi(s_a)=r_a=0$，采样中的reward值即为其state value。</p>
-</li>
-<li><p>TD：由更新公式得到$V^\pi(s_a)=V^\pi(s_b)+r_a=\frac{3}{4}+0=\frac{3}{4}$。  </p>
-</li>
+<li>Model-Based：P/R函数已知（图1中的黑色主体图+红色部分）</li>
+<li>Model-Free：P/R函数未知（图1中的黑色主体图+绿色部分）</li>
 </ul>
-<p>可以看到两者的取值区别在于：MC考虑到$s_a$出现会对$s_b$有影响，而TD则对$s_b$的常见state value进行求均值，在根据TD法则对$s_a$的state value进行更新。    </p>
-<h2 id="Another-Critic-Q-pi-s-a"><a href="#Another-Critic-Q-pi-s-a" class="headerlink" title="Another Critic $Q^\pi(s,a)$"></a>Another Critic $Q^\pi(s,a)$</h2><p>state-action value function $Q^\pi(s,a)$，指代的是在policy $\pi$ 下，在状态s时采取动作a得到的回报，回报可以是离散的数值，也可以是下一可能状态的概率分布。    </p>
-<img src="../img/rln-ch5-3.png" style="zoom:30%;" />
+</blockquote>
+<h2 id="Q-Action-value-table"><a href="#Q-Action-value-table" class="headerlink" title="Q(Action-value)-table"></a>Q(Action-value)-table</h2><p> 在不同的状态采取不一样的行动会产生不一样的效果，而<strong>Q-func</strong>就是用于度量这种效果，由此也产生了<strong>Q-table</strong>的说法。</p>
+<img src="../img/rln-ch3-2.png" style="zoom:48%;" />
 
 
 
-<h2 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>基本概念在Ch2与Ch3已经提及，这里做图表的说明：</p>
-<img src="../img/rln-ch5-4.png" style="zoom:30%;" />
+<p>有限步Markov Chain的当前Q(动作状态)值为<br>$$<br>G_t=R_1+…+R_T<br>$$</p>
+<p>无限步Markov Chain的当前Q(动作状态)值为<br>$$<br>\begin{align} G_t=R_{t+1}+\gamma R_{t+2}+…=\sum_{k=0}^\inf\gamma R_{t+k+1}=R_{t+1}+\gamma\sum_{k=0}^\inf\gamma^kR_{t+k+2}=R_{t+1}+\gamma G_{t+1}\end{align}<br>$$</p>
+<p>以Cliff Walker这一经典游戏为例，讲解如何对实际情况建立Q表格。将地点划分为网格区域，每个方格有一个坐标位置，以左上角为原点，建立x、y轴正方向，则可得到一系列坐标，即状态state。上下左右为可采取的动作action。通过全部取零的操作完成Q表的初始化。然后通过一系列新算法进行后续Q表的更新。  </p>
+<img src="../img/rln-ch3-3.png" style="zoom:48%;" />
 
 
 
-<p>其中找更好的策略$\pi$，即寻找一个$\pi’$比原先的$\pi$更好(证明过程可见系列博文的Ch2)，数学表达式为<br>$$<br>V^{\pi’}(s) \geq V^\pi(s)\quad for ,all, s \in S<br>$$<br>此时，策略$\pi’$满足<br>$$<br>\pi’(s)=arg \max_{a}Q^\pi(s,a)<br>$$<br>策略$\pi’$只取决于Q，以上方法不适合状态/动作空间为连续的情形。  </p>
-<h3 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h3><h4 id="Target-Network"><a href="#Target-Network" class="headerlink" title="Target Network"></a>Target Network</h4><p>原先的网络需要两个Network，即两个$Q^\pi$。若两个$Q^\pi$同时更新，训练不容易收敛，所以让下方的Net固定，只调上方Net的参数，变为regression问题。当上方Net更新过多(N)次后，再将其参数copy到下方Net中，重复执行以上步骤，直至收敛。  </p>
-<img src="../img/rln-ch5-5.png" style="zoom:30%;" />
 
 
-
-<h4 id="Exploration"><a href="#Exploration" class="headerlink" title="Exploration"></a>Exploration</h4><p>policy $\pi$是基于Q-function的，即$a=arg\max_{a}Q(s,a)$。先前在状态s取样到的动作a的Q值如果为正，则之后会一直取该动作。所以可以使用一些方法来兼顾探索。  </p>
-<ol>
-<li><strong>$\epsilon-greedy$</strong> 算法</li>
-</ol>
-<p>$$<br>\begin{equation}<br>a=\left{<br>\begin{aligned}<br>&amp;arg\max_{a}Q(s,a)  &amp;1-\epsilon\<br>&amp;\text{random action}  &amp;\epsilon<br>\end{aligned}<br>\right.<br>\end{equation}<br>$$</p>
+<h2 id="时序差分学习（单步更新）"><a href="#时序差分学习（单步更新）" class="headerlink" title="时序差分学习（单步更新）"></a>时序差分学习（单步更新）</h2><p>时许差分学习(Time Difference Learning)就是用下一时间步的V/Q值去近似当前时间步的V/Q值，不断迭代，得到最终的Q表。可分为<strong>在线策略(on-policy)</strong>和<strong>离线策略(off-policy)</strong>两类。  </p>
+<h3 id="On-Policy"><a href="#On-Policy" class="headerlink" title="On Policy"></a>On Policy</h3><p>图片来源<a href="https://blog.csdn.net/baidu_30007489/article/details/106963449" target="_blank" rel="noopener">CSDN</a></p>
+<p>使用策略$\pi$学习，并与环境进行交互产生经验，因为需要兼顾探索，所以$\pi$并不稳定。典型的算法是Sarsa。 </p>
+<p>目标：用$Q(s_t,a_t)$逼近$G_t$   </p>
+<p>更新公式：<br>$$<br>q(s_t,a_t)&lt;–q(s_t,a_t)+\alpha[R_{t+1}+\gamma q(s_{t+1},a_{t+1})-q(s_t,a_t)]<br>$$</p>
 <blockquote>
-<p>$\epsilon$可以选择随着学习次数的增加而下降，更符合实际情况。  </p>
+<p>$R_{t+1}+\gamma Q(s_{t+1},a_{t+1})$为$G_t$的真值  </p>
+<p>$Q(s_t,a_t)$为$G_t$的待更新值  </p>
+<p>式子中涉及的参数$(s_t,a_t,R_{t+1},s_{t+1},a_{t+1})$，故称此为Sarsa算法。</p>
 </blockquote>
-<ol start="2">
-<li>Baltzman Exploration   </li>
-</ol>
-<p>对在状态s下采取每个动作a的概率进行构造：<br>$$<br>P(a|s)=\frac{exp(Q(s,a))}{\sum_a exp(Q(s,a))}<br>$$</p>
-<h4 id="Replay-Buffer"><a href="#Replay-Buffer" class="headerlink" title="Replay Buffer"></a>Replay Buffer</h4><p>这是off-policy的一种策略，具体做法是：从已知的经验(buffer)中挑选一个短序列(batch)，用以更新Q-function。示意图如下：  </p>
-<img src="../img/rln-ch5-6.png" style="zoom:30%;" />
+<p>算法示意图：</p>
+<img src="../img/rln-ch3-4.png" style="zoom:30%;" />
 
-
-
-<h3 id="Typical-Q-Learning-Algorithm-1"><a href="#Typical-Q-Learning-Algorithm-1" class="headerlink" title="Typical Q-Learning Algorithm^1"></a>Typical Q-Learning Algorithm<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a></h3><blockquote>
-<p>•Initialize Q-function Q, target Q-function $\hat{Q}=Q$</p>
-<p>•In each episode</p>
-<p>​    •For each time step t</p>
-<p>​        •Given state $s_t$, take action $a_t$ based on Q (epsilon greedy)</p>
-<p>​        •Obtain reward $r_t,$ and reach new state $s_{t+1}$</p>
-<p>​        •Store $(s_t, a_t, r_t, s_{t+1})$ into buffer</p>
-<p>​        •Sample $(s_i, a_i, r_i, s_{i+1})$ from buffer (usually a batch)</p>
-<p>​        •Target $y=r_i+\max_a⁡[\hat{Q}(s_{i+1},a)]$</p>
-<p>​        •Update the parameters of Q to make $Q(s_i , a_i )$ close to y (regression)</p>
-<p>​        •Every C steps reset $\hat{Q}=Q$</p>
-</blockquote>
-<h2 id="Q-Learning的变种"><a href="#Q-Learning的变种" class="headerlink" title="Q-Learning的变种"></a>Q-Learning的变种</h2><h3 id="Double-DQN"><a href="#Double-DQN" class="headerlink" title="Double DQN"></a>Double DQN</h3><p>Q值总会被高估：因为可能存在动作a真正Q值得估计错误(估高或低)，而Q值的更新公式<br>$$<br>Q(s_t,a_t)=r_t+\max_aQ(s_{t+1},a)<br>$$</p>
-<p>总是取使得Q最大的a，估高则Q也会被高估，估低则无碍。  </p>
-<p>所以对式(5)等号两边得Q进行分别估计，即设立两个Q-Function：Q和Q‘(Target Network)。则Q值的更新公式更正为<br>$$<br>Q(s_t,a_t)=r_t+Q’(s_{t+1},arg\max_a Q(s_{t+1},a))<br>$$<br>此举的好处在于：若Q高估了a，则Q’不一定会给a高值；若Q‘高估了a，而Q不一定会给a高值。可以认为Q负责提案，而Q’负责执行，互不干扰职权。     </p>
-<h3 id="Dueling-DQN"><a href="#Dueling-DQN" class="headerlink" title="Dueling DQN"></a>Dueling DQN</h3><p>改Network的架构，其余想法与DQN(Q-Learning+Deep Learning)相同。  </p>
-<p>传统的DQN的架构如图<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a>： </p>
-<img src="../img/rln-ch5-7.png" style="zoom:48%;" />
-
-<p>Dueling DQN的架构如图<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a>：    </p>
-<img src="../img/rln-ch5-8.png" style="zoom:48%;" />
-
-<p>其中Q(s,a)是table，V(s)是vector，A(s,a)是table，三者之间的关系为<br>$$<br>Q(s,a)=V(s)+A(s,a)<br>$$<br>其中V与A的加和用到了<strong>广播</strong>机制。  </p>
-<p>因为随机采样难以做到充分性(即不一定在每个状态每个动作都可以尝试)，所以对table的充分更新难以做到。Dueling DQN的想法是：只让网络更新V值，而不更新A值，通过V的更新来实现对Q进行更新。</p>
-<p>为了让算法更稳定，具体可以采用如下的做法：</p>
-<ul>
-<li><p>取V-vector的各元素分别为Q-table每列的均值</p>
-</li>
-<li><p>取A-table中的每列和均为0(均值归一化)  </p>
-</li>
-</ul>
-<h3 id="Prioritized-Reply"><a href="#Prioritized-Reply" class="headerlink" title="Prioritized Reply"></a>Prioritized Reply</h3><p>略</p>
-<h3 id="Multi-step"><a href="#Multi-step" class="headerlink" title="Multi-step"></a>Multi-step</h3><p>这个方法可以实现MC与TD之间的平衡，即精确度和方差的平衡。既有MC\TD的优点，也有它们的缺点。具体做法是在Replay Buffer机制中只对一个时间步的短序列取样，延伸至多个时间步的序列取样。机制运作图如下：   </p>
-<p><img src="../img/rln-ch5-10.png" alt=""></p>
-<h3 id="Noisy-Net"><a href="#Noisy-Net" class="headerlink" title="Noisy Net"></a>Noisy Net</h3><p>$\epsilon-greedy$是在action上加入Noise，我们接下来的想法是能否在每个episode开始前在Q-function的参数里加入Noise呢？即$Q(s,a)\to \widetilde{Q}(s,a)$。</p>
-<p>在action上加入noise，即agent在针对相同情况会有不一样的应对反应，这往往是不合现实的。而在Q-function的参数里加入Noise，agent不会出现上述问题，且有原则也有尝试。如果说Noise on action表现的是agent的随机尝试，那么Noise on parameter表现的则是agent有系统地尝试。  </p>
-<h3 id="Distributional-Q-function"><a href="#Distributional-Q-function" class="headerlink" title="Distributional Q-function"></a>Distributional Q-function</h3><p>真实的Q(s,a)是一个分布，Q-Learning使用的是各分布的均值表现，所以我们其实可以把这个分布给表现出来。Q-Learning的Q-functiong和Distributional Q-function的区别如下图<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a>所示：  </p>
-<img src="../img/rln-ch5-11.png" style="zoom:30%;" />
-
-<h2 id="Q-Learning在连续动作上的改进"><a href="#Q-Learning在连续动作上的改进" class="headerlink" title="Q-Learning在连续动作上的改进"></a>Q-Learning在连续动作上的改进</h2><p>传统的Q-Learning是使用回归方法估计Q-function，较容易操作，但处理的往往是离散有限动作空间的问题，而对连续动作空间问题难以解决。连续动作空间问题包括：自动驾驶(方向盘转动角度)、机器人控制(手臂移动/转动)等。  </p>
-<p>解决方法有四种：</p>
-<ol>
-<li>取样足够多的动作，再取能使Q最大的a。</li>
-<li>用梯度下降算法去解决该优化问题。缺点：不一定能找到全局最优解，且运算量太大。</li>
-<li>设计一个能够让优化更为简单的网络。</li>
-</ol>
-<img src="../img/rln-ch5-12.png" style="zoom:30%;" />
-
-<p>能够证明$\Sigma(s)$为正定矩阵，所以二次型计算得到的数值(不计入负号)为非负值，所以当$a=\mu(s)$时，Q(s,a)能够取到最大值，此时就要优化网络$Q^\pi$，使得$\mu(s)=arg\max_aQ(s,a)$。  </p>
-<ol start="4">
-<li>不使用Q-Learning算法。</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前为止，李宏毅老师的课程已经讲完了Value-based和Policy-based的方法以及其中的Q-Learning和PPO算法。两种方法分别代表学习actor和学习critic，下一章我们将介绍两个的结合，actor-critic系列算法。  </p>
-<p><img src="../img/rln-ch5-13.png" alt=""></p>
+<p>Sarsa的伪代码  </p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWM0LnpoaW1nLmNvbS84MC92Mi0xZDU4YzYwZGFmN2E4NWU0MDY0Yzc2Mzg0ZjBhYzM5N18xNDQwdy5qcGc?x-oss-process=image/format,png#pic_center" alt=""></p>
+<p>代码实操见<a href="RL-Code-Sarsa.md">RL-Code-Sarsa</a></p>
+<h3 id="Off-Policy"><a href="#Off-Policy" class="headerlink" title="Off Policy"></a>Off Policy</h3><p>典型的算法是Q-Learning。</p>
+<p>目标策略：$\pi$–&gt;用于学习最优策略   </p>
+<p>行为策略：$\mu$–&gt;探索，与环境交互产生经验轨迹  </p>
+<p>Q-Learning伪代码</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMxLnpoaW1nLmNvbS84MC92Mi0zOTE5ZDVjZTAxN2YxMzRhMDczYzhmY2Y5NTY1MDNhOF8xNDQwdy5qcGc?x-oss-process=image/format,png#pic_center" alt=""></p>
+<p>Q-Learning更新公式：<br>$$<br>q(s_t,a_t)&lt;–q(s_t,a_t)+\alpha[r_{t+1}+\gamma \max_aq(s_{t+1},a)-q(s_t,a_t)]<br>$$</p>
+<p>代码实操见<a href="RL-Code-QLearning.md">RL-Code-QLearning</a></p>
 
       
 
@@ -351,7 +275,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -401,7 +347,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/30/RL_Ch5_QLearning/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/23/RL_Ch3_Solve_RL_by_table/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -415,18 +361,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/10/31/RL_Ch6_Actor_Critic/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/10/24/RL_Ch4_Policy_Gradient/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          RL_Ch6_Actor_Critic
+          RL-Ch4-Policy Gradient
         
       </div>
     </a>
   
   
-    <a href="/2020/10/28/RL_Ch4_Policy_Gradient/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">RL_Ch4_Policy_Gradient</div>
+    <a href="/2020/10/23/RL_Code_QLearning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RL表格型方法求解——Q-learning</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -446,20 +392,23 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RL-Ch3-基于表格方法求解RL"><span class="toc-number">1.</span> <span class="toc-text">RL-Ch3-基于表格方法求解RL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前情回顾"><span class="toc-number">1.1.</span> <span class="toc-text">前情回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-Action-value-table"><span class="toc-number">1.2.</span> <span class="toc-text">Q(Action-value)-table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时序差分学习（单步更新）"><span class="toc-number">1.3.</span> <span class="toc-text">时序差分学习（单步更新）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#On-Policy"><span class="toc-number">1.3.1.</span> <span class="toc-text">On Policy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Policy"><span class="toc-number">1.3.2.</span> <span class="toc-text">Off Policy</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>

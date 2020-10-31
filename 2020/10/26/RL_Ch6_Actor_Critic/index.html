@@ -6,26 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>RL_Ch6_Actor_Critic | BevanWu的修炼小栈</title>
+  <title>RL-Ch6-Actor-Critic | BevanWu的修炼小栈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RL-Ch6-Actor-CriticA2C：Advantage Actor-Critic   A3C：Asynchronous Actor-Critic   Advantage Function我们在第四章Policy Gradient中从原始的梯度计算公式，引入baseline和时间步衰减的技巧后，得到Advantage Function，形式如下：$$A^{\theta}(s_t,a_t)&#x3D;">
+  <meta name="description" content="RL-Ch6-Actor-CriticA2C：Advantage Actor-Critic   A3C：Asynchronous Actor-Critic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL_Ch6_Actor_Critic">
-<meta property="og:url" content="http://yoursite.com/2020/10/31/RL_Ch6_Actor_Critic/index.html">
+<meta property="og:title" content="RL-Ch6-Actor-Critic">
+<meta property="og:url" content="http://yoursite.com/2020/10/26/RL_Ch6_Actor_Critic/index.html">
 <meta property="og:site_name" content="BevanWu的修炼小栈">
-<meta property="og:description" content="RL-Ch6-Actor-CriticA2C：Advantage Actor-Critic   A3C：Asynchronous Actor-Critic   Advantage Function我们在第四章Policy Gradient中从原始的梯度计算公式，引入baseline和时间步衰减的技巧后，得到Advantage Function，形式如下：$$A^{\theta}(s_t,a_t)&#x3D;">
+<meta property="og:description" content="RL-Ch6-Actor-CriticA2C：Advantage Actor-Critic   A3C：Asynchronous Actor-Critic">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch6-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch6-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch6-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch6-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/10/31/img/rln-ch6-5.png">
-<meta property="article:published_time" content="2020-10-31T02:48:47.209Z">
-<meta property="article:modified_time" content="2020-10-31T06:13:00.446Z">
+<meta property="og:image" content="http://yoursite.com/2020/10/26/img/rln-ch6-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/26/img/rln-ch6-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/26/img/rln-ch6-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/26/img/rln-ch6-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/26/img/rln-ch6-5.png">
+<meta property="article:published_time" content="2020-10-26T02:36:24.000Z">
+<meta property="article:modified_time" content="2020-10-31T07:28:57.054Z">
 <meta property="article:author" content="BevanWu">
-<meta property="article:tag" content="python，matlab，机器学习，深度学习，cv，数学">
+<meta property="article:tag" content="Reinforcement Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/10/31/img/rln-ch6-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/26/img/rln-ch6-1.png">
   
   
     <link rel="icon" href="/img/headpic.jpg">
@@ -176,24 +176,16 @@
         
   
     <h1 class="article-title" itemprop="name">
-      RL_Ch6_Actor_Critic
+      RL-Ch6-Actor-Critic
     </h1>
   
 
         <!--显示阅读次数-->
         
-          <br/>
-          <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
-          <span class="icon-sort"></span>
-          <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
-                    阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
-          </span>
-          </a>
-        
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/31/RL_Ch6_Actor_Critic/" class="archive-article-date">
-  	<time datetime="2020-10-31T02:48:47.209Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
+        <a href="/2020/10/26/RL_Ch6_Actor_Critic/" class="archive-article-date">
+  	<time datetime="2020-10-26T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-26</time>
 </a>
         
       </header>
@@ -202,6 +194,8 @@
       
         <h1 id="RL-Ch6-Actor-Critic"><a href="#RL-Ch6-Actor-Critic" class="headerlink" title="RL-Ch6-Actor-Critic"></a>RL-Ch6-Actor-Critic</h1><p>A2C：Advantage Actor-Critic  </p>
 <p>A3C：Asynchronous Actor-Critic  </p>
+<a id="more"></a>
+
 <h2 id="Advantage-Function"><a href="#Advantage-Function" class="headerlink" title="Advantage Function"></a>Advantage Function</h2><p>我们在第四章Policy Gradient中从原始的梯度计算公式，引入baseline和时间步衰减的技巧后，得到Advantage Function，形式如下：<br>$$<br>A^{\theta}(s_t,a_t)=\sum_{t’=t}^{T_n}\gamma^{t’-t}r_{t’}^n-b<br>$$</p>
 <p>令<br>$$<br>G_t^n=\sum_{t’=t}^{T_n}\gamma^{t’-t}r_{t’}^n<br>$$<br>则对$G_t^n$的估计可以用如下式子<br>$$<br>G_t^n&lt;–E[G_t^n]=Q^\pi(s_t,a_t)<br>$$<br>而$b=V^\pi(s_t^n)$，所以Advantage Function的新形式为<br>$$<br>A^{\theta}(s_t,a_t)=Q^\pi(s_t,a_t)-V^\pi(s_t^n)<br>$$</p>
 <p>需要估计两个Network，但我们可以采用只估计一个Network的方法。  </p>
@@ -293,7 +287,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -343,7 +359,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/31/RL_Ch6_Actor_Critic/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/26/RL_Ch6_Actor_Critic/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -357,18 +373,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/10/31/RL__Ch7_Reward_Issue/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/10/27/RL_Ch7_Reward_Issue/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          RL__Ch7_Reward_Issue
+          RL-Ch7-Reward Issue
         
       </div>
     </a>
   
   
-    <a href="/2020/10/30/RL_Ch5_QLearning/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">RL_Ch5_QLearning</div>
+    <a href="/2020/10/25/RL_Ch5_QLearning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RL-Ch5-Q-Learning</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -388,20 +404,23 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RL-Ch6-Actor-Critic"><span class="toc-number">1.</span> <span class="toc-text">RL-Ch6-Actor-Critic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Advantage-Function"><span class="toc-number">1.1.</span> <span class="toc-text">Advantage Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advantage-Actor-Critic"><span class="toc-number">1.2.</span> <span class="toc-text">Advantage Actor-Critic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技巧"><span class="toc-number">1.2.2.</span> <span class="toc-text">技巧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Asynchronous-Advantage-Actor-Critic"><span class="toc-number">1.3.</span> <span class="toc-text">Asynchronous Advantage Actor-Critic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pathwise-Derivative-Policy-Gradient"><span class="toc-number">1.4.</span> <span class="toc-text">Pathwise Derivative Policy Gradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AC-vs-GAN"><span class="toc-number">1.5.</span> <span class="toc-text">AC vs. GAN</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
-
-  
-  
-  
-
-  
-
-  
-
-  
 
 
           </div>
