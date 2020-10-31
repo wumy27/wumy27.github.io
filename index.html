@@ -163,14 +163,14 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-【Linux】Unix远程操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL__Ch7_Reward_Issue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/08/%E3%80%90Linux%E3%80%91Unix%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/">Unix远程操作</a>
+      <a class="article-title" href="/2020/10/31/RL__Ch7_Reward_Issue/">RL__Ch7_Reward_Issue</a>
     </h1>
   
 
@@ -178,23 +178,48 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/08/%E3%80%90Linux%E3%80%91Unix%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-10-08T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-08</time>
+        <a href="/2020/10/31/RL__Ch7_Reward_Issue/" class="archive-article-date">
+  	<time datetime="2020-10-31T06:16:49.115Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Unix远程操作"><a href="#Unix远程操作" class="headerlink" title="Unix远程操作"></a>Unix远程操作</h1><h2 id="一、课程大纲"><a href="#一、课程大纲" class="headerlink" title="一、课程大纲"></a>一、课程大纲</h2><ul>
-<li>[1. 远程终端](#1. 远程终端)  </li>
-<li>[2. 远程文件交互 ](#2. 远程文件交互)</li>
-<li>[3. Python开发环境的搭建](#3. Python开发环境的搭建)  </li>
-<li>[4. 虚拟开发环境](#4. 虚拟开发环境)</li>
+        <h1 id="RL-Ch7-Reward-Issue"><a href="#RL-Ch7-Reward-Issue" class="headerlink" title="RL-Ch7-Reward Issue"></a>RL-Ch7-Reward Issue</h1><p>因为采样的不充分性和种种原因(环境v很少给reward)，我们得到环境的回馈信息是很少的，这就是奖励稀疏(sparse reward)的问题。 </p>
+<h2 id="Reward-Shaping"><a href="#Reward-Shaping" class="headerlink" title="Reward Shaping"></a>Reward Shaping</h2><p>所以第一种方法是我们可以人为构造/修正奖励。</p>
+<p>某些情形如果让环境直接给出奖励，难以让好的行为得到学习。例如小学生在出去玩和学习这一当前时间步的选择，很难考虑到未来的月考成绩好坏这一远景的奖励。所以需要人为的重新构造一下奖励，例如加个棒棒糖鼓励学习等。  </p>
+<p>某些情形环境极少给出奖励。例如在枪战游戏中，对agent的跑动、开枪、血量等进行一个奖励的人工构造，能让agent变得越来越好。  </p>
+<h2 id="Curiosity"><a href="#Curiosity" class="headerlink" title="Curiosity"></a>Curiosity</h2><p>好奇心是一个agent很重要的特质，在马尔可夫奖励过程中加入Intinsic curiosity model(ICM)，能够激发agent的好奇心，即探索欲望。  </p>
+<img src="../img/rln-ch7-0.png" style="zoom:30%;" />
+
+<p>ICM的构造图如下：</p>
+<img src="../img/rln-ch7-1.png" style="zoom:30%;" />
+
+
+
+<p>ICM鼓励对新的状态进行探索，且$r_t^i$在$s_{t+1}$极难出现时会有极大的奖励。但有些状态难出现但可能不是特别重要，例如在生存游戏中场景出现树叶飘动，针对这类问题，要告知agent场景中的哪些东西是重要的，于是产生了下图的ICM改进方案。</p>
+<img src="../img/rln-ch7-2.png" style="zoom:30%;" />
+
+<p>现在的ICM引入了一个场景过滤的函数$\phi$，而由两个过滤后的状态$\phi(s_t)$和$\phi(s_{t+1})$，能够对动作$a_t$的选择进行指导。  </p>
+<h2 id="Curriculum-Learning"><a href="#Curriculum-Learning" class="headerlink" title="Curriculum Learning"></a>Curriculum Learning</h2><p>学习要循序渐进，从易到难，agent的学习过程也是一样。我们要对它学的课程进行一个难易顺序的设计。  </p>
+<h3 id="Reverse-Curriculum-Generation"><a href="#Reverse-Curriculum-Generation" class="headerlink" title="Reverse Curriculum Generation"></a>Reverse Curriculum Generation</h3><img src="../img/rln-ch7-3.png" style="zoom:30%;" />
+
+<p>也叫反推演学习。算法流程如下：  </p>
+<ol>
+<li>给定一个目标状态$s_g$ </li>
+<li>在$s_g$附近取样一组$s_1$</li>
+<li>尝试走出各个从$s_1$到$s_g$的轨迹(episode)</li>
+<li>删除episode中reward太大(已经学会了)或太小(难以现在学会)的</li>
+<li>再在余下的$s_1$的附近中取样$s_2$</li>
+</ol>
+<h2 id="Hierarchical-Reinforcement-Learning"><a href="#Hierarchical-Reinforcement-Learning" class="headerlink" title="Hierarchical Reinforcement Learning"></a>Hierarchical Reinforcement Learning</h2><p> 分层强化学习，将最顶端的愿景分解为给下方的agent去完成的子目标。</p>
+<p>注意：</p>
+<ul>
+<li>下方的agent如果不可以完成目标，则上方的agent会得到惩罚。  </li>
+<li>下方的agent如果完成错误的目标，则说明顶端的愿景是错误的。  </li>
 </ul>
-        
-          <a class="article-more-a" href="/2020/10/08/%E3%80%90Linux%E3%80%91Unix%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/#more">more >></a>
-        
+
       
 
       
@@ -202,33 +227,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/08/%E3%80%90Linux%E3%80%91Unix%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/31/RL__Ch7_Reward_Issue/">展开全文 >></a>
         </p>
       
 
@@ -258,14 +261,14 @@
 
 
   
-    <article id="post-【Linux】Unix常见命令&amp;Vi编辑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Ch6_Actor_Critic" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/07/%E3%80%90Linux%E3%80%91Unix%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4&Vi%E7%BC%96%E8%BE%91%E5%99%A8/">Unix常见命令&amp;Vi编辑器</a>
+      <a class="article-title" href="/2020/10/31/RL_Ch6_Actor_Critic/">RL_Ch6_Actor_Critic</a>
     </h1>
   
 
@@ -273,22 +276,259 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/07/%E3%80%90Linux%E3%80%91Unix%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4&Vi%E7%BC%96%E8%BE%91%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2020-10-07T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-07</time>
+        <a href="/2020/10/31/RL_Ch6_Actor_Critic/" class="archive-article-date">
+  	<time datetime="2020-10-31T02:48:47.209Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Unix常见命令-amp-Vi编辑器"><a href="#Unix常见命令-amp-Vi编辑器" class="headerlink" title="Unix常见命令&amp;Vi编辑器"></a>Unix常见命令&amp;Vi编辑器</h1><h1 id="一、课程大纲"><a href="#一、课程大纲" class="headerlink" title="一、课程大纲"></a>一、课程大纲</h1><ul>
-<li>[1. 常见操作命令](#1. 常见操作命令)  </li>
-<li>[2. 更新系统软件源](#2. 更新系统软件源)  </li>
-<li>[3. vi编辑器](#3. vi编辑器)  </li>
+        <h1 id="RL-Ch6-Actor-Critic"><a href="#RL-Ch6-Actor-Critic" class="headerlink" title="RL-Ch6-Actor-Critic"></a>RL-Ch6-Actor-Critic</h1><p>A2C：Advantage Actor-Critic  </p>
+<p>A3C：Asynchronous Actor-Critic  </p>
+<h2 id="Advantage-Function"><a href="#Advantage-Function" class="headerlink" title="Advantage Function"></a>Advantage Function</h2><p>我们在第四章Policy Gradient中从原始的梯度计算公式，引入baseline和时间步衰减的技巧后，得到Advantage Function，形式如下：<br>$$<br>A^{\theta}(s_t,a_t)=\sum_{t’=t}^{T_n}\gamma^{t’-t}r_{t’}^n-b<br>$$</p>
+<p>令<br>$$<br>G_t^n=\sum_{t’=t}^{T_n}\gamma^{t’-t}r_{t’}^n<br>$$<br>则对$G_t^n$的估计可以用如下式子<br>$$<br>G_t^n&lt;–E[G_t^n]=Q^\pi(s_t,a_t)<br>$$<br>而$b=V^\pi(s_t^n)$，所以Advantage Function的新形式为<br>$$<br>A^{\theta}(s_t,a_t)=Q^\pi(s_t,a_t)-V^\pi(s_t^n)<br>$$</p>
+<p>需要估计两个Network，但我们可以采用只估计一个Network的方法。  </p>
+<p>由于<br>$$<br>Q^\pi(s_t,a_t)=E[r_t^n+V^\pi(s_{t+1}^n)]<br>$$</p>
+<p>不考虑随机性，去掉期望号，则有<br>$$<br>Q^\pi(s_t,a_t)=r_t^n+V^\pi(s_{t+1}^n)<br>$$</p>
+<p>最终Advantage Function的形式为<br>$$<br>A^{\theta}(s_t,a_t)=r_t^n+V^\pi(s_{t+1}^n)-V^\pi(s_t^n)<br>$$</p>
+<p>估计$r_t^n$的方差比$G_t^n$的小，因为只需要估计一个状态s。  </p>
+<h2 id="Advantage-Actor-Critic"><a href="#Advantage-Actor-Critic" class="headerlink" title="Advantage Actor-Critic"></a>Advantage Actor-Critic</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>A2C相比Q-Learning，把基于Q值变为基于V值为导向，而且策略更新的方法引入了Policy Gradient的方法。</p>
+<img src="../img/rln-ch6-1.png" style="zoom:30%;" />
+
+
+
+
+
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><ol>
+<li>actor$\pi(s)$与critic$V^\pi(s)$的一些参数可以共享。</li>
+</ol>
+<img src="../img/rln-ch6-2.png" style="zoom:50%;" />
+
+<ol start="2">
+<li>探索很重要，如果交叉熵更大，则$\pi(s)$的分布更均匀。  </li>
+</ol>
+<h2 id="Asynchronous-Advantage-Actor-Critic"><a href="#Asynchronous-Advantage-Actor-Critic" class="headerlink" title="Asynchronous Advantage Actor-Critic"></a>Asynchronous Advantage Actor-Critic</h2><p>Asynchronous  </p>
+<p>基本想法是开多个worker，进行经验的集成。具体实现步骤为：</p>
+<ol>
+<li>每个worker从云端下载全局参数到本地端</li>
+<li>每个worker分别在本地端采样</li>
+<li>每个worker在本地端计算梯度</li>
+<li>将梯度上传云端更新全局参数</li>
+</ol>
+<blockquote>
+<p>不是同步更新，而是一个worker计算完就上传更新全局参数，像一个自助售卖机一样，谁有需求就去买饮料，交易一次云端就处理一次。</p>
+</blockquote>
+<img src="../img/rln-ch6-3.png" style="zoom:30%;" />
+
+
+
+<h2 id="Pathwise-Derivative-Policy-Gradient"><a href="#Pathwise-Derivative-Policy-Gradient" class="headerlink" title="Pathwise Derivative Policy Gradient"></a>Pathwise Derivative Policy Gradient</h2><p>PDPG是解决Q-Learning无法解决连续动作空间问题的一个方法，同时也是一个特别的Actor-Critic方法：原始的AC是只告知什么是不好的，而改进后的AC会告知什么是不好的，还会指导下一步应该怎么做。  </p>
+<p>此时动作a是一个连续的数值，要解决$a=arg\max_a Q(s,a)$，这个问题的解决要看Actor$\pi$。问题的求解流程图如下：  </p>
+<img src="../img/rln-ch6-4.png" style="zoom:30%;" />
+
+
+
+<p>我们在第五章提到过Q-Learning算法，而不同点就在于如下五点：</p>
+<blockquote>
+<p>•Initialize Q-function Q, target Q-function $\hat{Q}=Q$, <strong>actor $\pi$, target actor $\hat{\pi}=\pi$</strong></p>
+<p>•In each episode</p>
+<p>​    •For each time step t</p>
+<p>​        •<strong>Given state $s_t$, take action $a_t$ based on <del>Q</del> $\pi$(<del>epsilon greedy</del> exploration)</strong></p>
+<p>​        •Obtain reward $r_t,$ and reach new state $s_{t+1}$</p>
+<p>​        •Store $(s_t, a_t, r_t, s_{t+1})$ into buffer</p>
+<p>​        •Sample $(s_i, a_i, r_i, s_{i+1})$ from buffer (usually a batch)</p>
+<p>​        •<strong>Target $y=r_i+$<del>\max_a⁡[\hat{Q}(s_{i+1},a)]​</del>$Q(s_{t+1},\hat{\pi}(s_{t+1}))$</strong></p>
+<p>​        •Update the parameters of Q to make $Q(s_i , a_i )$ close to y (regression)</p>
+<p>​        •<strong>Update the parameters of $\pi$ to maximize $Q(s_i , \pi(s_i) )$</strong></p>
+<p>​        •Every C steps reset $\hat{Q}=Q$</p>
+<p>​        •<strong>Every C steps reset $\hat{\pi}=\pi$</strong></p>
+</blockquote>
+<h2 id="AC-vs-GAN"><a href="#AC-vs-GAN" class="headerlink" title="AC vs. GAN"></a>AC vs. GAN</h2><img src="../img/rln-ch6-5.png" style="zoom:30%;" />
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/31/RL_Ch6_Actor_Critic/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-RL_Ch5_QLearning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/30/RL_Ch5_QLearning/">RL_Ch5_QLearning</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+        
+        <!--显示阅读次数完毕-->
+        
+        <a href="/2020/10/30/RL_Ch5_QLearning/" class="archive-article-date">
+  	<time datetime="2020-10-30T10:28:10.577Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="RL-Ch5-Q-Learning"><a href="#RL-Ch5-Q-Learning" class="headerlink" title="RL-Ch5-Q-Learning"></a>RL-Ch5-Q-Learning</h1><p>本文提到的<code>actor</code>等效于前几章笔记中的<code>agent</code>+<code>policy</code>。</p>
+<h2 id="Critic-V-pi-s"><a href="#Critic-V-pi-s" class="headerlink" title="Critic  $V^\pi(s)$"></a>Critic  $V^\pi(s)$</h2><ul>
+<li>不直接采取行动  </li>
+<li>对actor进行评判(即对agent采取的policy进行评判)  </li>
+<li>$V^\pi(s)$：在状态s时使用策略$\pi$后的累计收益  </li>
 </ul>
-        
-          <a class="article-more-a" href="/2020/10/07/%E3%80%90Linux%E3%80%91Unix%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4&Vi%E7%BC%96%E8%BE%91%E5%99%A8/#more">more >></a>
-        
+<h3 id="如何估计-V-pi-s-？"><a href="#如何估计-V-pi-s-？" class="headerlink" title="如何估计$V^\pi(s)$？"></a>如何估计$V^\pi(s)$？</h3><h4 id="Mento-Carlo-回合更新"><a href="#Mento-Carlo-回合更新" class="headerlink" title="Mento-Carlo(回合更新)"></a>Mento-Carlo(回合更新)</h4><p>示意图如下：</p>
+<img src="../img/rln-ch5-1.png" style="zoom:48%;" />
+
+<p>实际上是一个回归问题。</p>
+<h4 id="Tenmporal-Difference-单步更新"><a href="#Tenmporal-Difference-单步更新" class="headerlink" title="Tenmporal-Difference(单步更新)"></a>Tenmporal-Difference(单步更新)</h4><p>取一个episode的中间几个值，即${s_t,a_t,r_t,s_{t+1}}$，计算图如下：</p>
+<img src="../img/rln-ch5-2.png" style="zoom:30%;" />
+
+<h4 id="MC-vs-TD"><a href="#MC-vs-TD" class="headerlink" title="MC vs. TD"></a>MC vs. TD</h4><p>MC的方差较大，而TD有小方差，但更新往往不够准确。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>取一个游戏的八个回合，</p>
+<blockquote>
+<p>$s_a,r=0,s_b,r=0,END$  </p>
+<p>$s_b,r=1,END\quad \times \quad7$   </p>
+<p>$s_b,r=0,END$  </p>
+</blockquote>
+<p>可以计算得到$V^\pi(s_b)=\frac{3}{4}$，而MC/TD得到的$V^\pi(s_a)$得到的值是不一样的。  </p>
+<ul>
+<li><p>MC：考虑到$s_a$在采样时只出现一次，所以$V^\pi(s_a)=r_a=0$，采样中的reward值即为其state value。</p>
+</li>
+<li><p>TD：由更新公式得到$V^\pi(s_a)=V^\pi(s_b)+r_a=\frac{3}{4}+0=\frac{3}{4}$。  </p>
+</li>
+</ul>
+<p>可以看到两者的取值区别在于：MC考虑到$s_a$出现会对$s_b$有影响，而TD则对$s_b$的常见state value进行求均值，在根据TD法则对$s_a$的state value进行更新。    </p>
+<h2 id="Another-Critic-Q-pi-s-a"><a href="#Another-Critic-Q-pi-s-a" class="headerlink" title="Another Critic $Q^\pi(s,a)$"></a>Another Critic $Q^\pi(s,a)$</h2><p>state-action value function $Q^\pi(s,a)$，指代的是在policy $\pi$ 下，在状态s时采取动作a得到的回报，回报可以是离散的数值，也可以是下一可能状态的概率分布。    </p>
+<img src="../img/rln-ch5-3.png" style="zoom:30%;" />
+
+
+
+<h2 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>基本概念在Ch2与Ch3已经提及，这里做图表的说明：</p>
+<img src="../img/rln-ch5-4.png" style="zoom:30%;" />
+
+
+
+<p>其中找更好的策略$\pi$，即寻找一个$\pi’$比原先的$\pi$更好(证明过程可见系列博文的Ch2)，数学表达式为<br>$$<br>V^{\pi’}(s) \geq V^\pi(s)\quad for ,all, s \in S<br>$$<br>此时，策略$\pi’$满足<br>$$<br>\pi’(s)=arg \max_{a}Q^\pi(s,a)<br>$$<br>策略$\pi’$只取决于Q，以上方法不适合状态/动作空间为连续的情形。  </p>
+<h3 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h3><h4 id="Target-Network"><a href="#Target-Network" class="headerlink" title="Target Network"></a>Target Network</h4><p>原先的网络需要两个Network，即两个$Q^\pi$。若两个$Q^\pi$同时更新，训练不容易收敛，所以让下方的Net固定，只调上方Net的参数，变为regression问题。当上方Net更新过多(N)次后，再将其参数copy到下方Net中，重复执行以上步骤，直至收敛。  </p>
+<img src="../img/rln-ch5-5.png" style="zoom:30%;" />
+
+
+
+<h4 id="Exploration"><a href="#Exploration" class="headerlink" title="Exploration"></a>Exploration</h4><p>policy $\pi$是基于Q-function的，即$a=arg\max_{a}Q(s,a)$。先前在状态s取样到的动作a的Q值如果为正，则之后会一直取该动作。所以可以使用一些方法来兼顾探索。  </p>
+<ol>
+<li><strong>$\epsilon-greedy$</strong> 算法</li>
+</ol>
+<p>$$<br>\begin{equation}<br>a=\left{<br>\begin{aligned}<br>&amp;arg\max_{a}Q(s,a)  &amp;1-\epsilon\<br>&amp;\text{random action}  &amp;\epsilon<br>\end{aligned}<br>\right.<br>\end{equation}<br>$$</p>
+<blockquote>
+<p>$\epsilon$可以选择随着学习次数的增加而下降，更符合实际情况。  </p>
+</blockquote>
+<ol start="2">
+<li>Baltzman Exploration   </li>
+</ol>
+<p>对在状态s下采取每个动作a的概率进行构造：<br>$$<br>P(a|s)=\frac{exp(Q(s,a))}{\sum_a exp(Q(s,a))}<br>$$</p>
+<h4 id="Replay-Buffer"><a href="#Replay-Buffer" class="headerlink" title="Replay Buffer"></a>Replay Buffer</h4><p>这是off-policy的一种策略，具体做法是：从已知的经验(buffer)中挑选一个短序列(batch)，用以更新Q-function。示意图如下：  </p>
+<img src="../img/rln-ch5-6.png" style="zoom:30%;" />
+
+
+
+<h3 id="Typical-Q-Learning-Algorithm-1"><a href="#Typical-Q-Learning-Algorithm-1" class="headerlink" title="Typical Q-Learning Algorithm^1"></a>Typical Q-Learning Algorithm<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a></h3><blockquote>
+<p>•Initialize Q-function Q, target Q-function $\hat{Q}=Q$</p>
+<p>•In each episode</p>
+<p>​    •For each time step t</p>
+<p>​        •Given state $s_t$, take action $a_t$ based on Q (epsilon greedy)</p>
+<p>​        •Obtain reward $r_t,$ and reach new state $s_{t+1}$</p>
+<p>​        •Store $(s_t, a_t, r_t, s_{t+1})$ into buffer</p>
+<p>​        •Sample $(s_i, a_i, r_i, s_{i+1})$ from buffer (usually a batch)</p>
+<p>​        •Target $y=r_i+\max_a⁡[\hat{Q}(s_{i+1},a)]$</p>
+<p>​        •Update the parameters of Q to make $Q(s_i , a_i )$ close to y (regression)</p>
+<p>​        •Every C steps reset $\hat{Q}=Q$</p>
+</blockquote>
+<h2 id="Q-Learning的变种"><a href="#Q-Learning的变种" class="headerlink" title="Q-Learning的变种"></a>Q-Learning的变种</h2><h3 id="Double-DQN"><a href="#Double-DQN" class="headerlink" title="Double DQN"></a>Double DQN</h3><p>Q值总会被高估：因为可能存在动作a真正Q值得估计错误(估高或低)，而Q值的更新公式<br>$$<br>Q(s_t,a_t)=r_t+\max_aQ(s_{t+1},a)<br>$$</p>
+<p>总是取使得Q最大的a，估高则Q也会被高估，估低则无碍。  </p>
+<p>所以对式(5)等号两边得Q进行分别估计，即设立两个Q-Function：Q和Q‘(Target Network)。则Q值的更新公式更正为<br>$$<br>Q(s_t,a_t)=r_t+Q’(s_{t+1},arg\max_a Q(s_{t+1},a))<br>$$<br>此举的好处在于：若Q高估了a，则Q’不一定会给a高值；若Q‘高估了a，而Q不一定会给a高值。可以认为Q负责提案，而Q’负责执行，互不干扰职权。     </p>
+<h3 id="Dueling-DQN"><a href="#Dueling-DQN" class="headerlink" title="Dueling DQN"></a>Dueling DQN</h3><p>改Network的架构，其余想法与DQN(Q-Learning+Deep Learning)相同。  </p>
+<p>传统的DQN的架构如图<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a>： </p>
+<img src="../img/rln-ch5-7.png" style="zoom:48%;" />
+
+<p>Dueling DQN的架构如图<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a>：    </p>
+<img src="../img/rln-ch5-8.png" style="zoom:48%;" />
+
+<p>其中Q(s,a)是table，V(s)是vector，A(s,a)是table，三者之间的关系为<br>$$<br>Q(s,a)=V(s)+A(s,a)<br>$$<br>其中V与A的加和用到了<strong>广播</strong>机制。  </p>
+<p>因为随机采样难以做到充分性(即不一定在每个状态每个动作都可以尝试)，所以对table的充分更新难以做到。Dueling DQN的想法是：只让网络更新V值，而不更新A值，通过V的更新来实现对Q进行更新。</p>
+<p>为了让算法更稳定，具体可以采用如下的做法：</p>
+<ul>
+<li><p>取V-vector的各元素分别为Q-table每列的均值</p>
+</li>
+<li><p>取A-table中的每列和均为0(均值归一化)  </p>
+</li>
+</ul>
+<h3 id="Prioritized-Reply"><a href="#Prioritized-Reply" class="headerlink" title="Prioritized Reply"></a>Prioritized Reply</h3><p>略</p>
+<h3 id="Multi-step"><a href="#Multi-step" class="headerlink" title="Multi-step"></a>Multi-step</h3><p>这个方法可以实现MC与TD之间的平衡，即精确度和方差的平衡。既有MC\TD的优点，也有它们的缺点。具体做法是在Replay Buffer机制中只对一个时间步的短序列取样，延伸至多个时间步的序列取样。机制运作图如下：   </p>
+<p><img src="../img/rln-ch5-10.png" alt=""></p>
+<h3 id="Noisy-Net"><a href="#Noisy-Net" class="headerlink" title="Noisy Net"></a>Noisy Net</h3><p>$\epsilon-greedy$是在action上加入Noise，我们接下来的想法是能否在每个episode开始前在Q-function的参数里加入Noise呢？即$Q(s,a)\to \widetilde{Q}(s,a)$。</p>
+<p>在action上加入noise，即agent在针对相同情况会有不一样的应对反应，这往往是不合现实的。而在Q-function的参数里加入Noise，agent不会出现上述问题，且有原则也有尝试。如果说Noise on action表现的是agent的随机尝试，那么Noise on parameter表现的则是agent有系统地尝试。  </p>
+<h3 id="Distributional-Q-function"><a href="#Distributional-Q-function" class="headerlink" title="Distributional Q-function"></a>Distributional Q-function</h3><p>真实的Q(s,a)是一个分布，Q-Learning使用的是各分布的均值表现，所以我们其实可以把这个分布给表现出来。Q-Learning的Q-functiong和Distributional Q-function的区别如下图<a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/QLearning%20(v2).pdf" target="_blank" rel="noopener">^1</a>所示：  </p>
+<img src="../img/rln-ch5-11.png" style="zoom:30%;" />
+
+<h2 id="Q-Learning在连续动作上的改进"><a href="#Q-Learning在连续动作上的改进" class="headerlink" title="Q-Learning在连续动作上的改进"></a>Q-Learning在连续动作上的改进</h2><p>传统的Q-Learning是使用回归方法估计Q-function，较容易操作，但处理的往往是离散有限动作空间的问题，而对连续动作空间问题难以解决。连续动作空间问题包括：自动驾驶(方向盘转动角度)、机器人控制(手臂移动/转动)等。  </p>
+<p>解决方法有四种：</p>
+<ol>
+<li>取样足够多的动作，再取能使Q最大的a。</li>
+<li>用梯度下降算法去解决该优化问题。缺点：不一定能找到全局最优解，且运算量太大。</li>
+<li>设计一个能够让优化更为简单的网络。</li>
+</ol>
+<img src="../img/rln-ch5-12.png" style="zoom:30%;" />
+
+<p>能够证明$\Sigma(s)$为正定矩阵，所以二次型计算得到的数值(不计入负号)为非负值，所以当$a=\mu(s)$时，Q(s,a)能够取到最大值，此时就要优化网络$Q^\pi$，使得$\mu(s)=arg\max_aQ(s,a)$。  </p>
+<ol start="4">
+<li>不使用Q-Learning算法。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前为止，李宏毅老师的课程已经讲完了Value-based和Policy-based的方法以及其中的Q-Learning和PPO算法。两种方法分别代表学习actor和学习critic，下一章我们将介绍两个的结合，actor-critic系列算法。  </p>
+<p><img src="../img/rln-ch5-13.png" alt=""></p>
+
       
 
       
@@ -296,33 +536,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/07/%E3%80%90Linux%E3%80%91Unix%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4&Vi%E7%BC%96%E8%BE%91%E5%99%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/30/RL_Ch5_QLearning/">展开全文 >></a>
         </p>
       
 
@@ -352,14 +570,14 @@
 
 
   
-    <article id="post-【Linux】操作系统与Linux&amp;Unix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Ch4_Policy_Gradient" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/06/%E3%80%90Linux%E3%80%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8ELinux&Unix/">操作系统与Linux/Unix</a>
+      <a class="article-title" href="/2020/10/28/RL_Ch4_Policy_Gradient/">RL_Ch4_Policy_Gradient</a>
     </h1>
   
 
@@ -367,24 +585,147 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/10/06/%E3%80%90Linux%E3%80%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8ELinux&Unix/" class="archive-article-date">
-  	<time datetime="2020-10-06T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-06</time>
+        <a href="/2020/10/28/RL_Ch4_Policy_Gradient/" class="archive-article-date">
+  	<time datetime="2020-10-28T03:09:39.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="操作系统与Linux-Unix"><a href="#操作系统与Linux-Unix" class="headerlink" title="操作系统与Linux/Unix"></a>操作系统与Linux/Unix</h1><h2 id="一、课程大纲"><a href="#一、课程大纲" class="headerlink" title="一、课程大纲"></a>一、课程大纲</h2><ul>
-<li>[0. Linux实践与应用课程笔记](#0. Linux实践与应用课程笔记)  </li>
-<li>[1. 操作系统](#1. 操作系统)  </li>
-<li>[2. 虚拟化软件](#2. 虚拟化软件)  </li>
-<li>[3. 虚拟化技术 ](#3. 虚拟化技术)  </li>
-<li>[4. 虚拟机的安装操作](#4. 虚拟机的安装操作)  </li>
-<li>[5. 操作系统的配置](#5. 操作系统的配置)
-        
-          <a class="article-more-a" href="/2020/10/06/%E3%80%90Linux%E3%80%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8ELinux&Unix/#more">more >></a>
-        
+        <h1 id="RL-Ch4-Policy-Gradient"><a href="#RL-Ch4-Policy-Gradient" class="headerlink" title="RL-Ch4-Policy Gradient"></a>RL-Ch4-Policy Gradient</h1><h2 id="策略梯度-Policy-Gradient"><a href="#策略梯度-Policy-Gradient" class="headerlink" title="策略梯度(Policy Gradient)"></a>策略梯度(Policy Gradient)</h2><h3 id="强化学习的例子"><a href="#强化学习的例子" class="headerlink" title="强化学习的例子"></a>强化学习的例子</h3><table>
+<thead>
+<tr>
+<th>Scene</th>
+<th>Agent</th>
+<th>Env</th>
+<th>Reward Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Video</td>
+<td>游戏手柄</td>
+<td>主机</td>
+<td>杀1怪得20分</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>AlphaGo</td>
+<td>李世石</td>
+<td>the Rule of Go</td>
+</tr>
+</tbody></table>
+<p>在上述例子中，策略(policy)$\pi$的具体表现形式可认为是神经网络从输入层到输出层之间的参数矩阵$\theta$。</p>
+<p>下图为一个加入了action的马尔可夫链，</p>
+<img src="../img/rln-ch4-1.png" style="zoom:20%;" />
+
+
+
+<p>记Trajectory $\tau={s_1,a_1,…,s_T,a_T}$，则</p>
+<p>$$<br>p_\theta(\tau)=p(s_1)p_\theta(a_1|s_1)p(s_2|s_1,a_1)p_\theta(a_2|s_2)p(s_3|s_2,a_2)…\<br>=p(s_1)\prod_{t=1}^Tp_\theta(a_t|s_t)p(s_{t+1}|s_t,a_t)<br>$$</p>
+<p>同时决策需要考虑到收益，我们在上图中加入reward。<br>$$<br>R(\tau)=\sum_{t=1}^Tr_t<br>$$</p>
+<img src="../img/rln-ch4-2.png" style="zoom:20%;" />
+
+
+
+<p>则期望收益为<br>$$<br>\bar{R_\theta}=\sum_\tau R(\tau)p_\theta(\tau)=\mathbb{E}<em>{\tau\sim p_\theta(\tau)}[R(\tau)]<br>$$<br>求期望收益的梯度有<br>$$<br>\nabla \bar{R_\theta}=\sum_\tau R(\tau)\nabla p_\theta(\tau)=\sum_\tau R(\tau)p_\theta(\tau)\frac{\nabla p_\theta(\tau)}{p_\theta(\tau)}\<br>=\sum_\tau R(\tau)p_\theta(\tau)\nabla \log p_\theta(\tau)\<br>=\mathbb{E}</em>{\tau\sim p_\theta(\tau)}[R(\tau)\nabla \log p_\theta(\tau)]<br>$$</p>
+<h3 id="策略梯度的计算"><a href="#策略梯度的计算" class="headerlink" title="策略梯度的计算"></a>策略梯度的计算</h3><p>有两种计算方法：</p>
+<ol>
+<li>蒙特卡洛采样，式(4)可以改写为如下式(5)</li>
+</ol>
+<p>$$<br>\nabla \bar{R_\theta}\approx \frac{1}{N}\sum_{n=1}^N R(\tau^n)\nabla\log p_\theta(\tau^n)\overset{\text{式(1)}}{=}\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}R(\tau^n)\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
+<ol start="2">
+<li>时序差分更新，式(4)可以改写为如下式(6)</li>
+</ol>
+<p>$$<br>\nabla \bar{R_\theta}\approx \frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}Q^n(s_t^n,a_t^n)\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
+<blockquote>
+<p>两者区别是策略的更新频率：MC为一回合更新一次，TD为一步更新一次。</p>
+</blockquote>
+<h2 id="Policy-Gradient算法"><a href="#Policy-Gradient算法" class="headerlink" title="Policy Gradient算法"></a>Policy Gradient算法</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Policy Gradient算法的目的就是对$\theta$进行更新：<br>$$<br>\theta&lt;–\theta+\eta\nabla\bar{R_\theta}<br>$$<br>不断采样，交替完成<strong>数据收集</strong>和<strong>模型参数更新</strong>两个过程。</p>
+<img src="../img/rln-ch4-3.png" style="zoom:30%;" />
+
+<p>如何理解式(5)呢？</p>
+<p>我们记$-\sum_iY’_i·logY_i$的形式为$(Y’_i,Y_i)$两个向量之间的<strong>交叉熵</strong>，以<strong>图像分类</strong>与<strong>强化学习</strong>的损失函数为例子</p>
+<p>图像分类问题：从损失函数到梯度计算<br>$$<br>\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}\log p_\theta(a_t^n|s_t^n)–&gt;\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
+<p>强化学习问题：从损失函数到梯度计算<br>$$<br>\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}R(\tau^n)\log p_\theta(a_t^n|s_t^n)–&gt;\frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}R(\tau^n)\nabla\log p_\theta(a_t^n|s_t^n)<br>$$</p>
+<p>对比两式可以看出</p>
+<blockquote>
+<p>图像分类的问题中使用的是独立同分布的样本，每个样本等同看待；</p>
+<p>而Policy Gradient问题中每个样本有单独的权重$R(\tau^n)$：若相对较重要，则$R(\tau^n)\uparrow$，反之$R(\tau^n)\downarrow$。</p>
+</blockquote>
+<h3 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h3><p><strong>Tip1：加一个baseline（在使用时当成bias更为恰当）</strong></p>
+<p>若$\nabla \bar{R_\theta}$总为正数，则$R_\theta$总是在增加，因为采样的随机性往往导致不均匀的采样，没有被采样的action最终被采取的可能性相较其他action低。示意图如下：</p>
+<img src="../img/rln-ch4-4.png" style="zoom:41%;" />
+
+
+
+<p>所以不要让weight总为正数，即更改weight为$(\nabla \bar{R_\theta}-b)$，其中可以取$b=\mathbb{E}(R(\tau))$。</p>
+<p><strong>Tip2：正确地对不同的(state,action)的reward赋权</strong></p>
+<p>若是因为一个好的动作被后续坏的动作连累，或坏的动作被好的动作提携，这种现象是需要考虑道德，所以一种想法是当前的(状态,动作)对应的参数应由之后的(状态,动作)序列的收益和进行更新。</p>
+<img src="../img/rln-ch4-5.png" style="zoom:30%;" />
+$$
+\nabla \bar{R_\theta}\approx \frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}[(·)-b]\nabla\log p_\theta(a_t^n|s_t^n)
+$$
+
+<blockquote>
+<p>b可以取独立于状态的值，(·)可以取$\sum_{t’=t}^{T_n}r_{t’}^n$，若是考虑未来奖励的衰减（discount $\gamma$），则(·)可以取$\sum_{t’=t}^{T_n}\gamma^{t’-t} r_{t’}^n$。</p>
+</blockquote>
+<p>若记式(9)中<code>[~]</code>的式子为Advantage Function，即<br>$$<br>A^{\theta}(s_t,a_t)=\sum_{t’=t}^{T_n}\gamma^{t’-t}r_{t’}^n-b<br>$$<br>Advantage Function表现的是在$s_t$时采用$a_t$比其他action有多好。</p>
+<h2 id="重要性采样"><a href="#重要性采样" class="headerlink" title="重要性采样"></a>重要性采样</h2><h3 id="on-policy与off-policy回顾"><a href="#on-policy与off-policy回顾" class="headerlink" title="on-policy与off-policy回顾"></a>on-policy与off-policy回顾</h3><p>on-policy vs. off-policy</p>
+<ul>
+<li>on-policy：环境互动的agent与要学习的agent是同一个（自己玩自己学）</li>
+<li>off-policy：环境互动的agent与要学习的agent是不同的（看别人玩自己学）</li>
+</ul>
+<p>policy gradient是on-policy的更新算法，但on-policy的缺点就是每次模型更新后都要采集新的训练数据，而off-policy就可以做到数据的重复使用。而on-policy转化为off-policy的重要方法就是：<strong>重要性采样</strong>。  </p>
+<p>我们从一个式子出发：<br>$$<br>\mathbb{E}<em>{x\sim p}[f(x)]\approx\frac{1}{N}\sum</em>{i=1}^Nf(x_i)\<br>=\int f(x)p(x)dx=\int f(x)\frac{p(x)}{q(x)}q(x)dx=\mathbb{E}_{x\sim q}[f(x)\frac{p(x)}{q(x)}]<br>$$</p>
+<blockquote>
+<p>$x_i$是从p(x)中取样得到的样本。  </p>
+<p>这是一个统计学技巧，可以变换样本的分布。  </p>
+</blockquote>
+<p>左右两个均值只有在取样足够多的情况下才相同，若是取样不够多，则两者数值相差很大。</p>
+<blockquote>
+<p>由于$Var[x]=E[x^2]-(E[x])^2$，</p>
+<p>而<br>$$<br>Var_{x\sim p}[f(x)]=E_{x\sim p}[f(x)^2]-(E_{x\sim p}[f(x)])^2<br>$$</p>
+<p>$$<br>\begin{align}<br>Var_{x\sim q}[f(x)\frac{p(x)}{q(x)}]&amp;=E_{x\sim q}[(f(x)\frac{p(x)}{q(x)})^2]-(E_{x\sim q}[f(x)\frac{p(x)}{q(x)}])^2\<br>&amp;=\int f^2(x)\frac{p(x)}{q(x)}p(x)dx-(E_{x\sim q}[f(x)\frac{p(x)}{q(x)}])^2\<br>&amp;=E_{x\sim p}[f(x)^2\frac{p(x)}{q(x)}]-(E_{x\sim p}[f(x)])^2\</p>
+<p>\end{align}<br>$$</p>
+<p>对比式(12)与式(15)，可以看出有差距。具体sample实例可以看李宏毅老师的强化学习课程讲解。</p>
+</blockquote>
+<p>使用<strong>重要性采样</strong>的方法，则由式(4)和式(12)可以将policy gradient的参数梯度计算公式进行修改：<br>$$<br>\nabla \bar{R_\theta}=\mathbb{E}<em>{\tau\sim p_\theta(\tau)}[R(\tau)\nabla \log p_\theta(\tau)]–&gt;\mathbb{E}</em>{\tau\sim p_{\theta’}(\tau)}[\frac{p_\theta(\tau)}{p_{\theta’}(\tau)}R(\tau)\nabla \log p_\theta(\tau)]<br>$$</p>
+<blockquote>
+<p>用$\theta’$进行取样，因为参数更新的是$\theta$的策略，所以通过$\theta’$取样的样本能够重复使用。  </p>
+</blockquote>
+<p>由于<br>$$<br>\nabla \bar{R_\theta}=\mathbb{E}<em>{(s_t,a_t)\sim \pi</em>{\theta}}[A^\theta(s_t,a_t)\nabla\log p_\theta(a_t^n|s_t^n)]\<br>=\mathbb{E}<em>{(s_t,a_t)\sim \pi</em>{\theta’}}[\frac{p_{\theta}(s_t,a_t)}{p_{\theta’}(s_t,a_t)}A^\theta(s_t,a_t)\nabla\log p_\theta(a_t^n|s_t^n)]\<br>=\mathbb{E}<em>{(s_t,a_t)\sim \pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}\frac{p_{\theta}(s_t)}{p_{\theta’}(s_t)}A^{\theta’}(s_t,a_t)\nabla\log p_\theta(a_t^n|s_t^n)]<br>$$</p>
+<p>上式求原函数得到<br>$$<br>J_t^{\theta’}(\theta)=\mathbb{E}<em>{(s_t,a_t)\sim\pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}A^{\theta’}(s_t,a_t)]<br>$$</p>
+<blockquote>
+<p>state出现的概率无法学习，直接认定各状态出现的概率相同，所以对于$\frac{p_{\theta}(s_t)}{p_{\theta’}(s_t)}$认定为常数1.</p>
+</blockquote>
+<p>由以上我们可以看到，要避免$p_\theta$和$p_\theta’$差太多，而这里面先后出现了两种思路来达到这个目的，分别是<strong>TRPO</strong>和<strong>PPO</strong>。</p>
+<h3 id="Trust-Region-Policy-Optimization-TRPO"><a href="#Trust-Region-Policy-Optimization-TRPO" class="headerlink" title="Trust Region Policy Optimization(TRPO)"></a>Trust Region Policy Optimization(TRPO)</h3><p>$$<br>J_{TRPO}^{\theta’}(\theta)=\mathbb{E}<em>{(s_t,a_t)\sim\pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}A^{\theta’}(s_t,a_t)]\<br>s.t. \quad KL(\theta,\theta’)&lt;\delta<br>$$</p>
+<p>通过一个距离度量函数$KL(·)$来度量行为上的距离，而不是参数上的距离。  </p>
+<h3 id="Proximal-Policy-Optimization-PPO"><a href="#Proximal-Policy-Optimization-PPO" class="headerlink" title="Proximal Policy Optimization(PPO)"></a>Proximal Policy Optimization(PPO)</h3><p>$$<br>J_{PPO}^{\theta’}(\theta)=\mathbb{E}<em>{(s_t,a_t)\sim\pi</em>{\theta’}}[\frac{p_{\theta}(a_t|s_t)}{p_{\theta’}(a_t|s_t)}A^{\theta’}(s_t,a_t)]-\beta KL(\theta,\theta’)<br>$$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">初始化策略参数\theta^0</span><br><span class="line">在每次迭代中，</span><br><span class="line">	\theta^k去取样(s_t,a_t)以此计算A^&#123;(\theta^k)&#125;(s_t,a_t)</span><br><span class="line">	最优化J_&#123;PPO&#125;(\theta):式(22)&#x2F;(23)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>PPO</li>
+</ul>
+<p>$$<br>J_{PPO}^{\theta^k}(\theta)=\sum_{(s_t,a_t)}\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)}A^{\theta^k}(s_t,a_t)-\beta KL(\theta,\theta^k)<br>$$</p>
+<blockquote>
+<p>这里的超参数$\beta$可以使用到Adaptive KL Penalty的技巧进行选取：</p>
+<ul>
+<li>KL&gt;KL_max，$\beta\uparrow$</li>
+<li>KL&lt;KL_min，$\beta\downarrow$</li>
+</ul>
+</blockquote>
+<ul>
+<li>PPO2</li>
+</ul>
+<p>$$<br>J_{PPO2}^{\theta^k}(\theta)=\sum_{(s_t,a_t)}\min(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)}A^{\theta^k}(s_t,a_t),clip(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)},1-\epsilon,1+\epsilon)\times A^{\theta^k}(s_t,a_t))<br>$$<br>其中clip(x,a,b)函数图像如下：</p>
+<img src="../img/rln-ch4-6.png" style="zoom:48%;" />
+
+
+
       
 
       
@@ -392,33 +733,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/06/%E3%80%90Linux%E3%80%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8ELinux&Unix/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/28/RL_Ch4_Policy_Gradient/">展开全文 >></a>
         </p>
       
 
@@ -448,14 +767,14 @@
 
 
   
-    <article id="post-NG_ML_CH13_clustering" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Ch8_Imitation_Learning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/22/NG_ML_CH13_clustering/">吴恩达机器学习ch13学习笔记</a>
+      <a class="article-title" href="/2020/10/28/RL_Ch8_Imitation_Learning/">RL-Ch8-Imitation Learning</a>
     </h1>
   
 
@@ -463,17 +782,21 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/22/NG_ML_CH13_clustering/" class="archive-article-date">
-  	<time datetime="2020-09-22T07:35:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-22</time>
+        <a href="/2020/10/28/RL_Ch8_Imitation_Learning/" class="archive-article-date">
+  	<time datetime="2020-10-28T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h1><p>机器学习中面对无标签的数据的一类数据挖掘的学习算法。  </p>
+        <h1 id="RL-Ch8-Imitation-Learning"><a href="#RL-Ch8-Imitation-Learning" class="headerlink" title="RL-Ch8-Imitation Learning"></a>RL-Ch8-Imitation Learning</h1><p>要使Agent有人的智慧有两种手段：</p>
+<ul>
+<li><p>强化学习(Reinforcement Learning)</p>
+</li>
+<li><p>模仿学习(Imitation Learning)</p>
         
-          <a class="article-more-a" href="/2020/09/22/NG_ML_CH13_clustering/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/28/RL_Ch8_Imitation_Learning/#more">more >></a>
         
       
 
@@ -487,7 +810,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
         		</li>
       		
 		</ul>
@@ -508,7 +831,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/22/NG_ML_CH13_clustering/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/28/RL_Ch8_Imitation_Learning/">展开全文 >></a>
         </p>
       
 
@@ -538,14 +861,14 @@
 
 
   
-    <article id="post-NG_ML_CH14_降维" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Code_QLearning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/">吴恩达机器学习ch14学习笔记</a>
+      <a class="article-title" href="/2020/10/23/RL_Code_QLearning/">RL表格型方法求解——Q-learning</a>
     </h1>
   
 
@@ -553,17 +876,17 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/" class="archive-article-date">
-  	<time datetime="2020-09-22T06:35:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-22</time>
+        <a href="/2020/10/23/RL_Code_QLearning/" class="archive-article-date">
+  	<time datetime="2020-10-23T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>降维，即数据压缩，将高维数据以一种低维数据做替代，例如将分布在空间/平面的点，降维分布到平面/线上，可以看成是一种映射关系。  </p>
+        <h1 id="RL表格型方法求解——-Q-learning"><a href="#RL表格型方法求解——-Q-learning" class="headerlink" title="RL表格型方法求解—— Q-learning"></a>RL表格型方法求解—— Q-learning</h1><p>参考来自<a href="https://aistudio.baidu.com/aistudio/projectdetail/1146552" target="_blank" rel="noopener">百度强化学习课程</a></p>
         
-          <a class="article-more-a" href="/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/23/RL_Code_QLearning/#more">more >></a>
         
       
 
@@ -577,7 +900,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
         		</li>
       		
 		</ul>
@@ -598,7 +921,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/22/NG_ML_CH14_%E9%99%8D%E7%BB%B4/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/23/RL_Code_QLearning/">展开全文 >></a>
         </p>
       
 
@@ -628,14 +951,14 @@
 
 
   
-    <article id="post-NG_ML_CH18_OCR" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Code_Sarsa" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/18/NG_ML_CH18_OCR/">吴恩达机器学习ch18学习笔记</a>
+      <a class="article-title" href="/2020/10/23/RL_Code_Sarsa/">RL表格型方法求解——Sarsa</a>
     </h1>
   
 
@@ -643,17 +966,17 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/18/NG_ML_CH18_OCR/" class="archive-article-date">
-  	<time datetime="2020-09-18T02:38:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+        <a href="/2020/10/23/RL_Code_Sarsa/" class="archive-article-date">
+  	<time datetime="2020-10-23T01:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="OCR"><a href="#OCR" class="headerlink" title="OCR"></a>OCR</h1><p>光学文字识别（Optical Character Recognition, OCR）是一项让计算机识别字符的技术。   </p>
+        <h1 id="RL表格型方法求解——Sarsa"><a href="#RL表格型方法求解——Sarsa" class="headerlink" title="RL表格型方法求解——Sarsa"></a>RL表格型方法求解——Sarsa</h1><p>参考来自<a href="https://aistudio.baidu.com/aistudio/projectdetail/1146042" target="_blank" rel="noopener">百度强化学习课程</a>  </p>
         
-          <a class="article-more-a" href="/2020/09/18/NG_ML_CH18_OCR/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/23/RL_Code_Sarsa/#more">more >></a>
         
       
 
@@ -667,7 +990,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Reinforcement Learning</a>
         		</li>
       		
 		</ul>
@@ -688,7 +1011,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/18/NG_ML_CH18_OCR/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/23/RL_Code_Sarsa/">展开全文 >></a>
         </p>
       
 
@@ -718,14 +1041,14 @@
 
 
   
-    <article id="post-NG_ML_CH17_梯度下降" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Ch3_Solve_RL_by_table" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/">吴恩达机器学习ch17学习笔记</a>
+      <a class="article-title" href="/2020/10/22/RL_Ch3_Solve_RL_by_table/">RL_Ch3_Solve_RL_by_table</a>
     </h1>
   
 
@@ -733,18 +1056,67 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" class="archive-article-date">
-  	<time datetime="2020-09-18T02:37:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+        <a href="/2020/10/22/RL_Ch3_Solve_RL_by_table/" class="archive-article-date">
+  	<time datetime="2020-10-22T04:04:24.426Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="大数据集学习"><a href="#大数据集学习" class="headerlink" title="大数据集学习"></a>大数据集学习</h2><p>数据集过大，使用梯度下降法计算的代价太大（每一次都需要遍历数据集中所有数据），而且误差函数对各样本对待无差别（无论偏差大小，均以相同的学习率进行更新）。故我们可以考虑使用小样本进行梯度下降。   </p>
-        
-          <a class="article-more-a" href="/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/#more">more >></a>
-        
+        <h1 id="RL-Ch3-基于表格方法求解RL"><a href="#RL-Ch3-基于表格方法求解RL" class="headerlink" title="RL-Ch3-基于表格方法求解RL"></a>RL-Ch3-基于表格方法求解RL</h1><blockquote>
+<p> 本文不太完善，待寻到时间再细细修改。</p>
+</blockquote>
+<h2 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h2><p>MDP为(S,A,P,R,$\gamma$)五元组，在上一状态$s_t$采取动作$a_t$，会以一定的概率分布p进入下一状态$s_{t+1}$，同时产生一定的收益$r_t$。   </p>
+<img src="../img/rln-ch3-1.png" style="zoom:48%;" />
+
+<div align="center">图1 MDP树状图 </div>
+
+<p>与环境交互过程会学习到P(transimision Probability matrix)函数$p(s_{t+1},r_t|s_t,a_t)$和R(Reward)函数$r(s_t,a_t)$，以此作为环境的描述。若事先通过虚拟环境获知了P和R函数，再应用于现实进行决策，则称这个系统是Model-Based的，反之则称该系统是Model-Free的。  </p>
+<blockquote>
+<ul>
+<li>Model-Based：P/R函数已知（图1中的黑色主体图+红色部分）</li>
+<li>Model-Free：P/R函数未知（图1中的黑色主体图+绿色部分）</li>
+</ul>
+</blockquote>
+<h2 id="Q-Action-value-table"><a href="#Q-Action-value-table" class="headerlink" title="Q(Action-value)-table"></a>Q(Action-value)-table</h2><p> 在不同的状态采取不一样的行动会产生不一样的效果，而<strong>Q-func</strong>就是用于度量这种效果，由此也产生了<strong>Q-table</strong>的说法。</p>
+<img src="../img/rln-ch3-2.png" style="zoom:48%;" />
+
+
+
+<p>有限步Markov Chain的当前Q(动作状态)值为<br>$$<br>G_t=R_1+…+R_T<br>$$</p>
+<p>无限步Markov Chain的当前Q(动作状态)值为<br>$$<br>\begin{align} G_t=R_{t+1}+\gamma R_{t+2}+…=\sum_{k=0}^\inf\gamma R_{t+k+1}=R_{t+1}+\gamma\sum_{k=0}^\inf\gamma^kR_{t+k+2}=R_{t+1}+\gamma G_{t+1}\end{align}<br>$$</p>
+<p>以Cliff Walker这一经典游戏为例，讲解如何对实际情况建立Q表格。将地点划分为网格区域，每个方格有一个坐标位置，以左上角为原点，建立x、y轴正方向，则可得到一系列坐标，即状态state。上下左右为可采取的动作action。通过全部取零的操作完成Q表的初始化。然后通过一系列新算法进行后续Q表的更新。  </p>
+<img src="../img/rln-ch3-3.png" style="zoom:48%;" />
+
+
+
+
+
+<h2 id="时序差分学习（单步更新）"><a href="#时序差分学习（单步更新）" class="headerlink" title="时序差分学习（单步更新）"></a>时序差分学习（单步更新）</h2><p>时许差分学习(Time Difference Learning)就是用下一时间步的V/Q值去近似当前时间步的V/Q值，不断迭代，得到最终的Q表。可分为<strong>在线策略(on-policy)</strong>和<strong>离线策略(off-policy)</strong>两类。  </p>
+<h3 id="On-Policy"><a href="#On-Policy" class="headerlink" title="On Policy"></a>On Policy</h3><p>图片来源<a href="https://blog.csdn.net/baidu_30007489/article/details/106963449" target="_blank" rel="noopener">CSDN</a></p>
+<p>使用策略$\pi$学习，并与环境进行交互产生经验，因为需要兼顾探索，所以$\pi$并不稳定。典型的算法是Sarsa。 </p>
+<p>目标：用$Q(s_t,a_t)$逼近$G_t$   </p>
+<p>更新公式：<br>$$<br>q(s_t,a_t)&lt;–q(s_t,a_t)+\alpha[R_{t+1}+\gamma q(s_{t+1},a_{t+1})-q(s_t,a_t)]<br>$$</p>
+<blockquote>
+<p>$R_{t+1}+\gamma Q(s_{t+1},a_{t+1})$为$G_t$的真值  </p>
+<p>$Q(s_t,a_t)$为$G_t$的待更新值  </p>
+<p>式子中涉及的参数$(s_t,a_t,R_{t+1},s_{t+1},a_{t+1})$，故称此为Sarsa算法。</p>
+</blockquote>
+<p>算法示意图：</p>
+<img src="../img/rln-ch3-4.png" style="zoom:30%;" />
+
+<p>Sarsa的伪代码  </p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWM0LnpoaW1nLmNvbS84MC92Mi0xZDU4YzYwZGFmN2E4NWU0MDY0Yzc2Mzg0ZjBhYzM5N18xNDQwdy5qcGc?x-oss-process=image/format,png#pic_center" alt=""></p>
+<p>代码实操见<a href="RL-Code-Sarsa.md">RL-Code-Sarsa</a></p>
+<h3 id="Off-Policy"><a href="#Off-Policy" class="headerlink" title="Off Policy"></a>Off Policy</h3><p>典型的算法是Q-Learning。</p>
+<p>目标策略：$\pi$–&gt;用于学习最优策略   </p>
+<p>行为策略：$\mu$–&gt;探索，与环境交互产生经验轨迹  </p>
+<p>Q-Learning伪代码</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMxLnpoaW1nLmNvbS84MC92Mi0zOTE5ZDVjZTAxN2YxMzRhMDczYzhmY2Y5NTY1MDNhOF8xNDQwdy5qcGc?x-oss-process=image/format,png#pic_center" alt=""></p>
+<p>Q-Learning更新公式：<br>$$<br>q(s_t,a_t)&lt;–q(s_t,a_t)+\alpha[r_{t+1}+\gamma \max_aq(s_{t+1},a)-q(s_t,a_t)]<br>$$</p>
+<p>代码实操见<a href="RL-Code-QLearning.md">RL-Code-QLearning</a></p>
+
       
 
       
@@ -752,33 +1124,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/18/NG_ML_CH17_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/22/RL_Ch3_Solve_RL_by_table/">展开全文 >></a>
         </p>
       
 
@@ -808,14 +1158,14 @@
 
 
   
-    <article id="post-NG_ML_CH16_recommand_system" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Ch2_MDP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/18/NG_ML_CH16_recommand_system/">吴恩达机器学习ch16学习笔记</a>
+      <a class="article-title" href="/2020/10/21/RL_Ch2_MDP/">RL_Ch2_MDP</a>
     </h1>
   
 
@@ -823,18 +1173,216 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/18/NG_ML_CH16_recommand_system/" class="archive-article-date">
-  	<time datetime="2020-09-18T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+        <a href="/2020/10/21/RL_Ch2_MDP/" class="archive-article-date">
+  	<time datetime="2020-10-21T03:15:46.146Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1>
-        
-          <a class="article-more-a" href="/2020/09/18/NG_ML_CH16_recommand_system/#more">more >></a>
-        
+        <h1 id="RL-Ch2-马尔可夫决策过程"><a href="#RL-Ch2-马尔可夫决策过程" class="headerlink" title="RL-Ch2-马尔可夫决策过程"></a>RL-Ch2-马尔可夫决策过程</h1><h2 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h2><p>RL Agent的核心元素为model，value，policy。</p>
+<h2 id="课程大纲"><a href="#课程大纲" class="headerlink" title="课程大纲"></a>课程大纲</h2><ul>
+<li>Markov Chain–&gt;Markov Reward Process–&gt;Markov Decision Process  </li>
+<li>Policy evaluation in MDP  </li>
+<li>Policy iteration and value iteration  </li>
+</ul>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>上章图1的RL过程可转化为MDP，但是MDP下的环境是完全可观测的，很多时候环境不完全可观测时也可通过一些方法转化为MDP。  </p>
+<h3 id="Markov性质"><a href="#Markov性质" class="headerlink" title="Markov性质"></a>Markov性质</h3><p>Markov Property指的是<strong>未来的状态只取决于当下的状态，而独立于过去的状态</strong>。  </p>
+<p>令历史状态序列为$h_t={S_1,S_2,…,S_t}$，若$S_t$满足Markov Property，则有如下式子成立<br>$$<br>P(S_{t+1}|S_t)=P(S_{t+1}|h_t)<br>$$</p>
+<p>$$<br>P(S_{t+1}|S_t,a_t)=P(S_{t+1}|h_t,a_t)<br>$$</p>
+<h2 id="Markov-Chain-S-P"><a href="#Markov-Chain-S-P" class="headerlink" title="Markov Chain (S,P)"></a>Markov Chain (S,P)</h2><p>图1为状态转换图，图中包含有状态(State)和转移矩阵(Probability)。</p>
+<img src="../img/rln-4.png" style="zoom:48%;" />
+
+<div align="center">图1 二维的Markov Chain </div>
+
+
+
+<p>状态转移矩阵可写为<br>$$<br>P=[p(s_{t+1})=s|s_t=s]=\left[<br>\begin{matrix}<br>p(s_1|s_1)&amp;…&amp;p(s_N|s_1)\<br>p(s_1|s_2)&amp;…&amp;p(s_N|s_2)\<br>\vdots&amp;\ddots&amp;\vdots\<br>p(s_1|s_N)&amp;…&amp;p(s_N|s_N)<br>\end{matrix}<br>\right]<br>$$</p>
+<p>状态转换图中的一个链条即为Markov Chain。</p>
+<h2 id="Markov-Reward-Process-MRP-S-P-R-gamma"><a href="#Markov-Reward-Process-MRP-S-P-R-gamma" class="headerlink" title="Markov Reward Process(MRP)  (S,P,R,$\gamma$)"></a>Markov Reward Process(MRP)  (S,P,R,$\gamma$)</h2><p>MRP=Markov Chain+Reward</p>
+<blockquote>
+<p> Markov Chain包含State和transition Probability matrix，而Reward包含Reward function $R[s_t=s]=\mathbb{E}(r_t|s_t=s)$和折扣因子$\gamma$。  </p>
+</blockquote>
+<h3 id="Horizon"><a href="#Horizon" class="headerlink" title="Horizon"></a>Horizon</h3><p>Markov (Reward) Process分为有限步和无限步，其中记有限步中的序列的最大时间步数为Horizon。  </p>
+<h3 id="Return"><a href="#Return" class="headerlink" title="Return"></a>Return</h3><p>记从当前时间步t-&gt;Horizon的收益加权和为Reward，计算公式如下<br>$$<br>G_t=R_{t+1}+\gamma R_{t+2}+…+\gamma^{T-t-1}R_T<br>$$</p>
+<h3 id="状态价值-V-t-s"><a href="#状态价值-V-t-s" class="headerlink" title="状态价值$V_t(s)$"></a>状态价值$V_t(s)$</h3><p>记对未来可能获得价值的当前表现，即状态s时当前时间步t的期望收益为状态价值$V_t(s)$。<br>$$<br>V_t(s)=\mathbb{E}(G_t|s_t=s)=\mathbb{E}(R_{t+1}+\gamma R_{t+2}+…+\gamma^{T-t-1}R_T|s_t=s)<br>$$<br>上式的矩阵形式为<br>$$<br>\left[<br>\begin{matrix}<br>V(s_1)\<br>V(s_2)\<br>\vdots\<br>V(s_N)<br>\end{matrix}<br>\right]<br>=\left[<br>\begin{matrix}<br>V(s_1)\<br>V(s_2)\<br>\vdots\<br>V(s_N)<br>\end{matrix}<br>\right]<br>+\gamma\left[<br>\begin{matrix}<br>p(s_1|s_1)&amp;…&amp;p(s_N|s_1)\<br>p(s_1|s_2)&amp;…&amp;p(s_N|s_2)\<br>\vdots&amp;\ddots&amp;\vdots\<br>p(s_1|s_N)&amp;…&amp;p(s_N|s_N)<br>\end{matrix}<br>\right]\left[<br>\begin{matrix}<br>V(s_1)\<br>V(s_2)\<br>\vdots\<br>V(s_N)<br>\end{matrix}<br>\right]<br>$$</p>
+<p>即$V=R+\gamma PV$。</p>
+<h3 id="折扣因子-gamma-的意义"><a href="#折扣因子-gamma-的意义" class="headerlink" title="折扣因子$\gamma$的意义"></a>折扣因子$\gamma$的意义</h3><ol>
+<li>避免环形MC产生无穷的奖励  </li>
+<li>体现不确定性：关注当前奖励而非未来  </li>
+<li>奖励若有实质价值，倾向于更快得到奖励  </li>
+<li>动物/人趋向于即时奖励  </li>
+<li>$\gamma=0$，即时奖励；$\gamma=1$，未来与当下奖励等同看待。(超参数)</li>
+</ol>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>取下图做例子，记$s_1$的奖励为+5，$s_4$的奖励为+10，则R=[5,0,0,10]。取$\gamma=0.5$。</p>
+<img src="../img/rln-5.png" style="zoom:48%;" />
+
+<div align="center">图2 一维的Markov Chain </div>
+
+
+
+<p>则其中可能的两条Markov Chain的return的计算过程如下：  </p>
+<p>$s_1,s_2,s_3,s_4: return=5+0.5<em>0+0.25</em>0+0.125*10=6.25$</p>
+<p>$s_1,s_2,s_2,s_1: return=5+0.5<em>0+0.25</em>0+0.125*0=5$</p>
+<h3 id="如何计算-V-s-1-？"><a href="#如何计算-V-s-1-？" class="headerlink" title="如何计算$V(s_1)$？"></a>如何计算$V(s_1)$？</h3><p><code>Method1</code>：穷举所有$s_1$为起点的马氏链，取平均。  </p>
+<p><code>Method2</code>：Bellman Equation：定义了状态之间的迭代关系<br>$$<br>V(s)=R(s)+\gamma\sum_{s’\in S}P(s’|s)V(s’)<br>$$</p>
+<p>式(7)等号右边第一项为即时奖励，第二项为折减的下一时刻奖励。式(7)求解方法有如下两类：  </p>
+<p><code>Method2.1</code>：分析法求解：$V=(I-\gamma P)^{-1}R$  </p>
+<blockquote>
+<p>涉及到矩阵求逆，计算复杂度为$O(N^3)$，所以仅适用于小问题规模MRP的求解  </p>
+</blockquote>
+<p><code>Method2.2</code>：迭代法求解：适用于大问题规模MRP求解：</p>
+<pre><code>* 动态规划：不断迭代Bellman Equation产生最优解（Bootstripping）
+* 蒙特卡洛法（Mento-Carlo）:不断选取多段轨迹，求轨迹的return和，然后取平均。（与Method1有区分）
+* 时序差分学习（Temporal-Difference Learning）</code></pre><h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>从$V(s)=\mathbb{E}[R_{t+1}+\gamma\mathbb(R_{t+2}+\gamma^2R_{t+3}+…)|s_t=s]$推导式(6)。</p>
+<p>待解答。</p>
+<h2 id="Markov-Decision-Process-MDP-S-A-P-R-gamma"><a href="#Markov-Decision-Process-MDP-S-A-P-R-gamma" class="headerlink" title="Markov Decision Process(MDP)  (S,A,P,R,$\gamma$)"></a>Markov Decision Process(MDP)  (S,A,P,R,$\gamma$)</h2><blockquote>
+<p>相较于MRP多了个决策空间$A$，状态转移矩阵从$P=[p(s_{t+1})=s|s_t=s]$转变为$P=[p(s_{t+1})=s|s_t=s,a_t=a]$，reward function从$R[s_t=s]=\mathbb{E}(r_t|s_t=s)$转变为$R[s_t=s]=\mathbb{E}(r_t|s_t=s,a_t=a)$</p>
+</blockquote>
+<h3 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h3><p>每个状态s应采取什么样的a。分类可分为以下两类：  </p>
+<ul>
+<li><p>概率型：$\pi(a|s)=P(a_t=a|s_t=s)$</p>
+</li>
+<li><p>决定型：s直接决定a</p>
+</li>
+</ul>
+<p>假设：Policy是静态的，s决定a的分布，即$A_t \sim \pi(a|s)\quad for,any,t&gt;0$</p>
+<p>给定马尔可夫决策过程$(S,A,P,R,\gamma)$和策略$\pi$，其中的$S_1,S_2,\dots$为马尔科夫链$(S,P^{\pi})$，$S_1,R_1,S_2,R_2,\dots$则为马尔科夫奖励过程$(S,P^{\pi},R^\pi,\gamma)$。则有如下式子成立：</p>
+<p>$$<br>P^\pi(s’|s)=\sum_{a\in A}\pi(a|s)P(s’|s,a)<br>$$</p>
+<p>$$<br>R^\pi(s)=\sum_{a\in A}\pi(a|s)R(s,a)<br>$$<br>式(8)代表所有从状态s-&gt;s’的动作a的求和。  </p>
+<p>式(9)代表状态s所有可产生行为a的后果奖励求和。  </p>
+<h3 id="MP-MRP-vs-MDP"><a href="#MP-MRP-vs-MDP" class="headerlink" title="MP/MRP vs. MDP"></a>MP/MRP vs. MDP</h3><p>通过树状图区分MP/MRP与MDP。  </p>
+<img src="../img/rln-6.png" style="zoom:48%;" />
+
+<div align="center">图3 Markov (Reward/Decision) Process树状图 </div>
+
+<blockquote>
+<p>MP与MDP相比，就相当于自由滑行的船与有人工控制的船。  </p>
+</blockquote>
+<h3 id="价值函数-value-function"><a href="#价值函数-value-function" class="headerlink" title="价值函数(value function)"></a>价值函数(value function)</h3><p>在policy $\pi$下的状态s的期望收益，即<br>$$<br>V^\pi(s)=\mathbb{E}_\pi[G_t|s_t=s]<br>$$</p>
+<h3 id="行为价值函数-Action-value-function"><a href="#行为价值函数-Action-value-function" class="headerlink" title="行为价值函数(Action-value function)"></a>行为价值函数(Action-value function)</h3><p>在policy $\pi$下的状态s采取a的期望收益，即<br>$$<br>q^\pi(s,a)=\mathbb{E}_\pi[G_t|s_t=s,a_t=a]<br>$$</p>
+<h3 id="v-func和q-func之间的关系"><a href="#v-func和q-func之间的关系" class="headerlink" title="v-func和q-func之间的关系"></a>v-func和q-func之间的关系</h3><p>$$<br>V^\pi(s)=\sum_{a\in A}\pi(a|s)q^\pi(s,a)<br>$$<br>相当于把a节点隐藏。过程中需要完成叶节点的合并。  </p>
+<h3 id="Bellman-Expectation-Equation"><a href="#Bellman-Expectation-Equation" class="headerlink" title="Bellman Expectation Equation"></a>Bellman Expectation Equation</h3><p>$$<br>V^\pi(s)=\mathbb{E}[R_{t+1}+\gamma V^{\pi}(s_{t+1})|s_t=s]<br>$$</p>
+<p>$$<br>q^\pi(s,a)=\mathbb{E}[R_{t+1}+\gamma q^{\pi}(s_{t+1},a_{t+1})|s_t=s,a_t=a]<br>$$</p>
+<p>由图3可知，<br>$$<br>V^\pi(s)=\sum_{a\in A}\pi(a|s)q^\pi(s,a)<br>$$</p>
+<p>$$<br>q^\pi(s,a)=R_{s}^a+\gamma \sum_{s’\in S}P(s’|s,a)V^\pi(s’)<br>$$</p>
+<p>联立式(15)、(16)，可得</p>
+<p>$$<br>V^\pi(s)=\sum_{a\in A}\pi(a|s)(R(s,a)+\gamma \sum_{s’\in S}P(s’|s,a)V^\pi(s’))<br>$$</p>
+<p>$$<br>q^\pi(s,a)=R(s,a)+\gamma \sum_{s’\in S}P(s’|s,a)\sum_{a’\in A}\pi(a’|s’)q^\pi(s’,a’)<br>$$<br>式(17)、(18)中两个求和符号分别代表着两层树从叶节点到根节点的求和。其中式(17)的根节点为状态s，式(18)的根节点为动作a。  </p>
+<h3 id="Policy-Evaluation"><a href="#Policy-Evaluation" class="headerlink" title="Policy Evaluation"></a>Policy Evaluation</h3><p>估计当前策略$\pi$的价值$V^\pi(s)$。  </p>
+<p>选择好policy $\pi(s)$和折扣因子$\gamma$，则policy evaluation的值可由<br>$$<br>V_t^\pi(s)=R(s,\pi(s))+\gamma\sum_{s’\in S}P(s’|s,\pi(s))V_{t-1}^\pi(s’)<br>$$<br>通过迭代（t–&gt;\inf）求出$V^\pi(s)$。</p>
+<h3 id="Decision-in-MDP"><a href="#Decision-in-MDP" class="headerlink" title="Decision in MDP"></a>Decision in MDP</h3><ol>
+<li><p>Prediction（评估策略）  </p>
+<ul>
+<li><p>Input：MDP$(S,A,P,R,\gamma)$和策略$\pi$</p>
+</li>
+<li><p>Output：Value Function $V^\pi$</p>
+</li>
+</ul>
+</li>
+<li><p>Control（查找最佳策略）  </p>
+<ul>
+<li><p>Input：MDP$(S,A,P,R,\gamma)$</p>
+</li>
+<li><p>Output：最优$V^*$和最优$\pi$</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>通过动态规划求解Prediction &amp; Control  </p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>可以解决的问题：</p>
+<ol>
+<li>问题可分解为最佳子结构  </li>
+<li>子结构求解后能递推得到最优解  </li>
+</ol>
+<p>MDP满足以上性质：</p>
+<ul>
+<li>Bellman Equation可递归分解  </li>
+<li>价值函数可存储和再利用解   </li>
+</ul>
+<h3 id="Policy-Evaluation-in-MDP"><a href="#Policy-Evaluation-in-MDP" class="headerlink" title="Policy Evaluation in MDP"></a>Policy Evaluation in MDP</h3><p>算法：Synchronous backup  </p>
+<p>在第t轮迭代过程，式(19)不断收敛，$V_1^\pi–&gt;V_2^\pi–&gt;…–&gt;V^\pi$  </p>
+<p>Bellman Expectation backup<br>$$<br>V_{t+1}(s)=\sum_{a\in A}\pi(a|s)(R(s,a)+\gamma\sum_{s’\in S}P(s’|s,a)V_t(s’))<br>$$</p>
+<p>MRP形式(去掉a)，得到<br>$$<br>V_{t+1}(s)=R^\pi(s)+\gamma P^\pi(s’|s)V_t(s’)<br>$$</p>
+<h3 id="最优价值函数"><a href="#最优价值函数" class="headerlink" title="最优价值函数"></a>最优价值函数</h3><p>满足$V^*(s)=\max_{\pi} V^\pi(s)$</p>
+<p>，最优策略由最优价值函数反推，即$\pi^*(s)=arg\max_{\pi}V^\pi(s)$</p>
+<p>我们称MDP被求解当且仅当最优价值函数被求出来，而必伴随最少一个最优策略。  </p>
+<blockquote>
+<p>一个最优价值函数可能伴随对各最优策略。   </p>
+</blockquote>
+<h3 id="最优策略"><a href="#最优策略" class="headerlink" title="最优策略"></a>最优策略</h3><p>特性：  确定性、静态性（不依赖时间）、不唯一性。  </p>
+<p>如何寻找最优策略？  </p>
+<p>这是一个control问题，可通过最大化q函数来求取。<br>$$<br>\pi^<em>(a|s)={ \begin{align}1,&amp;\quad if,a=argmax_{a\in A}q^</em>(s,a)\<br>0,&amp; \quad otherwise\end{align}<br>$$</p>
+<ol>
+<li><p>穷举：总可能策略有$|A|^{|S|}$  </p>
+</li>
+<li><p>policy iteration  </p>
+</li>
+<li><p>value iteration  </p>
+</li>
+</ol>
+<h3 id="Policy-iteration"><a href="#Policy-iteration" class="headerlink" title="Policy iteration"></a>Policy iteration</h3><ul>
+<li>通过给定\pi计算v  </li>
+<li>通过Q函数greedy考虑V^\pi去改进\pi  <ul>
+<li>通过给定\pi去计算q值：$q^{\pi_i}(s,a)=R(s,a)+\gamma\sum_{s’\in S}P(s’|s,a)V^{\pi_i}(s’)$  </li>
+<li>计算新策略：$\pi_{i+1}(s)=arg\max_{a}q^{\pi_i}(s,a)$</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>新策略取Q-table中在当前State轴的Action最大值集合为更好的$\pi$。  </p>
+</blockquote>
+<p>示意图如下：</p>
+<img src="../img/rln-7.png" style="zoom:48%;" />
+
+
+
+<p>如何证明以上所得的策略能得到最佳价值函数？</p>
+<p>证明过程如下：   </p>
+<p>考虑确定性策略$a=\pi(s)$，策略改进后$\pi’(s)=arg \max_{a} q^\pi(s,a)$，</p>
+<p>所以<br>$$<br>V^\pi(s)=q^\pi(s,a)\leq \max_{a\in A}q^\pi(s,a)=q^\pi(s,\pi’(s))<br>$$<br>同时考虑到<br>$$<br>q^\pi(s_t,a_t)=E_\pi[R_{t+1}+\gamma q^\pi(s_{t+1},a_{t+1})]<br>$$</p>
+<p>因此<br>$$<br>\begin{align}<br>V^\pi(s)&amp;\leq q^\pi(s,\pi’(s))=E_{\pi’}[R_{t+1}+\gamma V^\pi(s_{t+1})|s_t=s]\<br>&amp;\leq E_{\pi’}[R_{t+1}+\gamma q^\pi(s_{t+1},\pi’(s_{t+1}))|s_t=s]\<br>&amp;=E_{\pi’}[R_{t+1}+\gamma (R_{t+2}+\gamma q^\pi(s_{t+2},\pi’(s_{t+2})))|s_t=s]\<br>&amp;= E_{\pi’}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+… |s_t=s]\<br>&amp;=V^{\pi’}(s)<br>\end{align}<br>$$</p>
+<p>如果improvement结束，则<br>$$<br>q^\pi(s,\pi’(s))=\max_{a\in A}q^\pi(s,a)=q^\pi(s,\pi(s))=V^\pi(s)<br>$$<br>因此，Bellman最优方程的解得出<br>$$<br>V^\pi(s)=\max_{a\in A}q^\pi(s,a)\quad for,all,s\in S<br>$$</p>
+<p>所以$\pi$为最优策略。  </p>
+<h3 id="Value-iteration"><a href="#Value-iteration" class="headerlink" title="Value iteration"></a>Value iteration</h3><p>知道子问题的最优解($V^*(s’)$)，通过Bellman Optimal backup规则，不断迭代以至收敛：  </p>
+<p>$$<br>V(s)&lt;–max_{a\in A}(R(s,a)+\gamma\sum_{s’\in S}P(s’|s,a)V(s’))<br>$$</p>
+<h3 id="Policy-iteration-vs-Value-iteration"><a href="#Policy-iteration-vs-Value-iteration" class="headerlink" title="Policy iteration vs. Value iteration"></a>Policy iteration vs. Value iteration</h3><ol>
+<li><p>代码学习可参考<a href="https://github.com/cuhkrlcourse/RLexample/tree/master/MDP" target="_blank" rel="noopener">港中大强化学习MDP代码</a></p>
+</li>
+<li><p>对比：</p>
+<ul>
+<li>Policy iter：policy evaluation与policy improvement交替进行，直至收敛。  </li>
+<li>Value iter：寻找最佳的Value function（过程可认为是policy eval与policy impro的组合，在policy evaluation还没做完的时候就直接进行了policy improvement），从中提取出最佳policy。  </li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Prediction与Control在MDP中的解决</p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Bellman Equation</th>
+<th>Algorithm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Prediction</td>
+<td>Bellman Expectation Equation</td>
+<td>Iterative Policy Evaluation</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>Bellman Expectation Equation</td>
+<td>Policy iteration</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>Bellman Optimal Equation</td>
+<td>Value iteration</td>
+</tr>
+</tbody></table>
+
       
 
       
@@ -842,33 +1390,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/18/NG_ML_CH16_recommand_system/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/21/RL_Ch2_MDP/">展开全文 >></a>
         </p>
       
 
@@ -898,14 +1424,14 @@
 
 
   
-    <article id="post-NG-ML_CH15_异常检测" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-RL_Ch1_inro_fumdamental" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/">吴恩达机器学习ch15学习笔记</a>
+      <a class="article-title" href="/2020/10/21/RL_Ch1_inro_fumdamental/">RL_Ch1_inro_fumdamental</a>
     </h1>
   
 
@@ -913,18 +1439,99 @@
         
         <!--显示阅读次数完毕-->
         
-        <a href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" class="archive-article-date">
-  	<time datetime="2020-09-18T02:35:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+        <a href="/2020/10/21/RL_Ch1_inro_fumdamental/" class="archive-article-date">
+  	<time datetime="2020-10-21T02:47:27.221Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>是无监督学习的一种方法。已知一系列正常样本{$x^{(1)},x^{(2)},\cdots,x^{(m)}$}，其中$x^{(i)}\in \mathbb{R^n}$，即每个样本拥有n个特征。对比判断引入的一个新样本$x_{test}$是否存在某种异常。  </p>
-        
-          <a class="article-more-a" href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/#more">more >></a>
-        
+        <h1 id="RL-Ch1-概括与基础"><a href="#RL-Ch1-概括与基础" class="headerlink" title="RL-Ch1-概括与基础"></a>RL-Ch1-概括与基础</h1><h2 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>强化学习的基本结构如下图1：  </p>
+<p><img src="../img/rln-1.png" alt=""></p>
+<div align="center">图1 强化学习系统结构图 </div>
+
+
+
+<blockquote>
+<p>annotated：a.标注的  </p>
+</blockquote>
+<h3 id="强化学习与监督学习的区别"><a href="#强化学习与监督学习的区别" class="headerlink" title="强化学习与监督学习的区别"></a>强化学习与监督学习的区别</h3><p>监督学习：  </p>
+<ol>
+<li>输入数据是i.i.d(独立同分布)，数据间无关联。  </li>
+<li>已知结果。  </li>
+</ol>
+<p>强化学习：</p>
+<ol>
+<li>输入数据是时序性的。  </li>
+<li>未立刻得到反馈，(奖励延时)，需要自己尝试。  </li>
+<li>Trail and error exploration<ul>
+<li>exploration 做新的尝试，使得Agent未来能做出更好的决策（尝试新餐馆）  </li>
+<li>exploitation 在以往经验中选择当下最好的决策（选择最喜欢的餐馆）</li>
+</ul>
+</li>
+<li>之前的决策会影响环境。</li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>围棋(go)  </li>
+<li>长颈鹿行走(出生30min内学会跑步)  </li>
+<li>股票交易(max reword)  </li>
+<li>玩游戏   </li>
+</ul>
+<h3 id="deep-reinforcement-learning-DRL"><a href="#deep-reinforcement-learning-DRL" class="headerlink" title="deep reinforcement learning(DRL)"></a>deep reinforcement learning(DRL)</h3><p><img src="../img/rln-2.png" alt=""></p>
+<div align="center">图2 深度强化学习 </div>
+
+<blockquote>
+<p>rollout：分布式训练  </p>
+</blockquote>
+<h3 id="决策序列"><a href="#决策序列" class="headerlink" title="决策序列"></a>决策序列</h3><p>在agent与env的交互中产生了决策序列(a series of actions)：  </p>
+<ul>
+<li>目标：max总奖励  </li>
+<li>action可能会有长期的影响  </li>
+<li>reward可能会有延迟  </li>
+<li>近期与远期reward的权衡(trade-off)   </li>
+</ul>
+<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><p>决策序列补充上env的部分，即称为历史(History)：<br>$$<br>H_t=O_1,R_1,A_1,…,A_{T-1},O_t,R_t<br>$$<br>其中，H(history)，O(observation)，A(action)，R(reward).</p>
+<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p>状态是历史的函数，即<br>$$<br>S_t=f(H_t)<br>$$<br>环境的状态<br>$$<br>S_t^e=f^e(H_t)<br>$$</p>
+<p>智能体的状态<br>$$<br>S_t^a=f^a(H_t)<br>$$</p>
+<p>当$O_t=S_t^a=S_t^e$时，称系统完全可观测(Fully Observability)，反之称为不完全可观测(Partial observability)，不完全观测的系统产生的不完全可观测的马尔科夫决策过程(partially observable Markov decision process)。   </p>
+<h3 id="Agent的组成要素"><a href="#Agent的组成要素" class="headerlink" title="Agent的组成要素"></a>Agent的组成要素</h3><p>Policy：智能体的行为模型，f:O/S-&gt;A  </p>
+<p>随机型：$\pi(a|s)=P[A_t=a|S_t=s]$  </p>
+<p>确定型：$a^*=arg\max_a \pi(a|s)$  </p>
+<p>Value function：折扣后的未来奖励的加和  </p>
+<blockquote>
+<p>折扣因子(discount factor)：$\gamma$  </p>
+</blockquote>
+<p>$$<br>V_\pi(s)=\mathbb{E}<em>\pi(G_t|S_t=s)=\mathbb{E}_\pi(\sum</em>{k=0}^{\inf}\gamma^kR_{t+k+1}|S_t=s), for,all,s\in S<br>$$</p>
+<p>$$<br>q_\pi(s)=\mathbb{E}<em>\pi(G_t|S_t=s,A_t=a)=\mathbb{E}_\pi(\sum</em>{k=0}^{\inf}\gamma^kR_{t+k+1}|S_t=s,A_t=a), for,all,s\in S<br>$$</p>
+<p>式(6)为Q-function(比V-func多一个变量a)。</p>
+<p>Model：环境的模型  </p>
+<p>预测下个状态<br>$$<br>P_{ss’}^a=P[S_{t+1}=s’|S_t=s,A_t=a]<br>$$<br>预测下个奖励<br>$$<br>P_{s}^a=\mathbb{E}[R_{t+1}|S_t=s,A_t=a]<br>$$</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
+<li><p>基于Agent的学习  </p>
+<ul>
+<li><p>Value-Based Agent：显式学习价值函数，隐式学习策略函数  </p>
+</li>
+<li><p>Policy-Based Agent：显式学习策略函数，不学习价值函数</p>
+</li>
+<li><p>Actor-Critic Agent：显式学习价值函数和策略函数的组合    </p>
+</li>
+</ul>
+</li>
+<li><p>基于是否有model  </p>
+<ul>
+<li><p>Model-Based：显式学习状态转移模型，可能会学习策略/价值函数   </p>
+</li>
+<li><p>Model-Free：不学习状态转移模型，直接学习策略/价值函数   </p>
+</li>
+</ul>
+</li>
+</ol>
+<p>可总结为如下图：  </p>
+<p><img src="../img/rln-3.png" alt=""></p>
+<div align="center">图3 强化学习分类 </div>
+
+
       
 
       
@@ -932,123 +1539,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/18/NG-ML_CH15_%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-NG_ML_ch12" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/25/NG_ML_ch12/">吴恩达机器学习ch12学习笔记</a>
-    </h1>
-  
-
-        <!--显示阅读次数-->
-        
-        <!--显示阅读次数完毕-->
-        
-        <a href="/2020/07/25/NG_ML_ch12/" class="archive-article-date">
-  	<time datetime="2020-07-25T02:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h1><h2 id="优化目标"><a href="#优化目标" class="headerlink" title="优化目标"></a>优化目标</h2><p>因为SVM也是解决分类问题的机器学习算法，所以我们可以从logistic函数出发，推导SVM的假设函数形式。  </p>
-        
-          <a class="article-more-a" href="/2020/07/25/NG_ML_ch12/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Machine Learning</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/computer//" class="article-tag-list-link color4">computer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/25/NG_ML_ch12/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/21/RL_Ch1_inro_fumdamental/">展开全文 >></a>
         </p>
       
 
@@ -1080,7 +1575,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
